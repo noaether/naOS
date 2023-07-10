@@ -2,7 +2,8 @@
 	`sudo apt-get install build-essential nasm genisoimage bochs bochs-sdl`
 - Programming languages
 	- C [[Chapter 3 - Getting to C]]
-		- GCC, NASM ^55ae33
+	- GCC [[Compiling the OS|GAS]]
+	- NASM [[Compiling the OS]] ^55ae33
 	- Bash 
 - Host operating system
 	- Done w/ ubuntu
@@ -10,4 +11,4 @@
 - Build system
 	- Make - Makefile
 - Virtual Machine ^2e6588
-	- Bochs
+	- Bochs [[Running Bochs]]

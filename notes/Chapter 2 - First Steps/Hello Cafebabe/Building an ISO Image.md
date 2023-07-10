@@ -8,24 +8,13 @@
 ```
 - config file for [[Bootloader|GRUB]] 
 	- tells where kernel is, configures some options
-	- iso/grub/menu.lst
+	- iso/grub/grub.cfg
 ```menu.lst
-    default=0
-    timeout=0
-
-    title os
-    kernel /boot/kernel.elf
+	menuentry "os" {
+		multiboot /boot/kernel.elf
+	}
 ```
 - build iso image
 ```
-    genisoimage -R                              \
-                -b boot/grub/stage2_eltorito    \
-                -no-emul-boot                   \
-                -boot-load-size 4               \
-                -A os                           \
-                -input-charset utf8             \
-                -quiet                          \
-                -boot-info-table                \
-                -o os.iso                       \
-                iso
+	grub-mkrescue -o os.iso iso
 ```
