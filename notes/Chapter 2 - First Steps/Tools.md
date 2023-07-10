@@ -2,7 +2,7 @@
 	`sudo apt-get install build-essential nasm genisoimage bochs bochs-sdl`
 - Programming languages
 	- C [[Chapter 3 - Getting to C]]
-		- GCC, NASM
+		- GCC, NASM ^55ae33
 	- Bash 
 - Host operating system
 	- Done w/ ubuntu
