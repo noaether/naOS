@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Chapter 2 - First Steps/Hello Cafebabe/Linking the Kernel.md",
+                "file": "Chapter 2 - First Steps/Hello Cafebabe/Building an ISO Image.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Chapter 2 - First Steps/Hello Cafebabe/Linking the Kernel.md",
+                "file": "Chapter 2 - First Steps/Hello Cafebabe/Building an ISO Image.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Chapter 2 - First Steps/Hello Cafebabe/Linking the Kernel.md",
+                "file": "Chapter 2 - First Steps/Hello Cafebabe/Building an ISO Image.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Chapter 2 - First Steps/Hello Cafebabe/Linking the Kernel.md"
+                "file": "Chapter 2 - First Steps/Hello Cafebabe/Building an ISO Image.md"
               }
             }
           }
@@ -148,8 +148,9 @@
   },
   "active": "f825b82dfca9a3cf",
   "lastOpenFiles": [
-    "Chapter 2 - First Steps/Hello Cafebabe/Compiling the OS.md",
     "Chapter 2 - First Steps/Hello Cafebabe/Linking the Kernel.md",
+    "Chapter 2 - First Steps/Hello Cafebabe/Compiling the OS.md",
+    "Chapter 2 - First Steps/Hello Cafebabe/Building an ISO Image.md",
     "Chapter 2 - First Steps/Booting/Bootloader.md",
     "Chapter 2 - First Steps/Booting/Booting.md",
     "Chapter 2 - First Steps/Hello Cafebabe/Hello Cafebabe.md",
