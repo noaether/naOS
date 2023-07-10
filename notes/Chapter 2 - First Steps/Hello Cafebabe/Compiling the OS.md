@@ -1,0 +1,2 @@
+- fully written in assembly since C requires a stack (not available yet [[Chapter 3 - Getting to C]])
+- loader.s

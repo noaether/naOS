@@ -1,6 +1,6 @@
 - comfortable with 
 	- unix
 	- systems programming
-	- C [[Getting to C]]
+	- C [[Chapter 3 - Getting to C]]
 	- computer systems in general 
 - will have to use search engines

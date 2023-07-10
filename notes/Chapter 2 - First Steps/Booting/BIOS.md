@@ -1,0 +1,4 @@
+- Basic Input Output System
+- readonly memory on mb [[Tools#^2e6588|Virtual Machine]]
+- used to export library function for basic i/o
+- now used just to do some self-test and shoot to the bootloader

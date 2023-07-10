@@ -1,0 +1,3 @@
+- [[Bootloader|GRUB]] will transfer control to OS by jumping to position in memory
+- will look for magic number to make sure it doesn't jump to random code *multiboot specification*
+- OS now has full control of computer

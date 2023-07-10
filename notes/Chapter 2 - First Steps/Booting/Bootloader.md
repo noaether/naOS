@@ -1,0 +1,5 @@
+- transfer control to [[OS]]
+- backwards compatibility bullshit : bootloader is split into two parts
+	- 1st transfers control to 2nd, transfers control to [[OS]]
+- since bootloader is very low level (interacts directly with [[BIOS]]), we'll use GRUB bootloader *so we can blame all of our problems on them* ^3
+	- [[OS]] can therefore be built as ordinary ELF executable, loaded by GRUB into correct memory location. stops us from pick and probing randomly to try and figure out what the computer is doing
