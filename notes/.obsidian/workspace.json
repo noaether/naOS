@@ -1,0 +1,159 @@
+{
+  "main": {
+    "id": "e5bd56f7eee1ab04",
+    "type": "split",
+    "children": [
+      {
+        "id": "65b106ba92d40b8e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e57d07766eab37a9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Chapter 2 - First Steps/Tools.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "8efb624085f1cf30",
+    "type": "split",
+    "children": [
+      {
+        "id": "8bd05f881bb7291d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b8e3a000d2ecd95e",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "747b7d708b8dbd68",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "0e84f92456fa65a1",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "9aab9fc8515aca2c",
+    "type": "split",
+    "children": [
+      {
+        "id": "30c63af0e0766750",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2510868fcaf3fe51",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Chapter 2 - First Steps/Tools.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "61a1a551c3421dd6",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Chapter 2 - First Steps/Tools.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "6687b506d6f5e2d2",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "9c4042550f98adf0",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Chapter 2 - First Steps/Tools.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "e57d07766eab37a9",
+  "lastOpenFiles": [
+    "Chapter 1 - Introduction/The Reader.md",
+    "Chapter 2 - First Steps/Tools.md",
+    "Chapter 2 - First Steps",
+    "Chapter 1 - Introduction/License.md",
+    "Getting to C.md",
+    "Chapter 1 - Introduction/About the book.md",
+    "Chapter 1 - Introduction"
+  ]
+}

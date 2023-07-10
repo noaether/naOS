@@ -1,0 +1,6 @@
+- comfortable with 
+	- unix
+	- systems programming
+	- C [[Getting to C]]
+	- computer systems in general 
+- will have to use search engines

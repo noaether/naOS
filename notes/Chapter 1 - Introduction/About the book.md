@@ -1,0 +1,8 @@
+- x86 arch : one of the most common hw arch
+	- lots of documentation
+	- reference material
+	- community
+	- emulators
+- full OS developed in about 6 weeks 
+	- each small step: os tested
+	- encourage [[The Reader]] to do same
