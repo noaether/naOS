@@ -9,6 +9,6 @@
 	- Done w/ ubuntu
 	- Should work with everything
 - Build system
-	- Make - Makefile
+	- Make - Makefile ^05fec6
 - Virtual Machine ^2e6588
 	- Bochs [[Running Bochs]]

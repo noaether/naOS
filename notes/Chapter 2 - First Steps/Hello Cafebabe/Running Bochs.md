@@ -2,7 +2,7 @@
 - config file
 ```
     megs:            32
-    display_library: sdl
+    display_library: sdl2
     romimage:        file=/usr/share/bochs/BIOS-bochs-latest
     vgaromimage:     file=/usr/share/bochs/VGABIOS-lgpl-latest
     ata0-master:     type=cdrom, path=os.iso, status=inserted
@@ -11,3 +11,5 @@
     clock:           sync=realtime, time0=local
     cpu:             count=1, ips=1000000
 ```
+- run bochs `bochs -f bochsrc.txt -q`
+- we have life !!

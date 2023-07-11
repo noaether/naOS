@@ -19,5 +19,5 @@ loader:
 	jmp .loop
 ```
 
-- only thing this os does is put 0xCAFEBABE into eax register
+- only thing this os does is put 0xCAFEBABE into eax register ^57b55f
 - compiled into 32 ELF with `nasm -f elf32 loader.s` *(see: [[Tools#^55ae33|NASM]])*

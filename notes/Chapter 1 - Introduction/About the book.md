@@ -6,3 +6,4 @@
 - full OS developed in about 6 weeks 
 	- each small step: os tested
 	- encourage [[The Reader]] to do same
+- [[License]]
