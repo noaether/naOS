@@ -18,7 +18,7 @@
     call sum_of_three       ; call the function, the result will be in eax
 ```
 ## Packing Structs
-- configuration bytes, collections of bits in a very specific order (example with 32 bits) ^1c2d43
+- [[Configuration Bytes]] collections of bits in a very specific order (example with 32 bits) ^1c2d43
 ```
 Bit:     | 31     24 | 23          8 | 7     0 |
 Content: | index     | address       | config  |

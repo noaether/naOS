@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Chapter 4 - Output/The Framebuffer/Moving the Cursor.md",
+                "file": "Chapter 4 - Output/The Serial Port/Configuring the Buffers.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Chapter 4 - Output/The Framebuffer/Moving the Cursor.md",
+                "file": "Chapter 4 - Output/The Serial Port/Configuring the Buffers.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Chapter 4 - Output/The Framebuffer/Moving the Cursor.md",
+                "file": "Chapter 4 - Output/The Serial Port/Configuring the Buffers.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Chapter 4 - Output/The Framebuffer/Moving the Cursor.md"
+                "file": "Chapter 4 - Output/The Serial Port/Configuring the Buffers.md"
               }
             }
           }
@@ -148,13 +148,22 @@
   },
   "active": "1b170321ce48631c",
   "lastOpenFiles": [
-    "Chapter 4 - Output/The Framebuffer/Writing Text.md",
-    "Chapter 4 - Output/The Framebuffer/Moving the Cursor.md",
+    "Chapter 4 - Output/The Serial Port/The Serial Port.md",
     "Chapter 4 - Output/The Framebuffer/The Framebuffer.md",
+    "Chapter 4 - Output/The Framebuffer/Writing Text.md",
     "Chapter 4 - Output/Interacting with the Hardware.md",
+    "Chapter 4 - Output/The Serial Port/Configuring the Line.md",
+    "Documentation/Configuration Bytes.md",
+    "Chapter 4 - Output/The Serial Port/Configuring the Buffers.md",
+    "Chapter 4 - Output/The Framebuffer/Moving the Cursor.md",
+    "Chapter 3 - Getting to C/Build Tools.md",
     "Chapter 3 - Getting to C/Calling C Code From Assembly.md",
     "Chapter 3 - Getting to C/Compiling C Code.md",
     "Chapter 3 - Getting to C/Setting Up a Stack.md",
+    "Chapter 1 - Introduction/The Reader.md",
+    "Chapter 2 - First Steps/Tools.md",
+    "Documentation",
+    "Chapter 4 - Output/The Serial Port",
     "Chapter 4 - Output/The Framebuffer",
     "Chapter 4 - Output/The Framebuffer.md",
     "Chapter 3 - Getting to C/Chapter 3 - Getting to C.md",
@@ -162,21 +171,14 @@
     "Chapter 2 - First Steps/Chapter 2 - First Steps.md",
     "Chapter 1 - Introduction/About the book.md",
     "Chapter 1 - Introduction/Chapter 1 - Introduction.md",
-    "Chapter 3 - Getting to C/Build Tools.md",
     "Chapter 2 - First Steps/Hello Cafebabe/Running Bochs.md",
     "Chapter 2 - First Steps/Hello Cafebabe/Hello Cafebabe.md",
     "Chapter 2 - First Steps/Hello Cafebabe/Compiling the OS.md",
     "Chapter 2 - First Steps/Hello Cafebabe/Building an ISO Image.md",
     "Chapter 2 - First Steps/Hello Cafebabe/Linking the Kernel.md",
-    "Chapter 1 - Introduction/The Reader.md",
     "Chapter 1 - Introduction/License.md",
-    "Chapter 2 - First Steps/Tools.md",
     "Chapter 2 - First Steps/Booting/Booting.md",
-    "Chapter 2 - First Steps/Booting/Bootloader.md",
     "Chapter 2 - First Steps/Hello Cafebabe",
-    "Chapter 2 - First Steps/Booting/OS.md",
-    "Chapter 2 - First Steps/Booting/BIOS.md",
-    "Chapter 2 - First Steps/Booting/Untitled.md",
     "Chapter 2 - First Steps/12 - Booting",
     "Chapter 2 - First Steps/Booting",
     "Chapter 3 - Getting to C",

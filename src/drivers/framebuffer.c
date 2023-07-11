@@ -4,6 +4,13 @@
 /* framebuffer mm io */
 char *fb = (char *)0x000B8000;
 
+/* parameters and memory */
+int cursor = 0;
+unsigned char def_fg = FB_WHITE;
+unsigned char def_bg = FB_BLACK;
+
+/* PRIMITIVE FUNCTIONS */
+
 /**
  * display character c on the position i with color fg and bg.
  *
@@ -25,31 +32,46 @@ void fb_write_cell(unsigned int i, char c, unsigned char fg, unsigned char bg)
  */
 void fb_move_cursor(unsigned short pos)
 {
+  cursor = pos;
+
   outb(FB_COMMAND_PORT, FB_HIGH_BYTE_COMMAND);
   outb(FB_DATA_PORT, ((pos >> 8) & 0x00FF));
   outb(FB_COMMAND_PORT, FB_LOW_BYTE_COMMAND);
   outb(FB_DATA_PORT, pos & 0x00FF);
 }
 
-/* write a function that prints a string and moves the cursor to the next available position */
-void fb_write(char *buf, unsigned int len)
+/* high-level functions */
+void fb_write(char *buf)
 {
   unsigned int i = 0;
+  unsigned int len = sizeeof(buf);
   while (i < len)
   {
-    fb_write_cell(i * 2, buf[i], FB_WHITE, FB_BLACK);
+    fb_write_cell(i * 2, buf[i], def_fg, def_bg);
     i++;
   }
   fb_move_cursor(i);
 }
 
-/* write a function that clears the screen */
+void fb_print_after(char *buf)
+{
+  unsigned int i = 0;
+  unsigned int len = sizeeof(buf);
+  while (i < len)
+  {
+    fb_write_cell(cursor * 2, buf[i], def_fg, def_bg);
+    i++;
+    cursor++;
+  }
+  fb_move_cursor(cursor);
+}
+
 void fb_clear()
 {
   unsigned int i = 0;
   while (i < 24 * 79)
   {
-    fb_write_cell(i * 2, ' ', FB_WHITE, FB_BLACK);
+    fb_write_cell(i * 2, ' ', def_fg, def_bg);
     i++;
   }
   fb_move_cursor(0);

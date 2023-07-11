@@ -25,4 +25,4 @@ run: os.iso
 		$(AS) $(ASFLAGS) $< -o $@
 
 clean:
-		rm -rf *.o src/*/**.o src/kernel.elf os.iso
+		rm -rf *.o src/*.o src/*/*.o src/kernel.elf os.iso

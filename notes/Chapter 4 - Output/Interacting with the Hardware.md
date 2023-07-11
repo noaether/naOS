@@ -1,6 +1,6 @@
 - memory mapped I/O and I/O ports
 	- mem-mapped : you can write to a specific address and hardware will be updated with the new data (e.g. text on [[The Framebuffer]]) ^e3e39e
-	- i/o ports : assembly instructions in/out must be used to communicate with the hardware. 
+	- i/o ports : assembly instructions in/out must be used to communicate with the hardware.  ^067574
 		- `out` takes 2 parameters, address and data
 		- `in` takes 1 parameter, address and returns data
 		- *comparable to using sockets with servers*

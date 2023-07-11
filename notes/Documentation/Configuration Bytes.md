@@ -1,0 +1,5 @@
+- Bits arranged in a specific order.
+- Each group of bits represents a value for a configuration parameter.
+- Used to store and transmit configuration information in systems and protocols.
+- Efficient for organizing and retrieving configuration settings.
+- Enable communication and exchange of configuration values between components.

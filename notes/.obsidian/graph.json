@@ -34,6 +34,13 @@
         "a": 1,
         "rgb": 5431518
       }
+    },
+    {
+      "query": "path:Documentation",
+      "color": {
+        "a": 1,
+        "rgb": 10048224
+      }
     }
   ],
   "collapse-display": false,
@@ -42,10 +49,10 @@
   "nodeSizeMultiplier": 1,
   "lineSizeMultiplier": 1,
   "collapse-forces": false,
-  "centerStrength": 0.427083333333333,
-  "repelStrength": 11.4583333333333,
-  "linkStrength": 1,
-  "linkDistance": 116,
-  "scale": 0.4444444444444441,
+  "centerStrength": 0,
+  "repelStrength": 3.22916666666667,
+  "linkStrength": 0.00520833333333333,
+  "linkDistance": 30,
+  "scale": 0.712035629586118,
   "close": true
 }
