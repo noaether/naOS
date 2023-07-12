@@ -16,8 +16,8 @@ int main()
 
   char log[] = "Hello from serial port\n";
 
-  fb_write(welcome);
-  fb_print_after(hello);
+  fb_write(welcome, sizeof(welcome));
+  fb_print_after(hello, sizeof(hello));
   
   serial_setup(SERIAL_COM1_BASE);
   serial_write(log);

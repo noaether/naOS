@@ -41,10 +41,9 @@ void fb_move_cursor(unsigned short pos)
 }
 
 /* high-level functions */
-void fb_write(char *buf)
+void fb_write(char *buf, unsigned int len)
 {
   unsigned int i = 0;
-  unsigned int len = sizeof(buf);
   while (i < len)
   {
     fb_write_cell(i * 2, buf[i], def_fg, def_bg);
@@ -53,10 +52,9 @@ void fb_write(char *buf)
   fb_move_cursor(i);
 }
 
-void fb_print_after(char *buf)
+void fb_print_after(char *buf, unsigned int len)
 {
   unsigned int i = 0;
-  unsigned int len = sizeof(buf);
   while (i < len)
   {
     fb_write_cell(cursor * 2, buf[i], def_fg, def_bg);

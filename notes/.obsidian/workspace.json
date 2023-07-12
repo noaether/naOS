@@ -13,9 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Chapter 4 - Output/The Serial Port/The Serial Port.md",
+                "file": "Chapter 4 - Output/The Serial Port/Configuring the Modem.md",
                 "mode": "source",
-                "backlinks": false,
                 "source": false
               }
             }
@@ -86,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Chapter 4 - Output/The Serial Port/The Serial Port.md",
+                "file": "Chapter 4 - Output/The Serial Port/Configuring the Modem.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Chapter 4 - Output/The Serial Port/The Serial Port.md",
+                "file": "Chapter 4 - Output/The Serial Port/Configuring the Modem.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Chapter 4 - Output/The Serial Port/The Serial Port.md"
+                "file": "Chapter 4 - Output/The Serial Port/Configuring the Modem.md"
               }
             }
           }
@@ -147,43 +146,43 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "c7969fbbb1c9cf3f",
+  "active": "b8e3a000d2ecd95e",
   "lastOpenFiles": [
-    "Chapter 4 - Output/The Serial Port/Writing Data to the Serial Port.md",
-    "Chapter 4 - Output/The Framebuffer/Moving the Cursor.md",
+    "Chapter 5 - Segmentation",
+    "Chapter 4 - Output/The Serial Port/The Serial Port.md",
     "Chapter 4 - Output/Interacting with the Hardware.md",
-    "Chapter 4 - Output/The Framebuffer/Writing Text.md",
-    "Chapter 3 - Getting to C/Build Tools.md",
+    "Documentation/Serial Port.md",
     "Chapter 3 - Getting to C/Calling C Code From Assembly.md",
     "Chapter 3 - Getting to C/Compiling C Code.md",
     "Chapter 3 - Getting to C/Setting Up a Stack.md",
-    "Chapter 4 - Output/The Serial Port/Configuring the Line.md",
-    "Chapter 4 - Output/The Serial Port/Configuring the Buffers.md",
     "Chapter 4 - Output/The Framebuffer/The Framebuffer.md",
+    "Chapter 4 - Output/The Framebuffer/Moving the Cursor.md",
+    "Chapter 4 - Output/The Framebuffer/Writing Text.md",
+    "Chapter 4 - Output/The Serial Port/Configuring the Buffers.md",
+    "Chapter 4 - Output/The Serial Port/Configuring the Line.md",
     "Chapter 4 - Output/The Serial Port/Configuring the Modem.md",
-    "Documentation/FIFO Queues.md",
+    "Chapter 4 - Output/The Serial Port/Writing Data to the Serial Port.md",
     "Documentation/Configuration Bytes.md",
+    "Documentation/FIFO Queues.md",
+    "Chapter 4 - Output/Further Reading/OSDev.md",
+    "Chapter 4 - Output/Further Reading/Further Reading.md",
+    "Chapter 4 - Output/Further Reading",
+    "Chapter 3 - Getting to C/Build Tools.md",
     "Chapter 2 - First Steps/Hello Cafebabe/Running Bochs.md",
     "Chapter 2 - First Steps/Hello Cafebabe/Linking the Kernel.md",
     "Chapter 2 - First Steps/Hello Cafebabe/Building an ISO Image.md",
     "Chapter 2 - First Steps/Hello Cafebabe/Compiling the OS.md",
-    "Chapter 4 - Output/The Serial Port/The Serial Port.md",
     "Chapter 1 - Introduction/The Reader.md",
     "Chapter 2 - First Steps/Tools.md",
     "Documentation",
     "Chapter 4 - Output/The Serial Port",
     "Chapter 4 - Output/The Framebuffer",
     "Chapter 4 - Output/The Framebuffer.md",
-    "Chapter 3 - Getting to C/Chapter 3 - Getting to C.md",
     "Chapter 4 - Output",
-    "Chapter 2 - First Steps/Chapter 2 - First Steps.md",
-    "Chapter 1 - Introduction/About the book.md",
-    "Chapter 1 - Introduction/Chapter 1 - Introduction.md",
     "Chapter 2 - First Steps/Hello Cafebabe",
     "Chapter 2 - First Steps/12 - Booting",
     "Chapter 2 - First Steps/Booting",
     "Chapter 3 - Getting to C",
-    "Chapter 2 - First Steps",
-    "Chapter 1 - Introduction"
+    "Chapter 2 - First Steps"
   ]
 }
