@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Chapter 4 - Output/The Serial Port/Configuring the Modem.md",
+                "file": "Chapter 2 - First Steps/Hello Cafebabe/Hello Cafebabe.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Chapter 4 - Output/The Serial Port/Configuring the Modem.md",
+                "file": "Chapter 2 - First Steps/Hello Cafebabe/Hello Cafebabe.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Chapter 4 - Output/The Serial Port/Configuring the Modem.md",
+                "file": "Chapter 2 - First Steps/Hello Cafebabe/Hello Cafebabe.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Chapter 4 - Output/The Serial Port/Configuring the Modem.md"
+                "file": "Chapter 2 - First Steps/Hello Cafebabe/Hello Cafebabe.md"
               }
             }
           }
@@ -146,8 +146,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "b8e3a000d2ecd95e",
+  "active": "c7969fbbb1c9cf3f",
   "lastOpenFiles": [
+    "Chapter 2 - First Steps/Booting/Booting.md",
+    "Chapter 4 - Output/The Serial Port/Configuring the Modem.md",
     "Chapter 5 - Segmentation",
     "Chapter 4 - Output/The Serial Port/The Serial Port.md",
     "Chapter 4 - Output/Interacting with the Hardware.md",
@@ -160,7 +162,6 @@
     "Chapter 4 - Output/The Framebuffer/Writing Text.md",
     "Chapter 4 - Output/The Serial Port/Configuring the Buffers.md",
     "Chapter 4 - Output/The Serial Port/Configuring the Line.md",
-    "Chapter 4 - Output/The Serial Port/Configuring the Modem.md",
     "Chapter 4 - Output/The Serial Port/Writing Data to the Serial Port.md",
     "Documentation/Configuration Bytes.md",
     "Documentation/FIFO Queues.md",
@@ -182,7 +183,6 @@
     "Chapter 2 - First Steps/Hello Cafebabe",
     "Chapter 2 - First Steps/12 - Booting",
     "Chapter 2 - First Steps/Booting",
-    "Chapter 3 - Getting to C",
-    "Chapter 2 - First Steps"
+    "Chapter 3 - Getting to C"
   ]
 }
