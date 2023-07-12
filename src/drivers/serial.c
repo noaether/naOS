@@ -2,6 +2,25 @@
 #include "serial.h"
 /* The I/O ports */
 
+void serial_setup(unsigned short com)
+{
+  serial_configure_baud_rate(com, 1);
+  serial_configure_line(com, 0x03);
+  serial_configure_fifo(com, 0xC7);
+  outb(SERIAL_MODEM_COMMAND_PORT(com), 0x03);
+}
+
+void serial_write(char *buf)
+{
+  int i;
+  for (i = 0; buf[i] != '\0'; i++)
+  {
+    while (serial_is_transmit_fifo_empty(SERIAL_COM1_BASE) == 0)
+      ;
+    outb(SERIAL_DATA_PORT(SERIAL_COM1_BASE), buf[i]);
+  }
+}
+
 /** serial_configure_baud_rate:
  *  Sets the speed of the data being sent. The default speed of a serial
  *  port is 115200 bits/s. The argument is a divisor of that number, hence
@@ -35,5 +54,19 @@ void serial_configure_line(unsigned short com, unsigned char config)
 
 void serial_configure_fifo(unsigned short com, unsigned char config)
 {
-  outb(SERIAL_FIFO_CONTROL_PORT(com), config); // config is 0xC7 default
+  outb(SERIAL_FIFO_COMMAND_PORT(com), config); // config is 0xC7 default
+}
+
+/** serial_is_transmit_fifo_empty:
+ *  Checks whether the transmit FIFO queue is empty or not for the given COM
+ *  port.
+ *
+ *  @param  com The COM port
+ *  @return 0 if the transmit FIFO queue is not empty
+ *          1 if the transmit FIFO queue is empty
+ */
+int serial_is_transmit_fifo_empty(unsigned int com)
+{
+  /* 0x20 = 0010 0000 */
+  return inb(SERIAL_LINE_STATUS_PORT(com)) & 0x20;
 }

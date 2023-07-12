@@ -1,0 +1,7 @@
+- FIFO stands for First In, First Out.
+- Used as a data structure to manage the buffer in serial port communication.
+- Follows the principle that the first data item entered (enqueued) is the first to be processed (dequeued).
+- New data is added to the back (tail) of the queue.
+- Existing data is removed from the front (head) of the queue.
+- data is therefore processed in a predictable way (first element is first processed)
+- is used when buffering data for serial communication

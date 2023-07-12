@@ -44,7 +44,7 @@ void fb_move_cursor(unsigned short pos)
 void fb_write(char *buf)
 {
   unsigned int i = 0;
-  unsigned int len = sizeeof(buf);
+  unsigned int len = sizeof(buf);
   while (i < len)
   {
     fb_write_cell(i * 2, buf[i], def_fg, def_bg);
@@ -56,7 +56,7 @@ void fb_write(char *buf)
 void fb_print_after(char *buf)
 {
   unsigned int i = 0;
-  unsigned int len = sizeeof(buf);
+  unsigned int len = sizeof(buf);
   while (i < len)
   {
     fb_write_cell(cursor * 2, buf[i], def_fg, def_bg);

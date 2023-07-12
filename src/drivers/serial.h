@@ -18,3 +18,12 @@
  * then the lowest 8 bits will follow
  */
 #define SERIAL_LINE_ENABLE_DLAB 0x80
+
+void serial_setup(unsigned short com);
+void serial_write(char *buf);
+
+void serial_configure_line(unsigned short com, unsigned char config);
+void serial_configure_baud_rate(unsigned short com, unsigned short divisor);
+void serial_configure_fifo(unsigned short com, unsigned char config);
+int serial_is_transmit_fifo_empty(unsigned int com);
+

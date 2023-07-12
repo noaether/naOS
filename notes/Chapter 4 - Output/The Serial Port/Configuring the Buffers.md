@@ -1,7 +1,7 @@
 - data transmitted via serial port is placed in buffers (in/out)
 	- means if you send data faster than it can respond, the buffer will just wait instead of half-sending data
 	- buffer can get full and data will be lost
-	- buffers are FIFO queues (first in, first out)
+	- buffers are [[FIFO Queues|FIFO queues (first in, first out)]]
 		- FIFO is configured with [[Configuring the Buffers#^bfa264|these]] [[Configuration Bytes]] following [[Configuring the Buffers#^5fffd5|this spec table]]
 		- will use `0xC7 = 11000111` to enable fifo, clear queues, use 14 bytes as size of queue
 ```
