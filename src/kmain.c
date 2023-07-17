@@ -3,6 +3,10 @@
 #include "drivers/framebuffer.h"
 #include "drivers/serial.h"
 
+#include "stdlib/stdbool.h"
+#include "stdlib/stddef.h"
+#include "stdlib/types.h"
+
 /* The C function */
 int sum_of_three(int arg1, int arg2, int arg3)
 {

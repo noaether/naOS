@@ -1,6 +1,8 @@
 #include "framebuffer.h"
 #include "../utils/io.h"
 
+#include "../stdlib/types.h"
+
 /* framebuffer mm io */
 char *fb = (char *)0x000B8000;
 

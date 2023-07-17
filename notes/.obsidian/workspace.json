@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Chapter 2 - First Steps/Hello Cafebabe/Hello Cafebabe.md",
+                "file": "Documentation/FIFO Queues.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Chapter 2 - First Steps/Hello Cafebabe/Hello Cafebabe.md",
+                "file": "Documentation/FIFO Queues.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Chapter 2 - First Steps/Hello Cafebabe/Hello Cafebabe.md",
+                "file": "Documentation/FIFO Queues.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Chapter 2 - First Steps/Hello Cafebabe/Hello Cafebabe.md"
+                "file": "Documentation/FIFO Queues.md"
               }
             }
           }
@@ -148,8 +148,12 @@
   },
   "active": "c7969fbbb1c9cf3f",
   "lastOpenFiles": [
-    "Chapter 2 - First Steps/Booting/Booting.md",
+    "Extra 1 - Writing a stdlib/strings.md",
+    "Chapter 3 - Getting to C/Chapter 3 - Getting to C.md",
+    "Extra 1 - Writing a stdlib",
     "Chapter 4 - Output/The Serial Port/Configuring the Modem.md",
+    "Chapter 2 - First Steps/Hello Cafebabe/Hello Cafebabe.md",
+    "Chapter 2 - First Steps/Booting/Booting.md",
     "Chapter 5 - Segmentation",
     "Chapter 4 - Output/The Serial Port/The Serial Port.md",
     "Chapter 4 - Output/Interacting with the Hardware.md",
@@ -173,16 +177,12 @@
     "Chapter 2 - First Steps/Hello Cafebabe/Linking the Kernel.md",
     "Chapter 2 - First Steps/Hello Cafebabe/Building an ISO Image.md",
     "Chapter 2 - First Steps/Hello Cafebabe/Compiling the OS.md",
-    "Chapter 1 - Introduction/The Reader.md",
-    "Chapter 2 - First Steps/Tools.md",
     "Documentation",
     "Chapter 4 - Output/The Serial Port",
     "Chapter 4 - Output/The Framebuffer",
-    "Chapter 4 - Output/The Framebuffer.md",
     "Chapter 4 - Output",
     "Chapter 2 - First Steps/Hello Cafebabe",
     "Chapter 2 - First Steps/12 - Booting",
-    "Chapter 2 - First Steps/Booting",
-    "Chapter 3 - Getting to C"
+    "Chapter 2 - First Steps/Booting"
   ]
 }

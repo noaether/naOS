@@ -1,4 +1,4 @@
-OBJECTS = src/loader.o src/kmain.o src/drivers/framebuffer.o src/drivers/serial.o src/utils/io.o
+OBJECTS = src/loader.o src/kmain.o src/drivers/framebuffer.o src/drivers/serial.o src/utils/io.o src/stdlib/stdbool.o  src/stdlib/stddef.o  src/stdlib/types.o
 CC = gcc
 CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
 					-nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c
