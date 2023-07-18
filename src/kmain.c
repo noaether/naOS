@@ -1,4 +1,6 @@
 #include "utils/io.h"
+#include "utils/log.h"
+#include "utils/structs.h"
 
 #include "drivers/framebuffer.h"
 #include "drivers/serial.h"
@@ -18,11 +20,15 @@ int main()
   char welcome[] = "Welcome to naOS";
   char hello[] = "Hello Noa";
 
-  char log[] = "Hello from serial port\n";
+  char logstr[] = "Hello from serial port\n";
+
+  struct logConfigStruct conf = {0, 0};
 
   fb_write(welcome, sizeof(welcome));
   fb_print_after(hello, sizeof(hello));
-  
+
   serial_setup(SERIAL_COM1_BASE);
-  serial_write(log);
+
+  configure_log(conf);
+  log(logstr, 0, sizeof(logstr));
 }

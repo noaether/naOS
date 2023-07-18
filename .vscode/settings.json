@@ -1,3 +1,15 @@
 {
-  "C_Cpp.errorSquiggles": "enabled"
+  "C_Cpp.errorSquiggles": "enabled",
+  "files.associations": {
+    "*.ejs": "html",
+    "string.h": "c",
+    "serial.h": "c",
+    "stdbool.h": "c",
+    "stddef.h": "c",
+    "structs.h": "c",
+    "log.h": "c",
+    "io.h": "c",
+    "framebuffer.h": "c",
+    "types.h": "c"
+  }
 }

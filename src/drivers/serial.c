@@ -1,4 +1,4 @@
-#include "../utils/io.h" /* io.h is implement in the section "Moving the cursor" */
+#include "../utils/io.h" /* io.h is implemented in the section "Moving the cursor" */
 #include "serial.h"
 /* The I/O ports */
 
@@ -10,7 +10,7 @@ void serial_setup(unsigned short com)
   outb(SERIAL_MODEM_COMMAND_PORT(com), 0x03);
 }
 
-void serial_write(char *buf)
+void serial_write(char *buf) // appends to file since serial -> doesnt need other method like fb
 {
   int i;
   for (i = 0; buf[i] != '\0'; i++)

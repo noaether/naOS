@@ -32,7 +32,7 @@ void fb_write_cell(unsigned int i, char c, unsigned char fg, unsigned char bg)
  *
  *  @param pos The new position of the cursor
  */
-void fb_move_cursor(unsigned short pos)
+void fb_set_cursor(unsigned short pos)
 {
   cursor = pos;
 
@@ -51,7 +51,7 @@ void fb_write(char *buf, unsigned int len)
     fb_write_cell(i * 2, buf[i], def_fg, def_bg);
     i++;
   }
-  fb_move_cursor(i);
+  fb_set_cursor(i);
 }
 
 void fb_print_after(char *buf, unsigned int len)
@@ -63,7 +63,7 @@ void fb_print_after(char *buf, unsigned int len)
     i++;
     cursor++;
   }
-  fb_move_cursor(cursor);
+  fb_set_cursor(cursor);
 }
 
 void fb_clear()
@@ -74,5 +74,5 @@ void fb_clear()
     fb_write_cell(i * 2, ' ', def_fg, def_bg);
     i++;
   }
-  fb_move_cursor(0);
+  fb_set_cursor(0);
 }
