@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Documentation/FIFO Queues.md",
+                "file": "Chapter 5 - Segmentation/Accessing Memory.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Documentation/FIFO Queues.md",
+                "file": "Chapter 5 - Segmentation/Accessing Memory.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Documentation/FIFO Queues.md",
+                "file": "Chapter 5 - Segmentation/Accessing Memory.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Documentation/FIFO Queues.md"
+                "file": "Chapter 5 - Segmentation/Accessing Memory.md"
               }
             }
           }
@@ -148,6 +148,8 @@
   },
   "active": "c7969fbbb1c9cf3f",
   "lastOpenFiles": [
+    "Documentation/FIFO Queues.md",
+    "Chapter 5 - Segmentation/Accessing Memory.md",
     "Extra 1 - Writing a stdlib/strings.md",
     "Chapter 3 - Getting to C/Chapter 3 - Getting to C.md",
     "Extra 1 - Writing a stdlib",
@@ -168,7 +170,6 @@
     "Chapter 4 - Output/The Serial Port/Configuring the Line.md",
     "Chapter 4 - Output/The Serial Port/Writing Data to the Serial Port.md",
     "Documentation/Configuration Bytes.md",
-    "Documentation/FIFO Queues.md",
     "Chapter 4 - Output/Further Reading/OSDev.md",
     "Chapter 4 - Output/Further Reading/Further Reading.md",
     "Chapter 4 - Output/Further Reading",
@@ -176,7 +177,6 @@
     "Chapter 2 - First Steps/Hello Cafebabe/Running Bochs.md",
     "Chapter 2 - First Steps/Hello Cafebabe/Linking the Kernel.md",
     "Chapter 2 - First Steps/Hello Cafebabe/Building an ISO Image.md",
-    "Chapter 2 - First Steps/Hello Cafebabe/Compiling the OS.md",
     "Documentation",
     "Chapter 4 - Output/The Serial Port",
     "Chapter 4 - Output/The Framebuffer",
