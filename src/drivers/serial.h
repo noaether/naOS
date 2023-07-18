@@ -1,3 +1,6 @@
+#ifndef SERIAL_H
+#define SERIAL_H
+
 /* All the I/O ports are calculated relative to the data port. This is because
  * all serial ports (COM1, COM2, COM3, COM4) have their ports in the same
  * order, but they start at different values.
@@ -27,3 +30,4 @@ void serial_configure_baud_rate(unsigned short com, unsigned short divisor);
 void serial_configure_fifo(unsigned short com, unsigned char config);
 int serial_is_transmit_fifo_empty(unsigned int com);
 
+#endif // SERIAL_H

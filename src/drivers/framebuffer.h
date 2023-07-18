@@ -1,3 +1,6 @@
+#ifndef FRAMEBUFFER_H
+#define FRAMEBUFFER_H
+
 /* colors */
 #define FB_BLACK 0
 #define FB_BLUE 1
@@ -25,7 +28,9 @@
 #define FB_LOW_BYTE_COMMAND 15
 
 void fb_write_cell(unsigned int i, char c, unsigned char fg, unsigned char bg);
-void fb_move_cursor(unsigned short pos);
+void fb_set_cursor(unsigned short pos);
 void fb_write(char *buf, unsigned int len);
 void fb_print_after(char *buf, unsigned int len);
 void fb_clear();
+
+#endif // FRAMEBUFFER_H
