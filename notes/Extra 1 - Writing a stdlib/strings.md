@@ -1,3 +1,4 @@
+https://cplusplus.com/reference/cstring/
 ## string.h Interface
 - Define function prototypes, macros, and typedefs.
 

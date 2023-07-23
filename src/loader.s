@@ -1,3 +1,5 @@
+%include "src/keyboard/gdt.s"
+
 global loader                   ; the entry symbol for ELF
 
 MAGIC_NUMBER equ 0x1BADB002     ; define the magic number constant
@@ -20,15 +22,22 @@ align 4                         ; the code must be 4 byte aligned
     dd CHECKSUM                 ; and the checksum
 
 loader:                         ; the loader label (defined as entry point in linker script)
-    mov esp, kernel_stack + KERNEL_STACK_SIZE       ; point esp to the start of the
-
-    call main
-
-    extern sum_of_three   ; the function sum_of_three is defined elsewhere
-    push dword 3            ; arg3
-    push dword 2            ; arg2
-    push dword 1            ; arg1
-    call sum_of_three       ; call the function, the result will be in eax
+	; THANK YOU MICHAEL PETCH
+	; https://stackoverflow.com/questions/62885174/multiboot-keyboard-driver-triple-faults-with-grub-works-with-qemu-why
+	lgdt [gdt_descriptor]
+	jmp CODE_SEG:.setcs       ; Set CS to our 32-bit flat code selector
+	.setcs:
+	mov ax, DATA_SEG          ; Setup the segment registers with our flat data selector
+	mov ds, ax
+	mov es, ax
+	mov fs, ax
+	mov gs, ax
+	mov ss, ax
+	mov esp, kernel_stack        ; set stack pointer
+	cli				; Disable interrupts
+	mov esp, kernel_stack
+	call main
+    hlt				; Halt the CPU
 
 .loop:
     jmp .loop                   ; loop forever

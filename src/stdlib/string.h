@@ -7,4 +7,10 @@ char * strcat(char *dest, const char *src);
 char * strcpy(char *dest, const char *src);
 size_t strlen (const char *str);
 
+char *citoa(int num, char *str, int base);
+void reverse(char str[], int length);
+
+typedef char char_t;
+typedef unsigned char uchar_t;
+
 #endif // STRING_H

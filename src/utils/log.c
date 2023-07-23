@@ -4,8 +4,9 @@
 #include "../drivers/serial.h"
 
 #include "structs.h"
+#include "log.h"
 
-struct logConfigStruct defaultConf = {0, 0};
+struct logConfigStruct defaultConf = {LOG_DEBUG, LOG_SERIAL};
 
 void configure_log(struct logConfigStruct lc)
 {
@@ -28,10 +29,10 @@ void log_to(char *buf, unsigned int len)
 
     switch (defaultConf.output)
     {
-    case 0:
+    case LOG_SERIAL:
         log_serial(buf);
         break;
-    case 1:
+    case LOG_FRAMEBUFFER:
         log_framebuffer(buf, len);
         break;
     default:
@@ -44,23 +45,23 @@ void log_with_type(char *append, unsigned char logtype)
     char strbuf[256];
     switch (logtype)
     {
-    case 0:                 // debug
-        strcpy(strbuf, "[DEBUG]");
+    case LOG_DEBUG:                 // debug
+        strcpy(strbuf, "\n[DEBUG] ");
         strcat(strbuf, append);
         log_to(strbuf, strlen(strbuf));
         break;
-    case 1: // info
-        strcpy(strbuf, "[INFO]");
+    case LOG_INFO: // info
+        strcpy(strbuf, "\n[INFO] ");
         strcat(strbuf, append);
         log_to(strbuf, strlen(strbuf));
         break;
-    case 2: // warning
-        strcpy(strbuf, "[WARNING]");
+    case LOG_WARNING: // warning
+        strcpy(strbuf, "\n[WARNING] ");
         strcat(strbuf, append);
         log_to(strbuf, strlen(strbuf));
         break;
-    case 3: // error
-        strcpy(strbuf, "[ERROR]");
+    case LOG_ERROR: // error
+        strcpy(strbuf, "\n[ERROR] ");
         strcat(strbuf, append);
         log_to(strbuf, strlen(strbuf));
         break;

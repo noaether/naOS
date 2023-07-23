@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Chapter 5 - Segmentation/Accessing Memory.md",
+                "file": "Extra 1 - Writing a stdlib/strings.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Chapter 5 - Segmentation/Accessing Memory.md",
+                "file": "Extra 1 - Writing a stdlib/strings.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Chapter 5 - Segmentation/Accessing Memory.md",
+                "file": "Extra 1 - Writing a stdlib/strings.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Chapter 5 - Segmentation/Accessing Memory.md"
+                "file": "Extra 1 - Writing a stdlib/strings.md"
               }
             }
           }
@@ -148,8 +148,8 @@
   },
   "active": "c7969fbbb1c9cf3f",
   "lastOpenFiles": [
-    "Documentation/FIFO Queues.md",
     "Chapter 5 - Segmentation/Accessing Memory.md",
+    "Documentation/FIFO Queues.md",
     "Extra 1 - Writing a stdlib/strings.md",
     "Chapter 3 - Getting to C/Chapter 3 - Getting to C.md",
     "Extra 1 - Writing a stdlib",
