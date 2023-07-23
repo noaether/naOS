@@ -11,7 +11,7 @@ int main()
 
   // char logstr[] = "Hello from serial port\n";
 
-  struct logConfigStruct conf = {LOG_INFO, LOG_SERIAL};
+  struct logConfigStruct conf = {LOG_DEBUG, LOG_SERIAL};
 
   fb_write(welcome, sizeof(welcome));
   fb_print_after(hello, sizeof(hello));

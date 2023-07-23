@@ -7,6 +7,7 @@ extern "C"
 #endif
 
 #include "../lib.h"
+#include "../utils/io.h"
 
 // ----- Pre-processor constants -----
 // IDT_SIZE: Specific to x86 architecture
@@ -46,11 +47,6 @@ extern "C"
 
   void keyboard_handler();
   void load_gdt();
-  char ioport_in(unsigned short port);
-  void ioport_out(unsigned short port, unsigned char data);
-
-  void inl(uint16_t port);
-  void outl(uint16_t port, uint32_t data);
 
   void load_idt(struct IDT_pointer *idt_address);
   void enable_interrupts();
@@ -60,6 +56,7 @@ extern "C"
   void init_idt();
   void kb_init();
 
+  void special_key_handler(char keycode_str[]);
 #ifdef __cplusplus
 }
 #endif

@@ -1,6 +1,8 @@
 #ifndef IO_H
 #define IO_H
 
+#include "../lib.h"
+
 /** outb:
  *  Sends the given byte to the given I/O port.
  *
@@ -16,5 +18,11 @@ void outb(unsigned short port, unsigned char data);
  */
 
 unsigned char inb(unsigned short port);
+
+void inl(uint16_t port);
+void outl(uint16_t port, uint32_t data);
+
+char ioport_in(unsigned short port);
+void ioport_out(unsigned short port, unsigned char data);
 
 #endif // IO_H

@@ -22,9 +22,7 @@ align 4                         ; the code must be 4 byte aligned
     dd CHECKSUM                 ; and the checksum
 
 loader:                         ; the loader label (defined as entry point in linker script)
-	; THANK YOU MICHAEL PETCH
-	; https://stackoverflow.com/questions/62885174/multiboot-keyboard-driver-triple-faults-with-grub-works-with-qemu-why
-	lgdt [gdt_descriptor]
+	lgdt [gdt_descriptor] ; https://stackoverflow.com/a/62885681/17631126
 	jmp CODE_SEG:.setcs       ; Set CS to our 32-bit flat code selector
 	.setcs:
 	mov ax, DATA_SEG          ; Setup the segment registers with our flat data selector
