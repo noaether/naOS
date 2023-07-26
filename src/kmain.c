@@ -1,11 +1,14 @@
 #include "drivers.h"
 #include "lib.h"
 
-#include "keyboard/keyboard_asm.h"
 #include "keyboard/keyboard.h"
+
+#include "drivers/irq.h"
 
 int main()
 {
+  disable_interrupts();
+  
   char welcome[] = "Welcome to naOS";
   char hello[] = "Hello Noa";
 
@@ -26,14 +29,18 @@ int main()
   char error[] = "Error Log";
 
   log(debug, LOG_DEBUG); // Will not log
-  log(info, LOG_INFO);  // will log
+  log(info, LOG_INFO);   // will log
   log(warning, LOG_WARNING);
   log(error, LOG_ERROR);
 
-	load_gdt();
+  remap_pic();
 
-  init_idt();
-	kb_init();
-  
-	enable_interrupts();
+  load_gdt();
+  idt_init();
+
+  kb_init();
+
+  enable_interrupts();
+
+  // play_array();
 }

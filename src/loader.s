@@ -1,4 +1,4 @@
-%include "src/keyboard/gdt.s"
+%include "src/drivers/gdt.s"
 
 global loader                   ; the entry symbol for ELF
 

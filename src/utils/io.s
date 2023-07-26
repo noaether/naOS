@@ -33,6 +33,13 @@ ioport_in: ;
 	; (al in this case since return type is char, 8 bits)
 	ret
 
+ioport_out:
+	mov edx, [esp + 4]	; port to write; DST_IO_PORT. 16 bits
+	mov eax, [esp + 8] 	; value to write. 8 bits
+	; Format: out <DST_IO_PORT>, <VALUE_TO_WRITE>
+	out dx, al
+	ret
+
 inl:
   mov edx, [esp + 4] ; Move the port number from the stack to the EDX register.
   in eax, dx         ; Perform the input operation, storing the result in EAX.

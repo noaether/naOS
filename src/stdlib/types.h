@@ -23,25 +23,4 @@ typedef unsigned long long int uint64_t;
 typedef float float32_t;
 typedef double float64_t;
 
-// Structure to hold all the basic types
-PACKED_STRUCT(BasicTypes) {
-    int8_t int8;
-    int16_t int16;
-    int32_t int32;
-    int64_t int64;
-
-    uint8_t uint8;
-    uint16_t uint16;
-    uint32_t uint32;
-    uint64_t uint64;
-
-    char_t character;
-    uchar_t unsignedChar;
-
-    bool_t boolean;
-
-    float32_t float32;
-    float64_t float64;
-};
-
 #endif /* TYPE_H */
