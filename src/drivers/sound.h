@@ -33,13 +33,8 @@ struct note
   uint32_t duration;
 };
 
-void enable_irq0();
-void disable_irq0();
+void play_sound(uint32_t nFrequence);
 
-void pit_init();
-void pit_interrupt_handler();
-
-void play_sound(struct note *note);
 void play_array();
 void nosound();
 

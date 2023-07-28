@@ -7,6 +7,7 @@ extern "C"
 #endif
 
 #include "../keyboard/keyboard.h"
+#include "sound.h"
 
 #define KERNEL_CODE_SEGMENT_OFFSET 0x8
 #define INTERRUPT_GATE 0x8e
@@ -32,6 +33,8 @@ extern "C"
     unsigned char type_attr;
     unsigned short int offset_higherbits;
   } __attribute__((packed));
+
+
   void idt_init();
 
   void load_gdt();

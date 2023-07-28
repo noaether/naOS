@@ -50,10 +50,10 @@ load_gdt:
 
 section .text
 irq0:
-    pusha
+    pushad
     cld
     call irq0_handler
-    popa
+    popad
     iretd
  
 irq1:

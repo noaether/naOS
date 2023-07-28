@@ -7,21 +7,6 @@
 // Global variable to keep track of the current note being played
 static struct note *current_note = NULL;
 
-// Define the PIT frequency (e.g., 1000 Hz)
-#define PIT_FREQUENCY 1000
-#define PIT_CHANNEL 0
-
-void pit_init()
-{
-
-  // Set PIT to Mode 3 (square wave generator) and set the frequency
-  uint16_t divisor = 1193180 / PIT_FREQUENCY;
-
-  outb(0x43, 0x36);                             // Command to set the PIT to Mode 3
-  outb(0x40, (uint8_t)(divisor & 0xFF));        // Send the low byte
-  outb(0x40, (uint8_t)((divisor >> 8) & 0xFF)); // Send the high byte
-}
-
 // PIT interrupt handler
 void pit_interrupt_handler()
 {
@@ -62,13 +47,32 @@ void pit_interrupt_handler()
   outb(0x20, 0x20);
 }
 
+void play_sound(uint32_t nFrequence)
+{
+  uint32_t Div;
+  uint8_t tmp;
+
+  // Set the PIT to the desired frequency
+  Div = 1193180 / nFrequence;
+  outb(0x43, 0xb6);
+  outb(0x42, (uint8_t)(Div));
+  outb(0x42, (uint8_t)(Div >> 8));
+
+  // And play the sound using the PC speaker
+  tmp = inb(0x61);
+  if (tmp != (tmp | 3))
+  {
+    outb(0x61, tmp | 3);
+  }
+}
+
 void play_array()
 {
   struct note notes[] = {
-    {OCTAVE_4, NOTE_C, 10},
-    {OCTAVE_4, NOTE_D, 10},
-    {OCTAVE_4, NOTE_E, 10},
-    {OCTAVE_4, NOTE_F, 10},
+      {OCTAVE_4, NOTE_C, 10},
+      {OCTAVE_4, NOTE_D, 10},
+      {OCTAVE_4, NOTE_E, 10},
+      {OCTAVE_4, NOTE_F, 10},
   };
 
   // Set the current_note pointer to the first note in the array
@@ -77,7 +81,6 @@ void play_array()
   // Start playing the notes
   while (current_note != NULL)
   {
-
   }
 }
 

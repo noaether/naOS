@@ -165,9 +165,8 @@ void idt_init()
 
 void irq0_handler()
 {
-  // timer_handler();
-  ioport_out(0x20, 0x20);
   log("IRQ 0", LOG_DEBUG);
+  ioport_out(0x20, 0x20);
 }
 
 void irq1_handler()
@@ -220,7 +219,6 @@ void irq7_handler()
 
 void irq8_handler()
 {
-  // CMOS_RTC_handler();
   ioport_out(0x20, 0x20);
   log("IRQ 8", LOG_DEBUG);
 }

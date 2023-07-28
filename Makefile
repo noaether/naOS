@@ -1,5 +1,5 @@
 OBJECTS = src/loader.o src/kmain.o src/drivers.o src/lib.o \
-				src/drivers/framebuffer.o src/drivers/serial.o src/drivers/sound.o src/drivers/irq.o src/drivers/irq_asm.o src/drivers/gdt.o \
+				src/drivers/framebuffer.o src/drivers/serial.o src/drivers/sound.o src/drivers/irq.o src/drivers/irq_asm.o src/drivers/gdt.o src/drivers/clocks.o \
 				src/keyboard/keyboard.o \
 				src/utils/io.o src/utils/log.o src/utils/structs.o \
 				src/stdlib/stdbool.o src/stdlib/stddef.o  src/stdlib/string.o src/stdlib/types.o src/stdlib/math.o
@@ -18,8 +18,11 @@ kernel.elf: $(OBJECTS)
 os.iso: kernel.elf
 		cp src/kernel.elf iso/boot/kernel.elf
 		grub-mkrescue -o os.iso iso
-		
-run: os.iso
+
+run-q: os.iso
+		qemu-system-i386 os.iso -m 32M -soundhw pcspk -serial file:com1.out -rtc base=utc -d int,cpu_reset,pcall,guest_errors,unimp -no-reboot
+
+run-b: os.iso
 		bochs -f bochsrc.txt -q
 
 %.o: %.c

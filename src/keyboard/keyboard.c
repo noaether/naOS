@@ -11,9 +11,11 @@ bool alt_pressed = false;   // Global flag to track Alt key state
 
 void kb_init()
 {
+  asm volatile("sti");
   // 0xFD = 1111 1101 in binary. enables only IRQ1
   // Why IRQ1? Remember, IRQ0 exists, it's 0-based
-  ioport_out(PIC1_DATA_PORT, 0xFD);
+  ioport_out(PIC1_DATA_PORT, 0x00);
+  asm volatile("sti");
 }
 
 void handle_keyboard_interrupt()
@@ -95,7 +97,8 @@ void handle_keyboard_interrupt()
 
       if (ascii[0] == 0)
       {
-        special_key_handler(keycode_str);
+        special_key_handler(keycode);
+        return;
       }
 
       log(ascii, LOG_INFO); // Pass ascii char to the log function
@@ -103,14 +106,32 @@ void handle_keyboard_interrupt()
       fb_print_after(ascii, 1);
     }
   }
+  else
+  {
+    log("KBD INT: No data", LOG_DEBUG);
+  }
 }
 
-void special_key_handler(char keycode_str[])
+void special_key_handler(int keycode)
 {
-  char space[] = "57";
-  if (strcmp(keycode_str, space) == 0)
+
+  char keycode_str[10];
+  citoa(keycode, keycode_str, 10);
+  if ((57 - keycode) == 0)
   {
-    nosound();
-    fb_print_after("_", 0);
+
+    char ascii[2];
+    ascii[0] = ' ';
+    ascii[1] = '\0';
+    log(ascii, LOG_ERROR);
+    fb_print_after(ascii, 1);
+  }
+  else if ((14 - keycode) == 0)
+  {
+    fb_backspace();
+  }
+  else
+  {
+    log(keycode_str, LOG_INFO);
   }
 }

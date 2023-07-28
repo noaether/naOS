@@ -76,3 +76,13 @@ void fb_clear()
   }
   fb_set_cursor(0);
 }
+
+void fb_backspace()
+{
+  if (cursor > 0)
+  {
+    cursor--;
+    fb_write_cell(cursor * 2, ' ', def_fg, def_bg);
+    fb_set_cursor(cursor);
+  }
+}

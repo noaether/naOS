@@ -34,15 +34,34 @@ size_t strlen(const char *str)
     return len;
 }
 
-int strcmp(const char* s1, const char* s2)
+int strcmp(const char *s1, const char *s2)
 {
-    while(*s1 && (*s1 == *s2))
+    const unsigned char *p1 = (const unsigned char *)s1;
+    const unsigned char *p2 = (const unsigned char *)s2;
+
+    while (*p1 && *p1 == *p2)
+        ++p1, ++p2;
+
+    return (*p1 > *p2) - (*p2 > *p1);
+}
+
+int strncmp(const char *s1, const char *s2, size_t n)
+{
+    while (n && *s1 && (*s1 == *s2))
     {
-        s1++;
-        s2++;
+        ++s1;
+        ++s2;
+        --n;
     }
-    return *(const unsigned char*)s1 - *(const unsigned char*)s2;
-} // https://stackoverflow.com/a/34873406/17631126
+    if (n == 0)
+    {
+        return 0;
+    }
+    else
+    {
+        return (*(unsigned char *)s1 - *(unsigned char *)s2);
+    }
+}
 
 // A utility function to reverse a string
 void reverse(char str[], int length)

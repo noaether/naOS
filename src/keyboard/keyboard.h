@@ -22,7 +22,7 @@ extern "C"
 
   void kb_init();
 
-  void special_key_handler(char keycode_str[]);
+  void special_key_handler(int keycode);
 #ifdef __cplusplus
 }
 #endif

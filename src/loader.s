@@ -35,7 +35,6 @@ loader:                         ; the loader label (defined as entry point in li
 	cli				; Disable interrupts
 	mov esp, kernel_stack
 	call main
-    hlt				; Halt the CPU
 
 .loop:
     jmp .loop                   ; loop forever
