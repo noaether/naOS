@@ -3,6 +3,8 @@
 #include "../utils/log.h"
 #include "../utils/io.h"
 
+#include "sound.h"
+
 struct IDT_entry IDT[256];
 
 void remap_pic()
@@ -165,6 +167,7 @@ void idt_init()
 
 void irq0_handler()
 {
+  pit_interrupt_handler();
   log("IRQ 0", LOG_DEBUG);
   ioport_out(0x20, 0x20);
 }

@@ -4,24 +4,119 @@
 #include "../stdlib/math.h"
 #include "../stdlib/types.h"
 
-// Global variable to keep track of the current note being played
-static struct note *current_note = NULL;
+struct note CMajScale[] = {
+    {OCTAVE_4, NOTE_C, 20},
+    {OCTAVE_4, NOTE_D, 10},
+    {OCTAVE_4, NOTE_E, 10},
+    {OCTAVE_4, NOTE_F, 10},
+    {OCTAVE_4, NOTE_G, 10},
+    {OCTAVE_4, NOTE_A, 10},
+    {OCTAVE_4, NOTE_B, 10},
+    {OCTAVE_5, NOTE_C, 20},
+    {OCTAVE_5, NOTE_D, 10},
+    {OCTAVE_5, NOTE_E, 10},
+    {OCTAVE_5, NOTE_F, 10},
+    {OCTAVE_5, NOTE_G, 10},
+    {OCTAVE_5, NOTE_A, 10},
+    {OCTAVE_5, NOTE_B, 10},
+    {OCTAVE_6, NOTE_C, 20},
+    {OCTAVE_5, NOTE_B, 10},
+    {OCTAVE_5, NOTE_A, 10},
+    {OCTAVE_5, NOTE_G, 10},
+    {OCTAVE_5, NOTE_F, 10},
+    {OCTAVE_5, NOTE_E, 10},
+    {OCTAVE_5, NOTE_D, 10},
+    {OCTAVE_5, NOTE_C, 20},
+    {OCTAVE_4, NOTE_B, 10},
+    {OCTAVE_4, NOTE_A, 10},
+    {OCTAVE_4, NOTE_G, 10},
+    {OCTAVE_4, NOTE_F, 10},
+    {OCTAVE_4, NOTE_E, 10},
+    {OCTAVE_4, NOTE_D, 10},
+    {OCTAVE_4, NOTE_C, 20},
+    {OCTAVE_4, NOTE_E, 10},
+    {OCTAVE_4, NOTE_G, 10},
+    {OCTAVE_5, NOTE_C, 20},
+    {OCTAVE_5, NOTE_E, 10},
+    {OCTAVE_5, NOTE_G, 10},
+    {OCTAVE_6, NOTE_C, 20},
+    {OCTAVE_5, NOTE_G, 10},
+    {OCTAVE_5, NOTE_E, 10},
+    {OCTAVE_5, NOTE_C, 20},
+    {OCTAVE_4, NOTE_G, 10},
+    {OCTAVE_4, NOTE_E, 10},
+    {OCTAVE_4, NOTE_C, 20},
 
-// PIT interrupt handler
+};
+
+struct note mary_had_a_little_lamb[] = {
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_C, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_E, 2},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_G, 4},
+    {OCTAVE_4, NOTE_G, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_C, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_E, 2},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_G, 4},
+    {OCTAVE_4, NOTE_G, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_C, 4},
+};
+
+static struct note *current_note = NULL;
+static unsigned int current_note_index = 0; // Keep track of the current note index
+static int sound_playing = 0;               // Flag to indicate whether a sound is currently playing
+void play_array()
+{
+  // Set the current_note pointer to the first note in the array
+  current_note = &CMajScale[0];
+  current_note_index = 0;
+
+  nosound(); // Stop any sound that's currently playing
+
+  // Start playing the notes
+  sound_playing = 1; // Set sound playing flag
+}
+
 void pit_interrupt_handler()
 {
-  log("PIT Interrupt", LOG_DEBUG);
-  // Check if there's a note to play
-  if (current_note != NULL)
+  // Check if there's a note to play and sound is currently playing
+  if (current_note != NULL && sound_playing)
   {
     // Calculate the frequency for the current note
     double freq = current_note->note * current_note->octave;
     uint16_t div = (uint16_t)(1193180 / freq);
 
     // Set the PIT frequency to play the current note
-    outb(0x43, 0xB6);                // Command to set the PIT to Mode 3 (square wave generator)
-    outb(0x42, (uint8_t)(div));      // Send the low byte
-    outb(0x42, (uint8_t)(div >> 8)); // Send the high byte
+    outb(0x43, 0xB6);                       // Command to set the PIT to Mode 3 (square wave generator)
+    outb(0x42, (uint8_t)(div & 0xFF));      // Send the low byte
+    outb(0x42, (uint8_t)(div >> 8) & 0xFF); // Send the high byte
 
     // Start playing the sound
     uint8_t tmp = inb(0x61);
@@ -36,56 +131,32 @@ void pit_interrupt_handler()
     // Check if the note duration is complete
     if (current_note->duration <= 0)
     {
-      // Stop playing the sound
-      nosound();
-      // Move to the next note in the array
-      current_note++;
+      current_note_index++; // Move to the next note in the array
+
+      // Check if we've reached the end of the notes array
+      if (current_note_index >= sizeof(CMajScale))
+      {
+        // If so, stop playing and reset the current_note pointer
+        sound_playing = 0; // Reset sound playing flag
+        current_note = 0;
+        current_note_index = 0; // Reset the note index to the beginning
+      }
+      else
+      {
+        // Otherwise, set the current note to the next note in the array
+        current_note = &CMajScale[current_note_index];
+      }
     }
   }
 
   // Send the end of interrupt signal (EOI) to the PIC
   outb(0x20, 0x20);
 }
-
-void play_sound(uint32_t nFrequence)
-{
-  uint32_t Div;
-  uint8_t tmp;
-
-  // Set the PIT to the desired frequency
-  Div = 1193180 / nFrequence;
-  outb(0x43, 0xb6);
-  outb(0x42, (uint8_t)(Div));
-  outb(0x42, (uint8_t)(Div >> 8));
-
-  // And play the sound using the PC speaker
-  tmp = inb(0x61);
-  if (tmp != (tmp | 3))
-  {
-    outb(0x61, tmp | 3);
-  }
-}
-
-void play_array()
-{
-  struct note notes[] = {
-      {OCTAVE_4, NOTE_C, 10},
-      {OCTAVE_4, NOTE_D, 10},
-      {OCTAVE_4, NOTE_E, 10},
-      {OCTAVE_4, NOTE_F, 10},
-  };
-
-  // Set the current_note pointer to the first note in the array
-  current_note = &notes[0];
-
-  // Start playing the notes
-  while (current_note != NULL)
-  {
-  }
-}
-
 void nosound()
 {
   uint8_t tmp = inb(0x61) & 0xFC;
   outb(0x61, tmp);
+
+  // Clear sound_playing flag
+  sound_playing = 0;
 }

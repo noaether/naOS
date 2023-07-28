@@ -11,9 +11,8 @@ bool alt_pressed = false;   // Global flag to track Alt key state
 
 void kb_init()
 {
-  asm volatile("sti");
-  // 0xFD = 1111 1101 in binary. enables only IRQ1
-  // Why IRQ1? Remember, IRQ0 exists, it's 0-based
+  asm volatile("cli");
+  // ioport_out(PIC1_DATA_PORT, 0xFD); <- this disabled everything but the keyboard
   ioport_out(PIC1_DATA_PORT, 0x00);
   asm volatile("sti");
 }

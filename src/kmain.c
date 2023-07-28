@@ -39,14 +39,10 @@ int main()
   load_gdt();
   idt_init();
 
-  pit_init(20);
+  pit_init(1);
   kb_init();
 
   enable_interrupts();
 
-  play_sound(440);
-
-  /*while(1){
-    asm volatile("int $0x20");
-  }*/
+  play_array();
 }
