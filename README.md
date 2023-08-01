@@ -1,6 +1,7 @@
 # naOS - A full OS from scratch
 
 ## Features and Future
+
 - [x] Console Output
 - [x] Serial Output
 - [x] 3-layer Keyboard Support
