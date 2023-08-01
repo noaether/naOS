@@ -2,7 +2,7 @@
 
 ## Features and Future
 
-- [x] Console Output
+- [x] Console Output
 - [x] Serial Output
 - [x] 3-layer Keyboard Support
 - [x] Editing Console with KBD
