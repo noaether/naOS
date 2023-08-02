@@ -5,6 +5,7 @@ SECTIONS {
 
     .text ALIGN (0x1000) :   /* align at 4 KB */
     {
+        *(.multiboot)        /* Multiboot info */
         *(.text)             /* all text sections from all files */
     }
 

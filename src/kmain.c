@@ -8,38 +8,33 @@
 
 #include "multiboot.h"
 
-int kmain(unsigned int ebx)
+typedef void (*call_module_t)(void);
+
+int kmain(uint32_t ebx)
 {
-  multiboot_info_t *mbinfo = (multiboot_info_t *)ebx;
+  if (!ebx)
+  {
+    return 1;
+  }
+
+  struct multiboot_info *mbinfo = (struct multiboot_info *)ebx;
   unsigned int address_of_module = mbinfo->mods_addr;
+
+  disable_interrupts();
 
   char welcome[] = "Welcome to naOS";
   char hello[] = "Hello Noa";
 
-  // char logstr[] = "Hello from serial port\n";
-
   struct logConfigStruct conf = {LOG_DEBUG, LOG_SERIAL};
 
-  fb_write(welcome, sizeof(welcome));
+  fb_print_after(welcome, sizeof(welcome));
   fb_print_after(hello, sizeof(hello));
 
   serial_setup(SERIAL_COM1_BASE);
 
   configure_log(conf);
 
-  char module_string[16];
-  citoa(address_of_module, module_string, 16);
-
-  if (mbinfo->flags & 0x00000040)
-  {
-    log(module_string, LOG_INFO);
-  }
-  else
-  {
-    log("No module string found", LOG_WARNING);
-  }
-
-  char debug[] = "Debug Log";
+  /* char debug[] = "Debug Log";
   char info[] = "Info Log";
   char warning[] = "Warning Log";
   char error[] = "Error Log";
@@ -47,7 +42,13 @@ int kmain(unsigned int ebx)
   log(debug, LOG_DEBUG); // Will not log
   log(info, LOG_INFO);   // will log
   log(warning, LOG_WARNING);
-  log(error, LOG_ERROR);
+  log(error, LOG_ERROR); */
+
+  /*if(eax == MULTIBOOT_BOOTLOADER_MAGIC) {
+    log("Multiboot magic number is correct", LOG_INFO);
+  } else {
+    log("Multiboot magic number is incorrect", LOG_ERROR);
+  }*/
 
   remap_pic();
 
@@ -62,14 +63,10 @@ int kmain(unsigned int ebx)
   play_array();
 
   call_module_t start_program = (call_module_t)address_of_module;
-  if (start_program != NULL)
-  {
-    start_program();
-  }
-  else
-  {
-    log("You were right, this is the problem", LOG_ERROR)
-  }
+  start_program();
 
-  return 0;
+  while (1)
+  {
+    asm volatile("hlt");
+  }
 }

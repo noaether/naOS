@@ -1,8 +1,4 @@
-; simple assembly module
-
-mov eax, 0xF
-mov ebx, 0xF
-mov ecx, 0xF
-mov edx, 0xF
-
+BITS 32
+mov edx , 0x12345678
+; $ means "beginning of line", ie. the same instruction
 jmp $

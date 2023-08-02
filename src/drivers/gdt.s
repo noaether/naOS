@@ -13,7 +13,7 @@ gdt_code:
     db 0x00
 
 gdt_data:
-    dw 0xfffff
+    dw 0xffff   ; Corrected: change 0xFFFFF to 0xFFFF
     dw 0x0000
     db 0x00
     db 10010010b
@@ -33,4 +33,3 @@ DATA_SEG equ gdt_data - gdt_start
 
 ; In protected mode, set DS = INDEX to select GDT entries
 ; Then CPU knows to use the segment at that offset
-; Example: (0x0: NULL segment; 0x8: CODE segment; 0x10: DATA segment)
