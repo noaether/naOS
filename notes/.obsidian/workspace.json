@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Extra 1 - Writing a stdlib/strings.md",
+                "file": "Extra 2 - Adding Audio/Configuring Bochs.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Extra 1 - Writing a stdlib/strings.md",
+                "file": "Extra 2 - Adding Audio/Configuring Bochs.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Extra 1 - Writing a stdlib/strings.md",
+                "file": "Extra 2 - Adding Audio/Configuring Bochs.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Extra 1 - Writing a stdlib/strings.md"
+                "file": "Extra 2 - Adding Audio/Configuring Bochs.md"
               }
             }
           }
@@ -146,11 +146,17 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "c7969fbbb1c9cf3f",
+  "active": "b8e3a000d2ecd95e",
   "lastOpenFiles": [
+    "Chapter 7 - User Mode",
+    "Chapter 6 - Interrupts",
+    "Extra 2 - Adding Audio/Stack.md",
+    "Extra 2 - Adding Audio/Configuring Bochs.md",
+    "Extra 2 - Adding Audio/PIT.md",
+    "Extra 1 - Writing a stdlib/strings.md",
+    "Extra 2 - Adding Audio",
     "Chapter 5 - Segmentation/Accessing Memory.md",
     "Documentation/FIFO Queues.md",
-    "Extra 1 - Writing a stdlib/strings.md",
     "Chapter 3 - Getting to C/Chapter 3 - Getting to C.md",
     "Extra 1 - Writing a stdlib",
     "Chapter 4 - Output/The Serial Port/Configuring the Modem.md",
@@ -173,16 +179,10 @@
     "Chapter 4 - Output/Further Reading/OSDev.md",
     "Chapter 4 - Output/Further Reading/Further Reading.md",
     "Chapter 4 - Output/Further Reading",
-    "Chapter 3 - Getting to C/Build Tools.md",
-    "Chapter 2 - First Steps/Hello Cafebabe/Running Bochs.md",
-    "Chapter 2 - First Steps/Hello Cafebabe/Linking the Kernel.md",
-    "Chapter 2 - First Steps/Hello Cafebabe/Building an ISO Image.md",
     "Documentation",
     "Chapter 4 - Output/The Serial Port",
     "Chapter 4 - Output/The Framebuffer",
     "Chapter 4 - Output",
-    "Chapter 2 - First Steps/Hello Cafebabe",
-    "Chapter 2 - First Steps/12 - Booting",
-    "Chapter 2 - First Steps/Booting"
+    "Chapter 2 - First Steps/Hello Cafebabe"
   ]
 }

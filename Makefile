@@ -16,6 +16,9 @@ kernel.elf: $(OBJECTS)
 		ld $(LDFLAGS) $(OBJECTS) -o src/kernel.elf
 
 os.iso: kernel.elf
+		$(AS) -f bin src/program.s -o program
+		cp program iso/boot/modules/program
+
 		cp src/kernel.elf iso/boot/kernel.elf
 		grub-mkrescue -o os.iso iso
 
@@ -32,4 +35,4 @@ run-b: os.iso
 		$(AS) $(ASFLAGS) $< -o $@
 
 clean:
-		rm -rf *.o src/*.o src/**/**.o src/**/**/**.o src/kernel.elf os.iso bochslog.txt
+		rm -rf *.o src/*.o src/**/**.o src/**/**/**.o src/kernel.elf os.iso bochslog.txt program iso/modules/program

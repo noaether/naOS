@@ -6,9 +6,12 @@
 #include "drivers/irq.h"
 #include "drivers/clocks.h"
 
-int main()
+#include "multiboot.h"
+
+int kmain(unsigned int ebx)
 {
-  disable_interrupts();
+  multiboot_info_t *mbinfo = (multiboot_info_t *)ebx;
+  unsigned int address_of_module = mbinfo->mods_addr;
 
   char welcome[] = "Welcome to naOS";
   char hello[] = "Hello Noa";
@@ -23,6 +26,18 @@ int main()
   serial_setup(SERIAL_COM1_BASE);
 
   configure_log(conf);
+
+  char module_string[16];
+  citoa(address_of_module, module_string, 16);
+
+  if (mbinfo->flags & 0x00000040)
+  {
+    log(module_string, LOG_INFO);
+  }
+  else
+  {
+    log("No module string found", LOG_WARNING);
+  }
 
   char debug[] = "Debug Log";
   char info[] = "Info Log";
@@ -45,4 +60,16 @@ int main()
   enable_interrupts();
 
   play_array();
+
+  call_module_t start_program = (call_module_t)address_of_module;
+  if (start_program != NULL)
+  {
+    start_program();
+  }
+  else
+  {
+    log("You were right, this is the problem", LOG_ERROR)
+  }
+
+  return 0;
 }
