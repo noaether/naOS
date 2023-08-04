@@ -4,3 +4,6 @@
 *.out
 bochslog.txt
 snapshot.txt
+src/kmain.c
+iso/boot/modules/program
+program.bin

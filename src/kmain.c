@@ -12,8 +12,6 @@ typedef void (*call_module_t)(void);
 
 int kmain(uint32_t ebx)
 {
-  struct multiboot_info *mbinfo = (struct multiboot_info *)ebx;
-
   disable_interrupts();
 
   char welcome[] = "Welcome to naOS";
@@ -33,12 +31,7 @@ int kmain(uint32_t ebx)
   load_gdt();
   idt_init();
 
-  pit_init(1);
-  kb_init();
-
-  enable_interrupts();
-
-  play_array();
+  struct multiboot_info *mbinfo = (struct multiboot_info *)ebx;
 
   if (mbinfo->mods_count > 0)
   {
@@ -56,8 +49,17 @@ int kmain(uint32_t ebx)
     start_program();
   }
 
+  pit_init(1);
+  kb_init();
+
+  enable_interrupts();
+  nosound();
+
+  play_array();
+  nosound();
+
   while (1)
   {
+    asm volatile("hlt");
   }
-  
 }

@@ -10,12 +10,8 @@ bool shift_pressed = false; // Global flag to track Shift key state
 bool alt_pressed = false;   // Global flag to track Alt key state
 bool ctrl_pressed = false;  // Global flag to track Ctrl key state
 
-void kb_init()
-{
-  asm volatile("cli");
-  // ioport_out(PIC1_DATA_PORT, 0xFD); <- this disabled everything but the keyboard
-  ioport_out(PIC1_DATA_PORT, 0x00);
-  asm volatile("sti");
+void kb_init() {
+  // do nothing
 }
 
 void handle_keyboard_interrupt()

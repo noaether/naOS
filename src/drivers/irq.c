@@ -161,6 +161,11 @@ void idt_init()
   idt_ptr.base = (unsigned int)&IDT;
 
   load_idt(&idt_ptr);
+
+  asm volatile("cli");
+  // ioport_out(PIC1_DATA_PORT, 0xFD); <- this disabled everything but the keyboard
+  ioport_out(PIC1_DATA_PORT, 0x00);
+  asm volatile("sti");
 }
 
 // temporary handlers
