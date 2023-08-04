@@ -12,13 +12,7 @@ typedef void (*call_module_t)(void);
 
 int kmain(uint32_t ebx)
 {
-  if (!ebx)
-  {
-    return 1;
-  }
-
   struct multiboot_info *mbinfo = (struct multiboot_info *)ebx;
-  unsigned int address_of_module = mbinfo->mods_addr;
 
   disable_interrupts();
 
@@ -34,22 +28,6 @@ int kmain(uint32_t ebx)
 
   configure_log(conf);
 
-  /* char debug[] = "Debug Log";
-  char info[] = "Info Log";
-  char warning[] = "Warning Log";
-  char error[] = "Error Log";
-
-  log(debug, LOG_DEBUG); // Will not log
-  log(info, LOG_INFO);   // will log
-  log(warning, LOG_WARNING);
-  log(error, LOG_ERROR); */
-
-  /*if(eax == MULTIBOOT_BOOTLOADER_MAGIC) {
-    log("Multiboot magic number is correct", LOG_INFO);
-  } else {
-    log("Multiboot magic number is incorrect", LOG_ERROR);
-  }*/
-
   remap_pic();
 
   load_gdt();
@@ -62,11 +40,24 @@ int kmain(uint32_t ebx)
 
   play_array();
 
-  call_module_t start_program = (call_module_t)address_of_module;
-  start_program();
+  if (mbinfo->mods_count > 0)
+  {
+    // Get the first module information
+    struct multiboot_mod_list *module = (struct multiboot_mod_list *)mbinfo->mods_addr;
+
+    // Get the start and end addresses of the module
+    uint32_t module_start = module->mod_start;
+    uint32_t module_end = module->mod_end;
+
+    (void)module_end;
+
+    // Execute the module
+    call_module_t start_program = (call_module_t)module_start;
+    start_program();
+  }
 
   while (1)
   {
-    asm volatile("hlt");
   }
+  
 }

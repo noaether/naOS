@@ -12,13 +12,15 @@ ASFLAGS = -f elf
 
 all: kernel.elf
 
-kernel.elf: $(OBJECTS)
+program.bin:
+		nasm -f elf32 src/program.asm -o program.o
+		ld -m elf_i386 -Ttext 0x0 --oformat binary program.o -o program.bin
+		cp program.bin iso/boot/modules/program
+
+kernel.elf: $(OBJECTS) program.bin
 		ld $(LDFLAGS) $(OBJECTS) -o src/kernel.elf
 
 os.iso: kernel.elf
-		$(AS) -f bin src/program.s -o program
-		cp program iso/boot/modules/program
-
 		cp src/kernel.elf iso/boot/kernel.elf
 		grub-mkrescue -o os.iso iso
 
@@ -31,7 +33,7 @@ run-b: os.iso
 %.o: %.c
 		$(CC) $(CFLAGS)  $< -o $@
 
-%.o: %.s
+%.o: %.asm
 		$(AS) $(ASFLAGS) $< -o $@
 
 clean:
