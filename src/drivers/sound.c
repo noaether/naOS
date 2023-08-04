@@ -1,7 +1,6 @@
 #include "sound.h"
 #include "irq.h"
 #include "../utils/io.h"
-#include "../stdlib/math.h"
 #include "../stdlib/types.h"
 
 struct note CMajScale[] = {
@@ -106,6 +105,10 @@ void play_array()
 
 void pit_interrupt_handler()
 {
+  if (current_note == NULL)
+  {
+    return;
+  }
   // Check if there's a note to play and sound is currently playing
   if (current_note != NULL && sound_playing)
   {
@@ -114,6 +117,8 @@ void pit_interrupt_handler()
     uint16_t div = (uint16_t)(1193180 / freq);
 
     // Set the PIT frequency to play the current note
+    // https://wiki.osdev.org/Programmable_Interval_Timer#I.2FO_Ports
+    // https://wiki.osdev.org/Programmable_Interval_Timer#Mode_3_.E2.80.93_Square_Wave_Generator
     outb(0x43, 0xB6);                       // Command to set the PIT to Mode 3 (square wave generator)
     outb(0x42, (uint8_t)(div & 0xFF));      // Send the low byte
     outb(0x42, (uint8_t)(div >> 8) & 0xFF); // Send the high byte

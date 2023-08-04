@@ -41,4 +41,5 @@ loader:                       ; the loader label (defined as the entry point in 
 
     push ebx
 	call kmain
+    pop ebx
 	hlt

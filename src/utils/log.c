@@ -46,22 +46,22 @@ void log_with_type(char *append, unsigned char logtype)
     switch (logtype)
     {
     case LOG_DEBUG:                 // debug
-        strcpy(strbuf, "\n[DEBUG] ");
+        strcpy(strbuf, "\n[DBG] ");
         strcat(strbuf, append);
         log_to(strbuf, strlen(strbuf));
         break;
     case LOG_INFO: // info
-        strcpy(strbuf, "\n[INFO] ");
+        strcpy(strbuf, "\n[INF] ");
         strcat(strbuf, append);
         log_to(strbuf, strlen(strbuf));
         break;
     case LOG_WARNING: // warning
-        strcpy(strbuf, "\n[WARNING] ");
+        strcpy(strbuf, "\n[WRN] ");
         strcat(strbuf, append);
         log_to(strbuf, strlen(strbuf));
         break;
     case LOG_ERROR: // error
-        strcpy(strbuf, "\n[ERROR] ");
+        strcpy(strbuf, "\n[ERR] ");
         strcat(strbuf, append);
         log_to(strbuf, strlen(strbuf));
         break;

@@ -29,7 +29,7 @@
 
 void fb_write_cell(unsigned int i, char c, unsigned char fg, unsigned char bg);
 void fb_set_cursor(unsigned short pos);
-void fb_write(char *buf, unsigned int len);
+void fb_write(char *buf, signed int len);
 void fb_print_after(char *buf, unsigned int len);
 void fb_backspace();
 void fb_clear();

@@ -6,6 +6,6 @@ align 4
 
 section .text
 align 4
-    mov eax, 0xCAFEBEBE
+    mov edx, 0xCAFEBEBE
     jmp $
 MODULE_END:

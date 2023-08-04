@@ -43,15 +43,30 @@ void fb_set_cursor(unsigned short pos)
 }
 
 /* high-level functions */
-void fb_write(char *buf, unsigned int len)
+void fb_write(char *buf, signed int len)
 {
-  unsigned int i = 0;
-  while (i < len)
+
+  if (len == -1) // escaped char
   {
-    fb_write_cell(i * 2, buf[i], def_fg, def_bg);
-    i++;
+    log("KBD | Escaped Character", LOG_DEBUG);
+    switch (buf[0])
+    {
+    case '\n':
+      cursor = (cursor / 80 + 1) * 80;
+      fb_set_cursor(cursor);
+      break;
+    }
   }
-  fb_set_cursor(i);
+  else
+  {
+    int i = 0;
+    while (i < len)
+    {
+      fb_write_cell(i * 2, buf[i], def_fg, def_bg);
+      i++;
+    }
+    fb_set_cursor(i);
+  }
 }
 
 void fb_print_after(char *buf, unsigned int len)
@@ -71,7 +86,7 @@ void fb_clear()
   unsigned int i = 0;
   while (i < 24 * 79)
   {
-    fb_write_cell(i * 2, ' ', def_fg, def_bg);
+    fb_write_cell(i * 2, 0x00, def_fg, def_bg);
     i++;
   }
   fb_set_cursor(0);
@@ -82,7 +97,7 @@ void fb_backspace()
   if (cursor > 0)
   {
     cursor--;
-    fb_write_cell(cursor * 2, ' ', def_fg, def_bg);
+    fb_write_cell(cursor * 2, 0x00, def_fg, def_bg);
     fb_set_cursor(cursor);
   }
 }

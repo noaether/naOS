@@ -28,9 +28,9 @@
 
 struct note
 {
-  uint8_t octave;
-  double note;
-  uint32_t duration;
+  float octave;
+  float note;
+  uint8_t duration;
 };
 
 void pit_interrupt_handler();

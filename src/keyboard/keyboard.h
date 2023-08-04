@@ -23,6 +23,7 @@ extern "C"
   void kb_init();
 
   void special_key_handler(int keycode);
+  void ctrlkey_handler(int keycode);
 #ifdef __cplusplus
 }
 #endif

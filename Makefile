@@ -2,7 +2,7 @@ OBJECTS = src/drivers/gdt.o src/loader.o src/kmain.o src/drivers.o src/lib.o \
 				src/drivers/framebuffer.o src/drivers/serial.o src/drivers/sound.o src/drivers/irq.o src/drivers/irq_asm.o src/drivers/clocks.o \
 				src/keyboard/keyboard.o \
 				src/utils/io.o src/utils/log.o src/utils/structs.o \
-				src/stdlib/stdbool.o src/stdlib/stddef.o  src/stdlib/string.o src/stdlib/types.o src/stdlib/math.o
+				src/stdlib/stdbool.o src/stdlib/stddef.o  src/stdlib/string.o src/stdlib/types.o
 CC = gcc
 CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
 					-nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c
@@ -37,4 +37,4 @@ run-b: os.iso
 		$(AS) $(ASFLAGS) $< -o $@
 
 clean:
-		rm -rf *.o src/*.o src/**/**.o src/**/**/**.o src/kernel.elf os.iso bochslog.txt program iso/modules/program
+		rm -rf *.o src/*.o src/**/**.o src/**/**/**.o src/kernel.elf os.iso bochslog.txt program.* iso/boot/modules/program
