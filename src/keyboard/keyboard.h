@@ -16,6 +16,8 @@ extern "C"
 
 #define COMMAND_BUFFER_SIZE 100
 
+#define MAX_INPUT_LENGTH 80
+
   // ----- External functions -----
 
   void handle_keyboard_interrupt();

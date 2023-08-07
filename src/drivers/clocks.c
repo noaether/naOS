@@ -3,7 +3,8 @@
 
 void pit_init(int hz)
 {
-  if(hz == 0 || hz > 1000 || hz < 18){
+  if (hz == 0 || hz > 1000 || hz < 18)
+  {
     return;
   }
 
@@ -22,3 +23,8 @@ void pit_init(int hz)
 
   asm volatile("sti");
 };
+
+void set_pit(int hz) // alias for pit_init,
+{
+  pit_init(hz);
+}

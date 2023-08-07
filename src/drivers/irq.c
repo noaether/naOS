@@ -162,10 +162,10 @@ void idt_init()
 
   load_idt(&idt_ptr);
 
-  asm volatile("cli");
+  asm volatile("cli"); // Disable interrupts
   // ioport_out(PIC1_DATA_PORT, 0xFD); <- this disabled everything but the keyboard
   ioport_out(PIC1_DATA_PORT, 0x00);
-  asm volatile("sti");
+  asm volatile("sti"); // Enable interrupts
 }
 
 // temporary handlers
@@ -173,7 +173,7 @@ void idt_init()
 void irq0_handler()
 {
   pit_interrupt_handler();
-  // log("IRQ 0", LOG_DEBUG); (logs way too much)
+  //log("IRQ 0", LOG_DEBUG); // logs way too much
   ioport_out(0x20, 0x20);
 }
 

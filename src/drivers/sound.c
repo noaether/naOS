@@ -4,7 +4,7 @@
 #include "../stdlib/types.h"
 
 struct note CMajScale[] = {
-    {OCTAVE_4, NOTE_C, 20},
+    {OCTAVE_4, NOTE_C, 0},
     {OCTAVE_4, NOTE_D, 10},
     {OCTAVE_4, NOTE_E, 10},
     {OCTAVE_4, NOTE_F, 10},
@@ -45,7 +45,7 @@ struct note CMajScale[] = {
     {OCTAVE_4, NOTE_G, 10},
     {OCTAVE_4, NOTE_E, 10},
     {OCTAVE_4, NOTE_C, 20},
-
+    {0, 0, 0} // End of array
 };
 
 struct note mary_had_a_little_lamb[] = {
@@ -86,6 +86,52 @@ struct note mary_had_a_little_lamb[] = {
     {OCTAVE_4, NOTE_E, 4},
     {OCTAVE_4, NOTE_D, 4},
     {OCTAVE_4, NOTE_C, 4},
+    {0, 0, 0} // End of array
+};
+
+struct note current_array[] = {
+    {OCTAVE_4, NOTE_C, 20},
+    {OCTAVE_4, NOTE_D, 10},
+    {OCTAVE_4, NOTE_E, 10},
+    {OCTAVE_4, NOTE_F, 10},
+    {OCTAVE_4, NOTE_G, 10},
+    {OCTAVE_4, NOTE_A, 10},
+    {OCTAVE_4, NOTE_B, 10},
+    {OCTAVE_5, NOTE_C, 20},
+    {OCTAVE_5, NOTE_D, 10},
+    {OCTAVE_5, NOTE_E, 10},
+    {OCTAVE_5, NOTE_F, 10},
+    {OCTAVE_5, NOTE_G, 10},
+    {OCTAVE_5, NOTE_A, 10},
+    {OCTAVE_5, NOTE_B, 10},
+    {OCTAVE_6, NOTE_C, 20},
+    {OCTAVE_5, NOTE_B, 10},
+    {OCTAVE_5, NOTE_A, 10},
+    {OCTAVE_5, NOTE_G, 10},
+    {OCTAVE_5, NOTE_F, 10},
+    {OCTAVE_5, NOTE_E, 10},
+    {OCTAVE_5, NOTE_D, 10},
+    {OCTAVE_5, NOTE_C, 20},
+    {OCTAVE_4, NOTE_B, 10},
+    {OCTAVE_4, NOTE_A, 10},
+    {OCTAVE_4, NOTE_G, 10},
+    {OCTAVE_4, NOTE_F, 10},
+    {OCTAVE_4, NOTE_E, 10},
+    {OCTAVE_4, NOTE_D, 10},
+    {OCTAVE_4, NOTE_C, 20},
+    {OCTAVE_4, NOTE_E, 10},
+    {OCTAVE_4, NOTE_G, 10},
+    {OCTAVE_5, NOTE_C, 20},
+    {OCTAVE_5, NOTE_E, 10},
+    {OCTAVE_5, NOTE_G, 10},
+    {OCTAVE_6, NOTE_C, 20},
+    {OCTAVE_5, NOTE_G, 10},
+    {OCTAVE_5, NOTE_E, 10},
+    {OCTAVE_5, NOTE_C, 20},
+    {OCTAVE_4, NOTE_G, 10},
+    {OCTAVE_4, NOTE_E, 10},
+    {OCTAVE_4, NOTE_C, 20},
+    {0, 0, 0} // End of array
 };
 
 static struct note *current_note = NULL;
@@ -93,16 +139,10 @@ static unsigned int current_note_index = 0; // Keep track of the current note in
 static int sound_playing = 0;               // Flag to indicate whether a sound is currently playing
 void play_array()
 {
-  sound_playing = 0;
-
-  // Set the current_note pointer to the first note in the array
-  current_note = &CMajScale[0];
-  current_note_index = 0;
-
-  nosound(); // Stop any sound that's currently playing
-
-  // Start playing the notes
   sound_playing = 1; // Set sound playing flag
+  // Set the current_note pointer to the first note in the array
+  current_note = &current_array[0];
+  current_note_index = 0;
 }
 
 void pit_interrupt_handler()
@@ -114,6 +154,11 @@ void pit_interrupt_handler()
   // Check if there's a note to play and sound is currently playing
   if (current_note != NULL && sound_playing)
   {
+    if(current_note->note == 0 && current_note->octave == 0 && current_note->duration == 0){
+      nosound();
+      current_note = NULL;
+      return;
+    }
     // Calculate the frequency for the current note
     double freq = current_note->note * current_note->octave;
     uint16_t div = (uint16_t)(1193180 / freq);
@@ -140,19 +185,8 @@ void pit_interrupt_handler()
     {
       current_note_index++; // Move to the next note in the array
 
-      // Check if we've reached the end of the notes array
-      if (current_note_index >= sizeof(CMajScale))
-      {
-        // If so, stop playing and reset the current_note pointer
-        sound_playing = 0; // Reset sound playing flag
-        current_note = 0;
-        current_note_index = 0; // Reset the note index to the beginning
-      }
-      else
-      {
-        // Otherwise, set the current note to the next note in the array
-        current_note = &CMajScale[current_note_index];
-      }
+      // Otherwise, set the current note to the next note in the array
+      current_note = &current_array[current_note_index];
     }
   }
 

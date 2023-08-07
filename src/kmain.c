@@ -51,7 +51,7 @@ int kmain(uint32_t ebx)
     start_program();
   }
 
-  pit_init(1);
+  pit_init(40);
   kb_init();
 
   enable_interrupts();
@@ -60,6 +60,10 @@ int kmain(uint32_t ebx)
 
   while (1)
   {
-    asm volatile("hlt");
+    // log("naOS> ", LOG_DEBUG);
+    // char *input = get_input();
+    // log(input, LOG_DEBUG);
+    // log("\n", LOG_DEBUG);
+    // fb_print_after("naOS> ", 6);
   }
 }

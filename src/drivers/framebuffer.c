@@ -2,6 +2,7 @@
 #include "../utils/io.h"
 
 #include "../stdlib/types.h"
+#include "../user/cmd.h"
 
 /* framebuffer mm io */
 char *fb = (char *)0x000B8000;
@@ -10,6 +11,10 @@ char *fb = (char *)0x000B8000;
 int cursor = 0;
 unsigned char def_fg = FB_WHITE;
 unsigned char def_bg = FB_BLACK;
+
+int since_enter = 0;
+
+char input_buffer[80];
 
 /* PRIMITIVE FUNCTIONS */
 
@@ -48,27 +53,33 @@ void fb_write(char *buf, signed int len)
 
   if (len == -1) // escaped char
   {
+    char since_enter_str[10];
+
     log("KBD | Escaped Character", LOG_DEBUG);
-    char line[80];
-    int i = 0;
     switch (buf[0])
     {
     case '\n':
-      // create an array of characters (max 80) from current position to last ">" character
-      while (i < 80)
+      // get since_enter amount of characters from the buffer
+      for (int i = 0; i < since_enter; i++)
       {
-        if (fb[i * 2] == '>')
-        {
-          break;
-        }
-        line[i] = fb[i * 2];
-        i++;
+        input_buffer[i] = fb[(cursor - since_enter + i) * 2];
       }
-      line[i] = '\0';
-      log(line, LOG_INFO);
+
+      input_buffer[since_enter] = '\0'; // Null-terminate the buffer
+      log(input_buffer, LOG_INFO);
 
       cursor = (cursor / 80 + 1) * 80;
       fb_set_cursor(cursor);
+
+      citoa(since_enter, since_enter_str, 10);
+
+      interpret(input_buffer, since_enter);
+
+      log(since_enter_str, LOG_DEBUG);
+
+      since_enter = 0;
+      clear(since_enter_str, 10);
+      clear(input_buffer, 80);
 
       break;
     }

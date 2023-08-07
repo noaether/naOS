@@ -10,7 +10,11 @@ bool shift_pressed = false; // Global flag to track Shift key state
 bool alt_pressed = false;   // Global flag to track Alt key state
 bool ctrl_pressed = false;  // Global flag to track Ctrl key state
 
-void kb_init() {
+char input_buffer[MAX_INPUT_LENGTH];
+int input_buffer_index = 0;
+
+void kb_init()
+{
   // do nothing
 }
 
@@ -44,7 +48,9 @@ void handle_keyboard_interrupt()
       {
         // Alt key released
         alt_pressed = false;
-      } else if (keycode == -99) {
+      }
+      else if (keycode == -99)
+      {
         // CTRL
         ctrl_pressed = false;
       }
@@ -65,14 +71,17 @@ void handle_keyboard_interrupt()
       {
         // Alt key pressed
         alt_pressed = true;
-      } else if (keycode == 58) {
+      }
+      else if (keycode == 58)
+      {
         // Caps lock
         shift_pressed = !shift_pressed;
-      } else if (keycode == 29) {
+      }
+      else if (keycode == 29)
+      {
         // CTRL
         ctrl_pressed = true;
       }
-
     }
 
     // Check if it's a key press event (the most significant bit is clear)
@@ -116,6 +125,8 @@ void handle_keyboard_interrupt()
       log(ascii, LOG_INFO); // Pass ascii char to the log function
 
       fb_print_after(ascii, 1);
+
+      since_enter++;
     }
   }
   else
@@ -141,10 +152,13 @@ void special_key_handler(int keycode)
   else if ((14 - keycode) == 0)
   {
     fb_backspace();
-  } else if /* enter key */ ((28 - keycode) == 0)
+  }
+  else if /* enter key */ ((28 - keycode) == 0)
   {
     char enter[] = "\n";
     fb_write(enter, -1);
+
+    fb_print_after("naOS> ", 6);
   }
   else
   {
@@ -152,8 +166,11 @@ void special_key_handler(int keycode)
   }
 }
 
-void ctrlkey_handler(int keycode) {
-  if(keycode == 46) {
+void ctrlkey_handler(int keycode)
+{
+  if (keycode == 46)
+  {
+    //play_array();
     fb_write("\n", -1);
     fb_print_after("naOS> ", 6);
   }
