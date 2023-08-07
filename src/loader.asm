@@ -39,7 +39,7 @@ loader:                       ; the loader label (defined as the entry point in 
 	mov esp, kernel_stack        ; set the stack pointer
 	cli                          ; Disable interrupts
 
-    push ebx
+  push ebx
 	call kmain
-    pop ebx
+  pop ebx
 	hlt

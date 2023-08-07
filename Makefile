@@ -13,9 +13,9 @@ ASFLAGS = -f elf
 all: kernel.elf
 
 program.bin:
-		nasm -f elf32 src/program.asm -o program.o
-		ld -m elf_i386 -Ttext 0x0 --oformat binary program.o -o program.bin
-		cp program.bin iso/boot/modules/program
+		nasm -f elf32 src/modules/initfpu.s -o src/modules/initfpu.out
+		ld -m elf_i386 -Ttext 0x0 --oformat binary src/modules/initfpu.out -o src/modules/initfpu.bin
+		cp src/modules/initfpu.bin iso/boot/modules/initfpu
 
 kernel.elf: $(OBJECTS) program.bin
 		ld $(LDFLAGS) $(OBJECTS) -o src/kernel.elf
@@ -37,4 +37,4 @@ run-b: os.iso
 		$(AS) $(ASFLAGS) $< -o $@
 
 clean:
-		rm -rf *.o src/*.o src/**/**.o src/**/**/**.o src/kernel.elf os.iso bochslog.txt program.* iso/boot/modules/program
+		rm -rf src/*.o src/drivers/*.o src/keyboard/*.o src/utils/*.o src/stdlib/*.o src/modules/*.o src/*.elf *.iso *.bin iso/boot/*.bin iso/boot/*.elf iso/boot/modules/*

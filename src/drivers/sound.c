@@ -93,6 +93,8 @@ static unsigned int current_note_index = 0; // Keep track of the current note in
 static int sound_playing = 0;               // Flag to indicate whether a sound is currently playing
 void play_array()
 {
+  sound_playing = 0;
+
   // Set the current_note pointer to the first note in the array
   current_note = &CMajScale[0];
   current_note_index = 0;
@@ -159,9 +161,8 @@ void pit_interrupt_handler()
 }
 void nosound()
 {
+  sound_playing = 0;
+
   uint8_t tmp = inb(0x61) & 0xFC;
   outb(0x61, tmp);
-
-  // Clear sound_playing flag
-  sound_playing = 0;
 }

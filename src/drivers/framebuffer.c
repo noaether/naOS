@@ -49,11 +49,27 @@ void fb_write(char *buf, signed int len)
   if (len == -1) // escaped char
   {
     log("KBD | Escaped Character", LOG_DEBUG);
+    char line[80];
+    int i = 0;
     switch (buf[0])
     {
     case '\n':
+      // create an array of characters (max 80) from current position to last ">" character
+      while (i < 80)
+      {
+        if (fb[i * 2] == '>')
+        {
+          break;
+        }
+        line[i] = fb[i * 2];
+        i++;
+      }
+      line[i] = '\0';
+      log(line, LOG_INFO);
+
       cursor = (cursor / 80 + 1) * 80;
       fb_set_cursor(cursor);
+
       break;
     }
   }

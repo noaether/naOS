@@ -26,8 +26,6 @@ int kmain(uint32_t ebx)
 
   configure_log(conf);
 
-  remap_pic();
-
   load_gdt();
   idt_init();
 
@@ -42,7 +40,11 @@ int kmain(uint32_t ebx)
     uint32_t module_start = module->mod_start;
     uint32_t module_end = module->mod_end;
 
-    (void)module_end;
+    if (module_end < module_start || module_end == module_start)
+    {
+      log("Module end is less than module start", LOG_ERROR);
+      return 1;
+    }
 
     // Execute the module
     call_module_t start_program = (call_module_t)module_start;
@@ -53,10 +55,8 @@ int kmain(uint32_t ebx)
   kb_init();
 
   enable_interrupts();
-  nosound();
 
   play_array();
-  nosound();
 
   while (1)
   {
