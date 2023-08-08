@@ -38,4 +38,4 @@ run-b: os.iso
 		$(AS) $(ASFLAGS) $< -o $@
 
 clean:
-		rm -rf src/*.o src/drivers/*.o src/keyboard/*.o src/utils/*.o src/stdlib/*.o src/modules/*.o src/*.elf *.iso *.bin iso/boot/*.bin iso/boot/*.elf iso/boot/modules/*
+		rm -rf src/*.o src/drivers/*.o src/keyboard/*.o src/utils/*.o src/user/*.o src/stdlib/*.o src/modules/*.o src/*.elf *.iso *.bin iso/boot/*.bin iso/boot/*.elf iso/boot/modules/*
