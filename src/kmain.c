@@ -12,7 +12,7 @@
 
 typedef void (*call_module_t)(void);
 
-int kmain(/*uint32_t ebx*/)
+int kmain(uint32_t ebx)
 {
   disable_interrupts();
 
@@ -47,7 +47,7 @@ int kmain(/*uint32_t ebx*/)
   strcat(fifthLine, cpuBrand);
   fb_println(fifthLine, 32 + strlen(cpuBrand));
 
-  fb_println("|_| |_|\\__,_|\\____/|_____/", 29);
+  fb_println(" |_| |_|\\__,_|\\____/|_____/", 28);
 
   load_gdt();
   idt_init();
@@ -57,7 +57,7 @@ int kmain(/*uint32_t ebx*/)
   log(cpuModel, LOG_INFO);
   log(cpuBrand, LOG_INFO);
 
-  /*struct multiboot_info *mbinfo = (struct multiboot_info *)ebx;
+  struct multiboot_info *mbinfo = (struct multiboot_info *)ebx;
 
   if (mbinfo->mods_count > 0)
   {
@@ -81,11 +81,10 @@ int kmain(/*uint32_t ebx*/)
 
   pit_init(20);
   enable_interrupts();
-  //play_array();
+  play_array();
 
   kb_init();
 
-  */
   while (1)
   {
     asm volatile("hlt");

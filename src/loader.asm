@@ -39,7 +39,7 @@ jmp CODE_SEG:.setcs           ; Set CS to our 32 - bit flat code selector
 	mov esp, kernel_stack        ; set the stack pointer
 	cli                          ; Disable interrupts
 
-	;push ebx
+	push ebx
 	call kmain
-	;pop ebx
+	pop ebx
 	hlt

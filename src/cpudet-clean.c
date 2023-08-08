@@ -213,25 +213,22 @@ char *intel_brand(int signature, int brand)
   int eax, ebx, ecx, edx, unused;
   unsigned int max_eax;
 
+  static char reg1[16], reg2[16], reg3[16];
+
   cpuid(0x80000000, max_eax, unused, unused, unused);
 
   if (max_eax >= 0x80000004)
   {
-    if (max_eax >= 0x80000002)
-    {
-      cpuid(0x80000002, eax, ebx, ecx, edx);
-      return printregs(eax, ebx, ecx, edx);
-    }
-    if (max_eax >= 0x80000003)
-    {
-      cpuid(0x80000003, eax, ebx, ecx, edx);
-      return printregs(eax, ebx, ecx, edx);
-    }
-    if (max_eax >= 0x80000004)
-    {
-      cpuid(0x80000004, eax, ebx, ecx, edx);
-      return printregs(eax, ebx, ecx, edx);
-    }
+    cpuid(0x80000002, eax, ebx, ecx, edx);
+    strcpy(reg1, printregs(eax, ebx, ecx, edx));
+
+    cpuid(0x80000003, unused, ebx, ecx, edx);
+    strcpy(reg2, printregs(unused, ebx, ecx, edx));
+
+    cpuid(0x80000004, unused, ebx, ecx, edx);
+    strcpy(reg3, printregs(unused, ebx, ecx, edx));
+
+    return reg1;
   }
   else if (brand > 0)
   {
