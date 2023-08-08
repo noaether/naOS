@@ -6,5 +6,6 @@
 #define PIT_COMMAND_PORT 0x43
 
 void pit_init(int hz);
+void set_pit(int hz); // alias for pit_init
 
 #endif // CLOCKS_H

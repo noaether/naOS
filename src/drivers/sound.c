@@ -1,5 +1,6 @@
 #include "sound.h"
 #include "irq.h"
+#include "clocks.h"
 #include "../utils/io.h"
 #include "../stdlib/types.h"
 
@@ -98,11 +99,12 @@ struct note boot_melody[] = {
 };
 
 struct note current_array[] = {
-    {OCTAVE_4, NOTE_C, 100},
-    {OCTAVE_4, NOTE_E, 20},
-    {OCTAVE_4, NOTE_FS, 20},
-    {OCTAVE_4, NOTE_AS, 20},
-    {OCTAVE_5, NOTE_C, 20},
+    {OCTAVE_4, NOTE_C, 10},
+    {OCTAVE_4, NOTE_E, 10},
+    {OCTAVE_4, NOTE_FS, 10},
+    {OCTAVE_4, NOTE_AS, 10},
+    {OCTAVE_5, NOTE_C, 10},
+    {0, 0, 0},
 };
 
 static struct note *current_note = NULL;
@@ -110,6 +112,7 @@ static unsigned int current_note_index = 0; // Keep track of the current note in
 static int sound_playing = 0;               // Flag to indicate whether a sound is currently playing
 void play_array()
 {
+  set_pit(20);
   sound_playing = 1; // Set sound playing flag
   // Set the current_note pointer to the first note in the array
   current_note = &current_array[0];
@@ -127,10 +130,17 @@ void pit_interrupt_handler()
   {
     if (current_note->note == 0 && current_note->octave == 0 && current_note->duration == 0)
     {
-      nosound();
-      current_note = NULL;
-      asm volatile("int $0x29");
-      return;
+      if (current_note_index == 0)
+      {
+        current_note_index++;
+      }
+      else
+      {
+        nosound();
+        current_note = NULL;
+        asm volatile("int $0x29");
+        return;
+      }
     }
     // Calculate the frequency for the current note
     double freq = current_note->note * current_note->octave;
@@ -154,7 +164,7 @@ void pit_interrupt_handler()
     current_note->duration--;
 
     // Check if the note duration is complete
-    if (current_note->duration <= 0 || current_note_index == 0)
+    if (current_note->duration <= 0)
     {
       current_note_index++; // Move to the next note in the array
 

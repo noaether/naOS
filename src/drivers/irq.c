@@ -174,7 +174,7 @@ void idt_init()
 void irq0_handler()
 {
   pit_interrupt_handler();
-  //log("IRQ 0", LOG_DEBUG); // logs way too much
+  // log("IRQ 0", LOG_DEBUG); // logs way too much
   ioport_out(0x20, 0x20);
 }
 
