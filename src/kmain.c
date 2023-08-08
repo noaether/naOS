@@ -58,12 +58,7 @@ int kmain(uint32_t ebx)
 
   play_array();
 
-  while (1)
-  {
-    // log("naOS> ", LOG_DEBUG);
-    // char *input = get_input();
-    // log(input, LOG_DEBUG);
-    // log("\n", LOG_DEBUG);
-    // fb_print_after("naOS> ", 6);
+  while(1) {
+    asm volatile("hlt");
   }
 }

@@ -60,9 +60,15 @@ void fb_write(char *buf, signed int len)
     {
     case '\n':
       // get since_enter amount of characters from the buffer
-      for (int i = 0; i < since_enter; i++)
+      for (uint8_t i = 0; i < since_enter; i++)
       {
         input_buffer[i] = fb[(cursor - since_enter + i) * 2];
+      }
+
+      if (cursor > (79 * 24))
+      {
+        fb_clear();
+        fb_write("naOS> ", 6);
       }
 
       input_buffer[since_enter] = '\0'; // Null-terminate the buffer
@@ -96,7 +102,7 @@ void fb_write(char *buf, signed int len)
   }
 }
 
-void fb_print_after(char *buf, unsigned int len)
+void fb_print_after(char *buf, size_t len)
 {
   unsigned int i = 0;
   while (i < len)
@@ -106,6 +112,13 @@ void fb_print_after(char *buf, unsigned int len)
     cursor++;
   }
   fb_set_cursor(cursor);
+}
+
+void fb_println(char *buf, size_t len)
+{
+  since_enter = 0;
+  fb_print_after(buf, len);
+  fb_write("\n", -1);
 }
 
 void fb_clear()
@@ -121,8 +134,9 @@ void fb_clear()
 
 void fb_backspace()
 {
-  if (cursor > 0)
+  if (cursor > 0 && since_enter > 0)
   {
+    since_enter--;
     cursor--;
     fb_write_cell(cursor * 2, 0x00, def_fg, def_bg);
     fb_set_cursor(cursor);
