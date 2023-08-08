@@ -22,13 +22,40 @@ int kmain(/*uint32_t ebx*/)
 
   configure_log(conf);
 
-  static char naOS[] = "               ____   _____ \n              / __ \\ / ____|\n  _ __   __ _| |  | | (___  \n | '_ \\ / _` | |  | |\\___ \\ \n | | | | (_| | |__| |____) |\n |_| |_|\\__,_|\\____/|_____/ \n                            ";
-  fb_print_after(naOS, 203);
+  struct cpuInfoStruct cpu = detect_cpu();
+
+  static char firstLine[] = "               ____   _____ ";
+  fb_println(firstLine, 29);
+
+  char secondLine[] = "              / __ \\ / ____| > ";
+  char *cpuType = cpu.cpuTypeString;
+  strcat(secondLine, cpuType);
+  fb_println(secondLine, 32 + strlen(cpuType));
+
+  char thirdLine[] = "  _ __   __ _| |  | | (___   > ";
+  char *cpuFamily = cpu.cpuFamilyString;
+  strcat(thirdLine, cpuFamily);
+  fb_println(thirdLine, 32 + strlen(cpuFamily));
+
+  char fourthLine[] = " | '_ \\ / _` | |  | |\\___ \\  > ";
+  char *cpuModel = cpu.cpuModelString;
+  strcat(fourthLine, cpuModel);
+  fb_println(fourthLine, 32 + strlen(cpuModel));
+
+  char fifthLine[] = " | | | | (_| | |__| |____) | > ";
+  char *cpuBrand = cpu.cpuBrandString;
+  strcat(fifthLine, cpuBrand);
+  fb_println(fifthLine, 32 + strlen(cpuBrand));
+
+  fb_println("|_| |_|\\__,_|\\____/|_____/", 29);
 
   load_gdt();
   idt_init();
 
-  detect_cpu();
+  log(cpuType, LOG_INFO);
+  log(cpuFamily, LOG_INFO);
+  log(cpuModel, LOG_INFO);
+  log(cpuBrand, LOG_INFO);
 
   /*struct multiboot_info *mbinfo = (struct multiboot_info *)ebx;
 
@@ -58,7 +85,8 @@ int kmain(/*uint32_t ebx*/)
 
   kb_init();
 
-  */while (1)
+  */
+  while (1)
   {
     asm volatile("hlt");
   }
