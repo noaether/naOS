@@ -27,7 +27,7 @@ kernel_stack:                 ; label points to the beginning of memory
 
 loader:                       ; the loader label (defined as the entry point in the linker script)
 	lgdt [gdt_descriptor]        ; https: / / stackoverflow.com / a / 62885681 / 17631126
-    jmp CODE_SEG:.setcs           ; Set CS to our 32 - bit flat code selector
+jmp CODE_SEG:.setcs           ; Set CS to our 32 - bit flat code selector
 
 .setcs:
 	mov ax, DATA_SEG             ; Setup the segment registers with our flat data selector
@@ -39,7 +39,7 @@ loader:                       ; the loader label (defined as the entry point in 
 	mov esp, kernel_stack        ; set the stack pointer
 	cli                          ; Disable interrupts
 
-  push ebx
+	;push ebx
 	call kmain
-  pop ebx
+	;pop ebx
 	hlt
