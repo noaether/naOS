@@ -4,6 +4,7 @@
 #include "../utils/io.h"
 
 #include "sound.h"
+#include "framebuffer.h"
 
 struct IDT_entry IDT[256];
 
@@ -233,7 +234,10 @@ void irq8_handler()
 
 void irq9_handler()
 {
-  // free_for_peripherals_handler();
+  // sound done
+  fb_clear();
+  fb_write("naOS> ", 6);
+
   ioport_out(0x20, 0x20);
   log("IRQ 9", LOG_DEBUG);
 }

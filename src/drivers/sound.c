@@ -89,49 +89,20 @@ struct note mary_had_a_little_lamb[] = {
     {0, 0, 0} // End of array
 };
 
+struct note boot_melody[] = {
+    {OCTAVE_4, NOTE_C, 10},
+    {OCTAVE_4, NOTE_E, 10},
+    {OCTAVE_4, NOTE_FS, 10},
+    {OCTAVE_4, NOTE_AS, 10},
+    {OCTAVE_5, NOTE_C, 10},
+};
+
 struct note current_array[] = {
-    {OCTAVE_4, NOTE_C, 20},
-    {OCTAVE_4, NOTE_D, 10},
-    {OCTAVE_4, NOTE_E, 10},
-    {OCTAVE_4, NOTE_F, 10},
-    {OCTAVE_4, NOTE_G, 10},
-    {OCTAVE_4, NOTE_A, 10},
-    {OCTAVE_4, NOTE_B, 10},
+    {OCTAVE_4, NOTE_C, 100},
+    {OCTAVE_4, NOTE_E, 20},
+    {OCTAVE_4, NOTE_FS, 20},
+    {OCTAVE_4, NOTE_AS, 20},
     {OCTAVE_5, NOTE_C, 20},
-    {OCTAVE_5, NOTE_D, 10},
-    {OCTAVE_5, NOTE_E, 10},
-    {OCTAVE_5, NOTE_F, 10},
-    {OCTAVE_5, NOTE_G, 10},
-    {OCTAVE_5, NOTE_A, 10},
-    {OCTAVE_5, NOTE_B, 10},
-    {OCTAVE_6, NOTE_C, 20},
-    {OCTAVE_5, NOTE_B, 10},
-    {OCTAVE_5, NOTE_A, 10},
-    {OCTAVE_5, NOTE_G, 10},
-    {OCTAVE_5, NOTE_F, 10},
-    {OCTAVE_5, NOTE_E, 10},
-    {OCTAVE_5, NOTE_D, 10},
-    {OCTAVE_5, NOTE_C, 20},
-    {OCTAVE_4, NOTE_B, 10},
-    {OCTAVE_4, NOTE_A, 10},
-    {OCTAVE_4, NOTE_G, 10},
-    {OCTAVE_4, NOTE_F, 10},
-    {OCTAVE_4, NOTE_E, 10},
-    {OCTAVE_4, NOTE_D, 10},
-    {OCTAVE_4, NOTE_C, 20},
-    {OCTAVE_4, NOTE_E, 10},
-    {OCTAVE_4, NOTE_G, 10},
-    {OCTAVE_5, NOTE_C, 20},
-    {OCTAVE_5, NOTE_E, 10},
-    {OCTAVE_5, NOTE_G, 10},
-    {OCTAVE_6, NOTE_C, 20},
-    {OCTAVE_5, NOTE_G, 10},
-    {OCTAVE_5, NOTE_E, 10},
-    {OCTAVE_5, NOTE_C, 20},
-    {OCTAVE_4, NOTE_G, 10},
-    {OCTAVE_4, NOTE_E, 10},
-    {OCTAVE_4, NOTE_C, 20},
-    {0, 0, 0} // End of array
 };
 
 static struct note *current_note = NULL;
@@ -154,9 +125,11 @@ void pit_interrupt_handler()
   // Check if there's a note to play and sound is currently playing
   if (current_note != NULL && sound_playing)
   {
-    if(current_note->note == 0 && current_note->octave == 0 && current_note->duration == 0){
+    if (current_note->note == 0 && current_note->octave == 0 && current_note->duration == 0)
+    {
       nosound();
       current_note = NULL;
+      asm volatile("int $0x29");
       return;
     }
     // Calculate the frequency for the current note
@@ -181,7 +154,7 @@ void pit_interrupt_handler()
     current_note->duration--;
 
     // Check if the note duration is complete
-    if (current_note->duration <= 0)
+    if (current_note->duration <= 0 || current_note_index == 0)
     {
       current_note_index++; // Move to the next note in the array
 
