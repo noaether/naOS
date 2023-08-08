@@ -121,7 +121,6 @@ void handle_keyboard_interrupt()
         special_key_handler(keycode);
         return;
       }
-
       log(ascii, LOG_INFO); // Pass ascii char to the log function
 
       fb_print_after(ascii, 1);

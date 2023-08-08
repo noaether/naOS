@@ -53,39 +53,54 @@ void fb_write(char *buf, signed int len)
 
   if (len == -1) // escaped char
   {
+    log("KBD | Escaped Character", LOG_DEBUG);
+
     char since_enter_str[10];
 
-    log("KBD | Escaped Character", LOG_DEBUG);
     switch (buf[0])
     {
     case '\n':
-      // get since_enter amount of characters from the buffer
-      for (uint8_t i = 0; i < since_enter; i++)
+      if (since_enter == 0)
       {
-        input_buffer[i] = fb[(cursor - since_enter + i) * 2];
-      }
+        if (cursor > (80 * 24))
+        {
+          fb_clear();
+          fb_write("naOS> ", 6);
+        }
 
-      if (cursor > (79 * 24))
+        cursor = (cursor / 80 + 1) * 80;
+        fb_set_cursor(cursor);
+      }
+      else
       {
-        fb_clear();
-        fb_write("naOS> ", 6);
+        // get since_enter amount of characters from the buffer
+        for (uint8_t i = 0; i < since_enter; i++)
+        {
+          input_buffer[i] = fb[(cursor - since_enter + i) * 2];
+        }
+
+        input_buffer[since_enter] = '\0'; // Null-terminate the buffer
+        log(input_buffer, LOG_INFO);
+
+        if (cursor > (80 * 24))
+        {
+          fb_clear();
+          fb_write("naOS> ", 6);
+        }
+
+        cursor = (cursor / 80 + 1) * 80;
+        fb_set_cursor(cursor);
+
+        citoa(since_enter, since_enter_str, 10);
+
+        interpret(input_buffer, since_enter);
+
+        log(since_enter_str, LOG_DEBUG);
+
+        since_enter = 0;
+        clear(since_enter_str, 10);
+        clear(input_buffer, 80);
       }
-
-      input_buffer[since_enter] = '\0'; // Null-terminate the buffer
-      log(input_buffer, LOG_INFO);
-
-      cursor = (cursor / 80 + 1) * 80;
-      fb_set_cursor(cursor);
-
-      citoa(since_enter, since_enter_str, 10);
-
-      interpret(input_buffer, since_enter);
-
-      log(since_enter_str, LOG_DEBUG);
-
-      since_enter = 0;
-      clear(since_enter_str, 10);
-      clear(input_buffer, 80);
 
       break;
     }
@@ -107,9 +122,17 @@ void fb_print_after(char *buf, size_t len)
   unsigned int i = 0;
   while (i < len)
   {
-    fb_write_cell(cursor * 2, buf[i], def_fg, def_bg);
+    if (buf[i] == '\n')
+    {
+      since_enter = 0;
+      fb_write("\n", -1);
+    }
+    else
+    {
+      fb_write_cell(cursor * 2, buf[i], def_fg, def_bg);
+      cursor++;
+    }
     i++;
-    cursor++;
   }
   fb_set_cursor(cursor);
 }

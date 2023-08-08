@@ -14,17 +14,14 @@ int kmain(uint32_t ebx)
 {
   disable_interrupts();
 
-  char welcome[] = "Welcome to naOS";
-  char hello[] = "Hello Noa";
-
   struct logConfigStruct conf = {LOG_DEBUG, LOG_SERIAL};
-
-  fb_print_after(welcome, sizeof(welcome));
-  fb_print_after(hello, sizeof(hello));
 
   serial_setup(SERIAL_COM1_BASE);
 
   configure_log(conf);
+
+  static char naOS[] = "               ____   _____ \n              / __ \\ / ____|\n  _ __   __ _| |  | | (___  \n | '_ \\ / _` | |  | |\\___ \\ \n | | | | (_| | |__| |____) |\n |_| |_|\\__,_|\\____/|_____/ \n                            ";
+  fb_print_after(naOS, 203);
 
   load_gdt();
   idt_init();
@@ -51,14 +48,14 @@ int kmain(uint32_t ebx)
     start_program();
   }
 
-  pit_init(40);
-  kb_init();
-
+  pit_init(20);
   enable_interrupts();
-
   play_array();
 
-  while(1) {
+  kb_init();
+
+  while (1)
+  {
     asm volatile("hlt");
   }
 }
