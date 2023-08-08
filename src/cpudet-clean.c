@@ -33,8 +33,8 @@
 
 /* Required Declarations */
 struct cpuInfoStruct do_intel(void);
-struct cpuInfoStruct do_amd(void);
-void printregs(int eax, int ebx, int ecx, int edx);
+int do_amd(void);
+char *printregs(int eax, int ebx, int ecx, int edx);
 
 #define cpuid(in, a, b, c, d) __asm__("cpuid"                              \
                                       : "=a"(a), "=b"(b), "=c"(c), "=d"(d) \
@@ -45,15 +45,17 @@ struct cpuInfoStruct detect_cpu(void)
 { /* or main() if your trying to port this as an independant application */
   unsigned long ebx, unused;
   cpuid(0, unused, ebx, unused, unused);
+  struct cpuInfoStruct cpuInfo = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
   switch (ebx)
   {
   case 0x756e6547: /* Intel Magic Code */
     return do_intel();
-  case 0x68747541: /* AMD Magic Code */
-    return do_amd();
+  case 0x68747541:  /* AMD Magic Code */
+    return cpuInfo; // do_amd() goes here, but i havent adapted it yet
   default:
-    return {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    return cpuInfo;
   }
+  return cpuInfo;
 }
 
 /* Intel Specific brand list */
@@ -206,61 +208,56 @@ char *intel_model(int family, int model)
   return "Unknown";
 }
 
-char *intel_brand(int eax, int ebx, int ecx, int edx, unsigned int max_eax, int unused, int signature, int brand)
+char *intel_brand(int signature, int brand)
 {
+  int eax, ebx, ecx, edx, unused;
+  unsigned int max_eax;
+
   cpuid(0x80000000, max_eax, unused, unused, unused);
-  /* Quok said: If the max extended eax value is high enough to support the processor brand string
-  (values 0x80000002 to 0x80000004), then we'll use that information to return the brand information.
-  Otherwise, we'll refer back to the brand tables above for backwards compatibility with older processors.
-  According to the Sept. 2006 Intel Arch Software Developer's Guide, if extended eax values are supported,
-  then all 3 values for the processor brand string are supported, but we'll test just to make sure and be safe. */
+
   if (max_eax >= 0x80000004)
   {
-    fb_print_after("Brand - ", 9);
     if (max_eax >= 0x80000002)
     {
       cpuid(0x80000002, eax, ebx, ecx, edx);
-      printregs(eax, ebx, ecx, edx);
+      return printregs(eax, ebx, ecx, edx);
     }
     if (max_eax >= 0x80000003)
     {
       cpuid(0x80000003, eax, ebx, ecx, edx);
-      printregs(eax, ebx, ecx, edx);
+      return printregs(eax, ebx, ecx, edx);
     }
     if (max_eax >= 0x80000004)
     {
       cpuid(0x80000004, eax, ebx, ecx, edx);
-      printregs(eax, ebx, ecx, edx);
+      return printregs(eax, ebx, ecx, edx);
     }
-    fb_write("\n", -1);
   }
   else if (brand > 0)
   {
-    fb_print_after("Brand - ", 9);
     if (brand < 0x18)
     {
       if (signature == 0x000006B1 || signature == 0x00000F13)
       {
-        fb_print_after(Intel_Other[brand], strlen(Intel_Other[brand]));
+        return Intel_Other[brand];
       }
       else
       {
-        fb_print_after(Intel[brand], strlen(Intel[brand]));
+        return Intel[brand];
       }
     }
     else
     {
-      fb_print_after("Reserved\n", 10);
+      return "Unknown";
     }
   }
+  return "Error";
 }
 
 /* Intel-specific information */
 struct cpuInfoStruct do_intel(void)
 {
-  fb_write("\n", -1);
-  fb_print_after("Intel Specific Features:\n", 25);
-  unsigned long eax, ebx, ecx, edx, max_eax, signature, unused;
+  unsigned long eax, ebx, signature, unused;
   int model, family, type, brand, stepping, reserved;
   cpuid(1, eax, ebx, unused, unused);
   model = (eax >> 4) & 0xf;
@@ -274,26 +271,27 @@ struct cpuInfoStruct do_intel(void)
   char *cputype = intel_type(type);
   char *cpufamily = intel_family(family);
   char *cpumodel = intel_model(family, model);
-  char *cpubrand = intel_brand(eax, ebx, ecx, edx, max_eax, unused, signature, brand);
+  char *cpubrand = intel_brand(signature, brand);
 
   struct cpuInfoStruct cpuInfo = {model, family, type, brand, stepping, reserved, "GenuineIntel", cputype, cpufamily, cpumodel, cpubrand};
   return cpuInfo;
 }
 
 /* Print Registers */
-void printregs(int eax, int ebx, int ecx, int edx)
+char *printregs(int eax, int ebx, int ecx, int edx)
 {
-  int j;
-  char string[17];
+  static char string[17]; // Statically allocated array
+
   string[16] = '\0';
-  for (j = 0; j < 4; j++)
+  for (int j = 0; j < 4; j++)
   {
     string[j] = eax >> (8 * j);
     string[j + 4] = ebx >> (8 * j);
     string[j + 8] = ecx >> (8 * j);
     string[j + 12] = edx >> (8 * j);
   }
-  fb_print_after(string, 17);
+
+  return string;
 }
 
 /* AMD-specific information */

@@ -16,11 +16,11 @@ struct cpuInfoStruct
     int cpuStepping;
     int cpuReserved;
 
-    char cpuVendor[13];
-    char cpuTypeString[49];
-    char cpuFamilyString[49];
-    char cpuModelString[49];
-    char cpuBrandString[49];
+    char* cpuVendor;
+    char* cpuTypeString;
+    char* cpuFamilyString;
+    char* cpuModelString;
+    char* cpuBrandString;
 } __attribute__((packed)) cpuInfo_t;
 
 #endif // STRUCTS_H
