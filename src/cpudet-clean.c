@@ -27,6 +27,7 @@
 
 #include "stdlib/string.h"
 #include "utils/structs.h"
+#include "utils/log.h"
 
 /* You need to include a file with fairly(ish) compliant fb_print_after prototype, Decimal and String support like %s and %d and this is truely all you need! */
 // #include <stdio.h> /* for fb_print_after(); */

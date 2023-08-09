@@ -22,7 +22,7 @@ void interpret(char string[], size_t len)
   switch (first_char)
   {
   case 'h': // Help
-    fb_println("Commands: h - help, c - clear, l - log, e - echo, p - play", 59);
+    fb_println("Commands: h - help, c - clear, l - log, e - echo, p - play, q - quit", 59);
     break;
   case 'c': // Clear
     fb_set_cursor(0);
@@ -43,6 +43,11 @@ void interpret(char string[], size_t len)
     break;
   case 'p': // Play
     play_array();
+    break;
+  case 'q':
+    log("CMD | Quit", LOG_INFO);
+    log("Quitting...", LOG_INFO);
+    asm volatile("hlt");
     break;
   default:
     log("Unknown command: ", LOG_INFO);
