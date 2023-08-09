@@ -3,13 +3,13 @@
 
 char *strcat(char *dest, const char *src)
 {
-    size_t i, j;
-    for (i = 0; dest[i] != '\0'; i++)
+    char *rdest = dest;
+
+    while (*dest)
+        dest++;
+    while ((*dest++ = *src++))
         ;
-    for (j = 0; src[j] != '\0'; j++)
-        dest[i + j] = src[j];
-    dest[i + j] = '\0';
-    return dest;
+    return rdest;
 }
 
 char *strcpy(char *dest, const char *src)

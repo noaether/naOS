@@ -213,7 +213,7 @@ char *intel_brand(int signature, int brand)
   int eax, ebx, ecx, edx, unused;
   unsigned int max_eax;
 
-  static char reg1[16], reg2[16], reg3[16];
+  static char reg1[17], reg2[17], reg3[17];
 
   cpuid(0x80000000, max_eax, unused, unused, unused);
 
@@ -227,6 +227,17 @@ char *intel_brand(int signature, int brand)
 
     cpuid(0x80000004, unused, ebx, ecx, edx);
     strcpy(reg3, printregs(unused, ebx, ecx, edx));
+
+    strcat(reg1, reg2);
+    strcat(reg1, reg3);
+
+    for (int i = 0; i < 48; i++)
+    {
+      if (reg1[i] == 0x08)
+      {
+        reg1[i] = '-';
+      }
+    }
 
     return reg1;
   }
