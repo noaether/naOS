@@ -32,16 +32,16 @@ char *strcpy(char *dest, const char *src)
     return temp;
 } // https://stackoverflow.com/a/20190538
 
-char *strncpy(char *s, const char *ct, size_t n)
+char *strncpy(char *dest, const char *src, size_t n)
 {
     char *p;
 
-    p = s;
-    for (; n > 0 && *ct != '\0'; --n)
-        *p++ = *ct++;
+    p = dest;
+    for (; n > 0 && *src != '\0'; --n)
+        *p++ = *src++;
     for (; n > 0; --n)
         *p++ = '\0';
-    return s;
+    return dest;
 } // https://clc-wiki.net/wiki/K&R2_solutions:Chapter_5:Exercise_5 https://stackoverflow.com/a/1996991/17631126
 
 size_t strlen(const char *str)
