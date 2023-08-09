@@ -12,6 +12,18 @@ char *strcat(char *dest, const char *src)
     return rdest;
 }
 
+char *strncat(char *dest, char *src, size_t n)
+{
+    while (*dest)
+        dest++;
+
+    while (n-- && *src)
+        *dest = *src, dest++, src++;
+
+    *dest = '\0';
+    return dest;
+} // https://stackoverflow.com/q/1996950/17631126
+
 char *strcpy(char *dest, const char *src)
 {
     char *temp = dest;

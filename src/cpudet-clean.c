@@ -212,32 +212,23 @@ char *intel_brand(int signature, int brand)
 {
   int eax, ebx, ecx, edx, unused;
   unsigned int max_eax;
-
-  static char reg1[17], reg2[17], reg3[17];
-
   cpuid(0x80000000, max_eax, unused, unused, unused);
 
   if (max_eax >= 0x80000004)
   {
+    static char reg1[17], reg2[17], reg3[17];
+
     cpuid(0x80000002, eax, ebx, ecx, edx);
-    strcpy(reg1, printregs(eax, ebx, ecx, edx));
+    strncpy(reg1, printregs(eax, ebx, ecx, edx), 16);
 
     cpuid(0x80000003, unused, ebx, ecx, edx);
-    strcpy(reg2, printregs(unused, ebx, ecx, edx));
+    strncpy(reg2, printregs(unused, ebx, ecx, edx), 16);
 
     cpuid(0x80000004, unused, ebx, ecx, edx);
-    strcpy(reg3, printregs(unused, ebx, ecx, edx));
+    strncpy(reg3, printregs(unused, ebx, ecx, edx), 16);
 
-    strcat(reg1, reg2);
-    strcat(reg1, reg3);
-
-    for (int i = 0; i < 48; i++)
-    {
-      if (reg1[i] == 0x08)
-      {
-        reg1[i] = '-';
-      }
-    }
+    strncat(reg1, reg2, 16);
+    strncat(reg1, reg3, 16);
 
     return reg1;
   }
@@ -288,9 +279,8 @@ struct cpuInfoStruct do_intel(void)
 /* Print Registers */
 char *printregs(int eax, int ebx, int ecx, int edx)
 {
-  static char string[17]; // Statically allocated array
+  static char string[16]; // Statically allocated array
 
-  string[16] = '\0';
   for (int j = 0; j < 4; j++)
   {
     string[j] = eax >> (8 * j);
