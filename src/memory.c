@@ -1,10 +1,20 @@
 #include "memory.h"
+#include "stdlib/types.h"
 
 typedef struct free_block
 {
   size_t size;
   struct free_block *next;
 } free_block;
+
+uintptr_t current_break; // Some global variable for your application.
+                         // This would probably be properly tracked by the OS for the process
+void *sbrk(intptr_t incr)
+{
+  uintptr_t old_break = current_break;
+  current_break += incr;
+  return (void *)old_break;
+} // https://stackoverflow.com/a/2076547/17631126
 
 void memcpy(void *dest, void *src, size_t n)
 {
@@ -33,8 +43,8 @@ void clear(void *dest, size_t n)
 }
 
 static free_block free_block_list_head = {0, 0}; // https://stackoverflow.com/a/5422447/17631126
-static const size_t overhead = sizeof(size_t); // https://stackoverflow.com/a/5422447/17631126
-static const size_t align_to = 16; // https://stackoverflow.com/a/5422447/17631126
+//static const size_t overhead = sizeof(size_t);   // https://stackoverflow.com/a/5422447/17631126
+static const size_t align_to = 16;               // https://stackoverflow.com/a/5422447/17631126
 
 void *malloc(size_t size)
 {
