@@ -34,7 +34,7 @@
 
 /* Required Declarations */
 struct cpuInfoStruct do_intel(void);
-int do_amd(void);
+struct cpuInfoStruct do_amd(void);
 char *printregs(int eax, int ebx, int ecx, int edx);
 
 #define cpuid(in, a, b, c, d) __asm__("cpuid"                              \
@@ -51,8 +51,8 @@ struct cpuInfoStruct detect_cpu(void)
   {
   case 0x756e6547: /* Intel Magic Code */
     return do_intel();
-  case 0x68747541:  /* AMD Magic Code */
-    return cpuInfo; // do_amd() goes here, but i havent adapted it yet
+  case 0x68747541:   /* AMD Magic Code */
+    return do_amd(); // do_amd() goes here, but i havent adapted it yet
   default:
     return cpuInfo;
   }
@@ -217,21 +217,21 @@ char *intel_brand(int signature, int brand)
 
   if (max_eax >= 0x80000004)
   {
-    static char reg1[17], reg2[17], reg3[17];
+    static char reg1_intel[17], reg2_intel[17], reg3_intel[17];
 
     cpuid(0x80000002, eax, ebx, ecx, edx);
-    strncpy(reg1, printregs(eax, ebx, ecx, edx), 16);
+    strncpy(reg1_intel, printregs(eax, ebx, ecx, edx), 16);
 
     cpuid(0x80000003, unused, ebx, ecx, edx);
-    strncpy(reg2, printregs(unused, ebx, ecx, edx), 16);
+    strncpy(reg2_intel, printregs(unused, ebx, ecx, edx), 16);
 
     cpuid(0x80000004, unused, ebx, ecx, edx);
-    strncpy(reg3, printregs(unused, ebx, ecx, edx), 16);
+    strncpy(reg3_intel, printregs(unused, ebx, ecx, edx), 16);
 
-    strncat(reg1, reg2, 16);
-    strncat(reg1, reg3, 16);
+    strncat(reg1_intel, reg2_intel, 16);
+    strncat(reg1_intel, reg3_intel, 16);
 
-    return reg1;
+    return reg1_intel;
   }
   else if (brand > 0)
   {
@@ -293,25 +293,26 @@ char *printregs(int eax, int ebx, int ecx, int edx)
   return string;
 }
 
-/* AMD-specific information */
-int do_amd(void)
+char *amd_family(int family)
 {
-  fb_print_after("AMD Specific Features:\n", 24);
-  unsigned long extended, eax, ebx, ecx, edx, unused;
-  int family, model, stepping, reserved;
-  cpuid(1, eax, unused, unused, unused);
-  model = (eax >> 4) & 0xf;
-  family = (eax >> 8) & 0xf;
-  stepping = eax & 0xf;
-  reserved = eax >> 12;
-  (void)stepping;
-  (void)reserved;
-  fb_print_after("Family & Model: ", 17);
   switch (family)
   {
   case 4:
-    fb_print_after("486 Model", 10);
-    break;
+    return "486";
+  case 5:
+    return "K5/K6";
+  case 6:
+    return "Duron/Athlon";
+  }
+  return "Unknown";
+}
+
+char *amd_model(int family, int model)
+{
+  switch (family)
+  {
+  case 4:
+    return "486 Model";
   case 5:
     switch (model)
     {
@@ -321,66 +322,86 @@ int do_amd(void)
     case 3:
     case 6:
     case 7:
-      fb_print_after("K6 Model", 9);
-      break;
+      return "K6 Model";
     case 8:
-      fb_print_after("K6-2 Model 8", 13);
-      break;
+      return "K6-2 Model 8";
     case 9:
-      fb_print_after("K6-III Model 9", 15);
-      break;
+      return "K6-III Model 9";
     default:
-      fb_print_after("K5/K6 Model", 12);
-      break;
+      return "K5/K6 Model";
     }
-    break;
   case 6:
     switch (model)
     {
     case 1:
     case 2:
     case 4:
-      fb_print_after("Athlon Model", 13);
-      break;
+      return "Athlon Model";
     case 3:
-      fb_print_after("Duron Model 3", 14);
-      break;
+      return "Duron Model 3";
     case 6:
-      fb_print_after("Athlon MP/Mobile Athlon Model 6", 32);
-      break;
+      return "Athlon MP/Mobile Athlon Model 6";
     case 7:
-      fb_print_after("Mobile Duron Model 7", 21);
-      break;
+      return "Mobile Duron Model 7";
     default:
-      fb_print_after("Duron/Athlon Model", 19);
-      break;
+      return "Duron/Athlon";
     }
-    break;
   }
-  fb_write("\n", -1);
+  return "Unknown";
+}
+
+char *amd_brand()
+{
+  unsigned long extended, eax, ebx, ecx, edx, unused;
+
   cpuid(0x80000000, extended, unused, unused, unused);
   if (extended == 0)
   {
-    return 0;
-  }
+    return "Unknown";
+  } else
   if (extended >= 0x80000002)
   {
-    unsigned int j;
-    fb_print_after("Detected Processor Name: ", 26);
-    for (j = 0x80000002; j <= 0x80000004; j++)
-    {
-      cpuid(j, eax, ebx, ecx, edx);
-      printregs(eax, ebx, ecx, edx);
-    }
-    fb_write("\n", -1);
+    static char reg1_amd[17], reg2_amd[17], reg3_amd[17];
+
+    cpuid(0x80000002, eax, ebx, ecx, edx);
+    strncpy(reg1_amd, printregs(eax, ebx, ecx, edx), 16);
+
+    cpuid(0x80000003, eax, ebx, ecx, edx);
+    printregs(eax, ebx, ecx, edx);
+    strncpy(reg2_amd, printregs(eax, ebx, ecx, edx), 16);
+
+    cpuid(0x80000004, eax, ebx, ecx, edx);
+    printregs(eax, ebx, ecx, edx);
+    strncpy(reg3_amd, printregs(eax, ebx, ecx, edx), 16);
+
+    strcat(reg1_amd, reg2_amd);
+    strcat(reg1_amd, reg3_amd);
+
+    return reg1_amd;
   }
-  if (extended >= 0x80000007)
+  else
   {
-    cpuid(0x80000007, unused, unused, unused, edx);
-    if (edx & 1)
-    {
-      fb_print_after("Temperature Sensing Diode Detected!\n", 37);
-    }
+    return "Unknown";
   }
-  return 0;
+}
+
+/* AMD-specific information */
+struct cpuInfoStruct do_amd(void)
+{
+  fb_print_after("AMD Specific Features:\n", 24);
+  unsigned long eax, unused;
+  int family, model, stepping, reserved;
+  cpuid(1, eax, unused, unused, unused);
+  model = (eax >> 4) & 0xf;
+  family = (eax >> 8) & 0xf;
+  stepping = eax & 0xf;
+  reserved = eax >> 12;
+
+  char *cpufamily = amd_family(family);
+  char *cpumodel = amd_model(family, model);
+  char *cpubrand = amd_brand();
+
+  struct cpuInfoStruct cpuInfo = {model, family, 0, 0, stepping, reserved, "AuthenticAMD", 0, cpufamily, cpumodel, cpubrand};
+
+  return cpuInfo;
 }
