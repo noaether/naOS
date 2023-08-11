@@ -108,7 +108,7 @@ struct note current_array[] = {
 };
 
 static struct note *current_note = NULL;
-static unsigned int current_note_index = 0; // Keep track of the current note index
+static int current_note_index = -1; // Keep track of the current note index
 static int sound_playing = 0;               // Flag to indicate whether a sound is currently playing
 void play_array()
 {
