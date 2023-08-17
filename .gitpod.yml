@@ -5,10 +5,11 @@
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 
 tasks:
+  - before: >
+      [[ ! -z $GNUPG  ]] &&
+      gpg --verbose --batch --import <(echo $GNUPG|base64 -d) &&
+      echo 'pinentry-mode loopback' >> ~/.gnupg/gpg.conf
   - init: make
-  - name: Local terminal
-    init: git config --global gpg.format ssh && git config --global user.signingkey "$SSH_SIGNING_KEY" && git config commit.gpgsign true --global
-    command: bash
   - name: Install GRUB
     before: cd ../ && wget ftp://ftp.gnu.org/gnu/grub/grub-2.06.tar.gz
     init: cd grub-2.06 && sudo ./configure && sudo make install
