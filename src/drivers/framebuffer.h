@@ -29,8 +29,6 @@
 
 #include "../stdlib/stddef.h"
 
-int since_enter;
-
 void fb_write_cell(unsigned int i, char c, unsigned char fg, unsigned char bg);
 void fb_set_cursor(unsigned short pos);
 void fb_write(char *buf, signed int len);

@@ -1,17 +1,14 @@
 #include "keyboard.h"
 #include "keyboard_map.h"
 
-#include "../drivers/irq.h"
-
 #include "../drivers.h"
 #include "../utils/io.h"
+
+#include "../user/cmd.h"
 
 bool shift_pressed = false; // Global flag to track Shift key state
 bool alt_pressed = false;   // Global flag to track Alt key state
 bool ctrl_pressed = false;  // Global flag to track Ctrl key state
-
-char input_buffer[MAX_INPUT_LENGTH];
-int input_buffer_index = 0;
 
 void kb_init()
 {

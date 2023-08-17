@@ -21,6 +21,6 @@ struct cpuInfoStruct
     char* cpuFamilyString;
     char* cpuModelString;
     char* cpuBrandString;
-} __attribute__((packed)) cpuInfo_t;
+} __attribute__((packed));
 
 #endif // STRUCTS_H

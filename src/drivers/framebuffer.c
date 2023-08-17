@@ -12,8 +12,6 @@ int cursor = 0;
 unsigned char def_fg = FB_WHITE;
 unsigned char def_bg = FB_BLACK;
 
-int since_enter = 0;
-
 char input_buffer[80];
 
 /* PRIMITIVE FUNCTIONS */

@@ -9,6 +9,8 @@
 
 #include "cmd.h"
 
+int since_enter = 0;
+
 void interpret(char string[], size_t len)
 {
   const char first_char = string[0];

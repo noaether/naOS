@@ -7,6 +7,7 @@
 
 #include "drivers/irq.h"
 #include "drivers/clocks.h"
+#include "user/cmd.h"
 
 #include "multiboot.h"
 
@@ -78,6 +79,8 @@ int kmain(uint32_t ebx)
     call_module_t start_program = (call_module_t)module_start;
     start_program();
   }
+
+  since_enter = 0;
 
   pit_init(20);
   enable_interrupts();
