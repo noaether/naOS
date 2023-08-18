@@ -11,7 +11,7 @@
 - [x] Memory Segmentation
 - [ ] User Mode
 - [ ] ???
-- [ ] Signing commits on gitpod
+- [x] Signing commits on gitpod
 
 ## Using the OS
 
