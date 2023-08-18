@@ -5,16 +5,29 @@
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 
 tasks:
-  - before: >
+  - init: make
+  - name : GitHub Signing
+    before: >
       [[ ! -z $GNUPG  ]] &&
       gpg --verbose --batch --import <(echo $GNUPG|base64 -d) &&
       echo 'pinentry-mode loopback' >> ~/.gnupg/gpg.conf
-  - init: make
-  - name: Install GRUB
-    before: cd ../ && wget ftp://ftp.gnu.org/gnu/grub/grub-2.06.tar.gz
-    init: cd grub-2.06 && sudo ./configure && sudo make install
+    init: >
+      git config --global --unset gpg.format &&
+      git config --global commit.gpgsign true &&
+      git config --global user.signingkey $( gpg --list-secret-keys --with-colons | awk -F: '$1 == "sec" {print $5}' ) &&
+      [ -f ~/.bashrc ] && echo -e '\nexport GPG_TTY=$(tty)' >> ~/.bashrc
   - name: Install deps
-    init: sudo apt-get install -y build-essential nasm genisoimage bochs bochs-sdl
+    init: sudo apt-get install -y flex build-essential nasm genisoimage bochs bochs-sdl
+  - name: Install GRUB
+    before: >
+      cd ../ && 
+      wget ftp://ftp.gnu.org/gnu/grub/grub-2.06.tar.gz && 
+      zcat grub-2.06.tar.gz | tar xvf -
+    init: >
+      cd grub-2.06 && 
+      ./configure && 
+      sudo make install
+
 
 additionalRepositories:
   - url: https://github.com/noaether/nassembly
