@@ -13,6 +13,7 @@ tasks:
     init: >
       git config --global --unset gpg.format &&
       git config --global commit.gpgsign true &&
+    command: >
       git config --global user.signingkey $( gpg --list-secret-keys --with-colons | awk -F: '$1 == "sec" {print $5}' ) &&
       [ -f ~/.bashrc ] && echo -e '\nexport GPG_TTY=$(tty)' >> ~/.bashrc
   - name: Install deps
