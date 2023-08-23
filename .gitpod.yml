@@ -12,12 +12,18 @@ ports:
 tasks:
   - name : GitHub Signing
     before: |
-      gpg --verbose --batch --import $(echo $GNUPG|base64 -d)
-      echo 'pinentry-mode loopback' >> ~/.gnupg/gpg.conf
-      git config --global --unset gpg.format
-      git config --global commit.gpgsign true
-      git config --global user.signingkey $( gpg --list-secret-keys --with-colons | awk -F: '$1 == "sec" {print $5}' )
-      [ -f ~/.bashrc ] && echo -e '\nexport GPG_TTY=$(tty)' >> ~/.bashrc
+    echo $GNUPG | base64 -d > /tmp/gnupg_data
+    gpg --verbose --batch --import /tmp/gnupg_data
+    rm /tmp/gnupg_data
+    
+    echo 'pinentry-mode loopback' >> ~/.gnupg/gpg.conf
+    git config --global --unset gpg.format
+    git config --global commit.gpgsign true
+    
+    secret_key=$(gpg --list-secret-keys --with-colons | awk -F: '$1 == "sec" {print $5}')
+    git config --global user.signingkey $secret_key
+    
+    [ -f ~/.bashrc ] && echo -e '\nexport GPG_TTY=$(tty)' >> ~/.bashrc
   - name: Install GRUB
     before: >
       cd ../ &&
