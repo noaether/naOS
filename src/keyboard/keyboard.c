@@ -118,7 +118,7 @@ void handle_keyboard_interrupt()
         special_key_handler(keycode);
         return;
       }
-      log(ascii, LOG_INFO); // Pass ascii char to the log function
+      log(ascii, LOG_DEBUG); // Pass ascii char to the log function
 
       fb_print_after(ascii, 1);
 
@@ -158,7 +158,7 @@ void special_key_handler(int keycode)
   }
   else
   {
-    log(keycode_str, LOG_INFO);
+    log(keycode_str, LOG_DEBUG);
   }
 }
 

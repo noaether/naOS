@@ -63,11 +63,13 @@ void fb_write(char *buf, signed int len)
         if (cursor > (80 * 24))
         {
           fb_clear();
-          fb_write("naOS> ", 6);
-        }
-
+          fb_set_cursor(0);
+          fb_clear();
+          break;
+        } else {
         cursor = (cursor / 80 + 1) * 80;
         fb_set_cursor(cursor);
+        }
       }
       else
       {
@@ -145,7 +147,7 @@ void fb_println(char *buf, size_t len)
 void fb_clear()
 {
   unsigned int i = 0;
-  while (i < 24 * 79)
+  while (i < 25 * 80)
   {
     fb_write_cell(i * 2, 0x00, def_fg, def_bg);
     i++;

@@ -10,6 +10,8 @@
 - [x] Full Interrupt Range handling 
 - [x] Memory Segmentation
 - [ ] User Mode
+- [ ] System Calls
+- [ ] File System
 - [ ] ???
 - [x] Signing commits on gitpod
 
