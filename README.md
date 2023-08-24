@@ -7,7 +7,7 @@
 - [x] 3-layer Keyboard Support
 - [x] Editing Console with KBD
 - [x] Simple note-based audio (Also supports frequencies)
-- [x] Full Interrupt Range handling 
+- [x] Full Interrupt Range handling
 - [x] Memory Segmentation
 - [ ] User Mode
 - [ ] System Calls
@@ -19,14 +19,14 @@
 
 ### Building
 
-### Running 
+### Running
 
 ### Testing
 
-## Contributing 
+## Contributing
 
 ## License
 
 ## Authors and Contributors
 
-## References 
+## References
