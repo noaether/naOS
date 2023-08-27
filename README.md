@@ -1,4 +1,4 @@
-# naOS - A full OS from scratch
+# naOS - A full OS* from scratch
 
 ## Features and Future
 
@@ -30,3 +30,5 @@
 ## Authors and Contributors
 
 ## References
+
+[*] Except for the bootloader
