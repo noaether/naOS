@@ -12,9 +12,10 @@ ports:
 tasks:
   - name : GitHub Signing
     before: >
-      gpg --verbose --batch --import <(echo $GNUPG|base64 -d) \
-      && echo 'pinentry-mode loopback' >> ~/.gnupg/gpg.conf
+      gpg --verbose --batch --import <(echo $GNUPG|base64 -d)
+  - name : GitHub Signing Part 2
     init: >
+      echo 'pinentry-mode loopback' >> ~/.gnupg/gpg.conf
       git config --global --unset gpg.format \
       && git config --global commit.gpgsign true
     command: >
