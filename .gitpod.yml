@@ -15,8 +15,8 @@ tasks:
       gpg --verbose --batch --import <(echo $GNUPG|base64 -d)
   - name : GitHub Signing Part 2
     init: >
-      echo 'pinentry-mode loopback' >> ~/.gnupg/gpg.conf
-      git config --global --unset gpg.format \
+      echo 'pinentry-mode loopback' >> ~/.gnupg/gpg.conf \
+      && git config --global --unset gpg.format \
       && git config --global commit.gpgsign true
     command: >
       git config --global user.signingkey $( gpg --list-secret-keys --with-colons | awk -F: '$1 == "sec" {print $5}' ) \
