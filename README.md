@@ -26,14 +26,15 @@
 ## Contributing
 
 ## License
+See [LICENSE](LICENSE)
 
 ## Authors and Contributors
+Me :D
 
 ## References
 Helin, E., & Renberg, A. (2015, January 19). *The little book about OS development.* [http://littleosbook.github.io/](http://littleosbook.github.io/) \
-Loyd, A., Helin, E., & Renberg, A. (2023, July 11). *The little book about OS development.* [https://ordoflammae.github.io/littleosbook/](https://ordoflammae.github.io/littleosbook/)
-OSDev Wiki Contributors. (2023, July 9). *osdev.wiki.* [https://osdev.wiki/](https://osdev.wiki/)
-
-
+Loyd, A., Helin, E., & Renberg, A. (2023, July 11). *The little book about OS development.* [https://ordoflammae.github.io/littleosbook/](https://ordoflammae.github.io/littleosbook/) \
+OSDev Wiki Contributors. (2023, July 9). *osdev.wiki.* [https://osdev.wiki/](https://osdev.wiki/) \
+OSDev Wiki Contributors. (2008-2023). OSDev Wiki. *OS Development Wiki.* [https://wiki.osdev.org/](https://wiki.osdev.org/)
 
 [^1]: Except for the bootloader
