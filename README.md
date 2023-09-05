@@ -16,17 +16,21 @@
 - [x] Signing commits on gitpod
 
 ## Using the OS
+
 read the makefile and figure it out *(documentation coming soon:tm:)*
 
 ## Contributing
+
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) [^5]
 
 ## License
+
 See [LICENSE](LICENSE)
 
 ## Authors and Contributors
+
 Me :D *(with the help of all those amazing people)*
- 
+
  <!-- basing this whole section on the fact that github rearranges markdown references numbers -->
 [^1]: Loyd, A., Helin, E., & Renberg, A. (2023, July 11). *The little book about OS development.* [https://ordoflammae.github.io/littleosbook/](https://ordoflammae.github.io/littleosbook/)
 [^2]: Helin, E., & Renberg, A. (2015, January 19). *The little book about OS development.* [http://littleosbook.github.io/](http://littleosbook.github.io/)
