@@ -26,10 +26,8 @@ See [LICENSE](LICENSE)
 
 ## Authors and Contributors
 Me :D
-
-## References
+ 
  <!-- basing this whole section on the fact that github rearranges markdown references numbers -->
-
 [^1]: Loyd, A., Helin, E., & Renberg, A. (2023, July 11). *The little book about OS development.* [https://ordoflammae.github.io/littleosbook/](https://ordoflammae.github.io/littleosbook/)
 [^2]: Helin, E., & Renberg, A. (2015, January 19). *The little book about OS development.* [http://littleosbook.github.io/](http://littleosbook.github.io/)
 [^3]: Kiper, Daniel., Burmashev, Alex., Serbinenko, Vladimir., Dubbs, Bruce. (2021, August 31). *GNU GRUB - GNU Project - Free Software Foundation (FSF).* [https://www.gnu.org/software/grub/](https://www.gnu.org/software/grub/)
