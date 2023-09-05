@@ -8,4 +8,8 @@
 void pit_init(int hz);
 void set_pit(int hz); // alias for pit_init
 
+#define CURRENT_YEAR 2023 // Change this each year!
+
+char* read_rtc();
+
 #endif // CLOCKS_H

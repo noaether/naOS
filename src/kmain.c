@@ -69,6 +69,11 @@ int kmain(uint32_t ebx)
     uint32_t module_start = module->mod_start;
     uint32_t module_end = module->mod_end;
 
+    if (mbinfo->mods_count > 1)
+    {
+      log("More than one module found, only the first one will be executed", LOG_WARNING);
+    }
+
     if (module_end < module_start || module_end == module_start)
     {
       log("Module end is less than module start", LOG_ERROR);
@@ -81,6 +86,10 @@ int kmain(uint32_t ebx)
   }
 
   since_enter = 0;
+
+  char *currentTime = read_rtc();
+  log(currentTime, LOG_INFO);
+
 
   pit_init(20);
   enable_interrupts();
