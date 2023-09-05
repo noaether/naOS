@@ -1,14 +1,14 @@
-# naOS - A full[^1] OS from scratch
+# naOS - A full[^3] OS from scratch
 
 ## Features and Future
 
-- [x] Console Output [^1]
+- [x] Console Output [^1] [^2]
 - [x] Serial Output [^1] [^4]
 - [x] 3-layer Keyboard Support
 - [x] Editing Console with KBD
-- [x] Simple note-based audio (Also supports frequencies) [^8]
+- [x] Simple note-based audio (Also supports frequencies) [^8] [^9]
 - [x] Full Interrupt Range handling [^6] [^10]
-- [x] Memory Segmentation
+- [x] Memory Segmentation [^11]
 - [ ] User Mode
 - [ ] System Calls
 - [ ] File System
@@ -19,7 +19,7 @@
 read the makefile and figure it out *(documentation coming soon:tm:)*
 
 ## Contributing
-See [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) [^2]
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) [^5]
 
 ## License
 See [LICENSE](LICENSE)
@@ -37,4 +37,4 @@ Me :D
 [^10]: OSDev Wiki contributors. (2008-2023). OSDev Wiki. *Programmable Interval Timer - OSDev Wiki.* [https://wiki.osdev.org/Pit](https://wiki.osdev.org/Pit)
 [^5]: Boettger, Tom. (2023, June 6). *CONTRIBUTING.md GENERATOR.* [https://generator.contributing.md/](https://generator.contributing.md/)
 [^6]: Wikipedia contributors. (2023, July 21). *Interrupt request - Wikipedia.* [https://en.wikipedia.org/wiki/Interrupt_request](https://en.wikipedia.org/w/index.php?title=Interrupt_request&oldid=1166440048)
-[^7]: OSDev Wiki Contributors. (2023, July 9). *osdev.wiki.* [https://osdev.wiki/](https://osdev.wiki/) 
+[^11]: GeeksforGeeks. (2022). *Difference between paging and segmentation - GeeksforGeeks.* [https://www.geeksforgeeks.org/difference-between-paging-and-segmentation/](https://www.geeksforgeeks.org/difference-between-paging-and-segmentation/)
