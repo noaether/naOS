@@ -16,12 +16,7 @@
 - [x] Signing commits on gitpod
 
 ## Using the OS
-
-### Building
-
-### Running
-
-### Testing
+read the makefile and figure it out *(documentation coming soon:tm:)*
 
 ## Contributing
 
