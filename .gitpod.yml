@@ -12,7 +12,7 @@ ports:
 tasks:
   - name : GitHub Signing
     before: >
-      gpg --verbose --batch --import <(echo $GNUPG|base64 -d)
+      gpg --verbose --batch --import <(echo $GNUPG | base64 -d)
   - name : GitHub Signing Part 2
     init: >
       echo 'pinentry-mode loopback' >> ~/.gnupg/gpg.conf \
