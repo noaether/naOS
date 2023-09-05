@@ -26,7 +26,7 @@ os.iso: kernel.elf
 		grub-mkrescue -o os.iso iso
 
 run-q: os.iso
-		qemu-system-i386 os.iso -m 4M -soundhw pcspk -serial file:com1.out -rtc base=utc -d int,cpu_reset,pcall,guest_errors,unimp -no-reboot
+		qemu-system-i386 os.iso -m 4M -soundhw pcspk -serial file:com1.out -rtc base=localtime -d int,cpu_reset,pcall,guest_errors,unimp -no-reboot
 
 run-b: os.iso
 		bochs -f bochsrc.txt -q
