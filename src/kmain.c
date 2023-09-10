@@ -11,6 +11,8 @@
 
 #include "multiboot.h"
 
+#include "filesystem/start.h"
+
 typedef void (*call_module_t)(void);
 
 int kmain(uint32_t ebx)
@@ -87,9 +89,10 @@ int kmain(uint32_t ebx)
 
   since_enter = 0;
 
-  char *currentTime = read_rtc();
-  log(currentTime, LOG_INFO);
+  fs_main();
 
+  /*char *currentTime = read_rtc();
+  log(currentTime, LOG_INFO);*/
 
   pit_init(20);
   enable_interrupts();
