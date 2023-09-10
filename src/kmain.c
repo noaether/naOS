@@ -12,6 +12,7 @@
 #include "multiboot.h"
 
 #include "filesystem/start.h"
+#include "filesystem/fileops.h"
 
 typedef void (*call_module_t)(void);
 
