@@ -1,6 +1,8 @@
 #include "../memory.h"
 #include "__constants.h"
 
+#include "../lib.h"
+
 // Function to create a new file
 int createFile(const char *name, uint16_t permissions)
 {
