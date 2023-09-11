@@ -11,7 +11,7 @@
 - [x] Memory Segmentation [^11]
 - [ ] User Mode
 - [ ] System Calls
-- [ ] File System
+- [x] File System
 - [ ] ???
 - [x] Signing commits on gitpod
 
