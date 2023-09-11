@@ -14,6 +14,8 @@ int strncmp(const char *s1, const char *s2, size_t n);
 char *citoa(int num, char *str, int base);
 void reverse(char str[], int length);
 
+char* strtok(char* s, char* delm);
+
 typedef char char_t;
 typedef unsigned char uchar_t;
 

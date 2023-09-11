@@ -1,5 +1,6 @@
 #include "stddef.h"
 #include "stdbool.h"
+#include "../memory.h"
 
 char *strcat(char *dest, const char *src)
 {
@@ -142,5 +143,65 @@ char *citoa(int num, char *str, int base)
     // Reverse the string
     reverse(str, i);
 
+    return str;
+}
+
+#define DICT_LEN 256
+
+int *create_delim_dict(char *delim)
+{
+    int *d = (int *)malloc(sizeof(int) * DICT_LEN);
+    memset((void *)d, 0, sizeof(int) * DICT_LEN);
+
+    size_t i;
+    for (i = 0; i < strlen(delim); i++)
+    {
+        d[(unsigned int) delim[i]] = 1;
+    }
+    return d;
+}
+
+char *strtok(char *str, char *delim)
+{
+
+    static char *last, *to_free;
+    int *deli_dict = create_delim_dict(delim);
+
+    if (!deli_dict)
+    {
+        return NULL;
+    }
+
+    if (str)
+    {
+        last = (char *)malloc(strlen(str) + 1);
+        if (!last)
+        {
+            free(deli_dict);
+        }
+        to_free = last;
+        strcpy(last, str);
+    }
+
+    while (deli_dict[(unsigned int) *last] && *last != '\0')
+    {
+        last++;
+    }
+    str = last;
+    if (*last == '\0')
+    {
+        free(deli_dict);
+        free(to_free);
+        return NULL;
+    }
+    while (*last != '\0' && !deli_dict[(unsigned int) *last])
+    {
+        last++;
+    }
+
+    *last = '\0';
+    last++;
+
+    free(deli_dict);
     return str;
 }
