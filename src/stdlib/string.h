@@ -3,6 +3,8 @@
 
 #include "stddef.h"
 
+#define DICT_LEN 256
+
 char *strcat(char *dest, const char *src);
 char *strncat(char *dest, char *src, size_t n);
 char *strcpy(char *dest, const char *src);

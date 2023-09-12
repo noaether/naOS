@@ -146,8 +146,6 @@ char *citoa(int num, char *str, int base)
     return str;
 }
 
-#define DICT_LEN 256
-
 int *create_delim_dict(char *delim)
 {
     int *d = (int *)malloc(sizeof(int) * DICT_LEN);
