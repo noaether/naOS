@@ -3,9 +3,16 @@
 
 #include "../lib.h"
 
-// Function to create a new file
+/*
+ * 1. Find an empty slot in the file table
+ * 2. Check if there is an available slot
+ * 3. Initialize file information
+ * 4. Allocate memory for file content
+ */
 int createFile(const char *name, uint16_t permissions)
 {
+  // TODO : Write documentation for permissions
+
   // Find an empty slot in the file table
   int empty_slot = -1;
   for (int i = 0; i < MAX_FILES; i++)
