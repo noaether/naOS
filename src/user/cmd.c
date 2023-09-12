@@ -36,6 +36,8 @@ void interpret(char string[], size_t len)
 
     writeFile(argslist, endbuffer, 1024);
 
+    fb_println("File written succesfully !", 27);
+
     break;
   case 'r': // read file readfile
     argslist = strtok(NULL, del); // arg1
@@ -44,8 +46,6 @@ void interpret(char string[], size_t len)
     fb_println(endbuffer, strlen(endbuffer));
     break;
   case 't':
-    log("test args", LOG_DEBUG);
-
     while (argslist != NULL)
     {
       log(argslist, LOG_DEBUG);
