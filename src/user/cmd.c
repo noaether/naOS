@@ -38,21 +38,17 @@ void interpret(char string[], size_t len)
 
     break;
   case 'r': // read file readfile
-    log(argslist, LOG_INFO);
     argslist = strtok(NULL, del); // arg1
+    readFile(argslist, endbuffer, sizeof(endbuffer));
 
-    char buffer[1024];
-
-    readFile(argslist, buffer, sizeof(buffer));
-
-    fb_println(buffer, strlen(buffer));
+    fb_println(endbuffer, strlen(endbuffer));
     break;
   case 't':
-    log("test args", LOG_INFO);
+    log("test args", LOG_DEBUG);
 
     while (argslist != NULL)
     {
-      log(argslist, LOG_INFO);
+      log(argslist, LOG_DEBUG);
       argslist = strtok(NULL, del);
     }
     break;
@@ -64,29 +60,29 @@ void interpret(char string[], size_t len)
     fb_clear();
     break;
   case 'l': // e.g. > log hello world
-    /*strncpy(args, string, len - 4);
-    reverse(args, len - 4);
-    log("CMD | Log", LOG_INFO);
-    log(args, LOG_INFO);*/
+    strncpy(endbuffer, string, len - 4);
+    reverse(endbuffer, len - 4);
+    log("CMD | Log", LOG_DEBUG);
+    log(endbuffer, LOG_DEBUG);
     break;
   case 'e': // e.g. > echo hello world
-    /*strncpy(args, string, len - 5);
-    reverse(args, len - 5);
-    log("CMD | Echo", LOG_INFO);
-    log(args, LOG_INFO);
-    fb_println(args, len - 5);*/
+    strncpy(endbuffer, string, len - 5);
+    reverse(endbuffer, len - 5);
+    log("CMD | Echo", LOG_DEBUG);
+    log(endbuffer, LOG_DEBUG);
+    fb_println(endbuffer, len - 5);
     break;
   case 'p': // Play
     play_array();
     break;
   case 'q':
-    log("CMD | Quit", LOG_INFO);
-    log("Quitting...", LOG_INFO);
+    log("CMD | Quit", LOG_DEBUG);
+    log("Quitting...", LOG_DEBUG);
     asm volatile("hlt");
     break;
   default:
-    log("Unknown command: ", LOG_INFO);
-    log(string, LOG_INFO);
+    log("Unknown command: ", LOG_DEBUG);
+    log(string, LOG_DEBUG);
     break;
   }
 };
