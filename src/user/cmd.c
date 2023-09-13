@@ -26,6 +26,7 @@ void interpret(char string[], size_t len)
   switch (first_char)
   {
   case 'w': // write file writefile
+  // TODO : ADD ERROR HANDLING
     argslist = strtok(NULL, del); // move to arg1
 
     createFile(argslist, 0x06);
@@ -40,6 +41,7 @@ void interpret(char string[], size_t len)
 
     break;
   case 'r': // read file readfile
+  // TODO : ADD ERROR HANDLING
     argslist = strtok(NULL, del); // arg1
     readFile(argslist, endbuffer, sizeof(endbuffer));
 
