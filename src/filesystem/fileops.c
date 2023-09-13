@@ -11,7 +11,7 @@
  */
 int createFile(const char *name, uint16_t permissions)
 {
-  // TODO : Write documentation for permissions
+  // TODO : WRITE DOCUMENTATION FOR PERMISSIONS
 
   // Find an empty slot in the file table
   int empty_slot = -1;
@@ -145,4 +145,10 @@ int deleteFile(const char *name)
   }
 
   return -2; // File not found
+}
+
+// Function to list all files
+struct FileInformation* listfiles()
+{
+  return file_table;
 }

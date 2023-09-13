@@ -40,6 +40,8 @@ int cmos_ready()
   return (inb(cmos_data) & 0x80);
 };
 
+
+// TODO : MAKE IT ACTUALLY WORK
 char *read_rtc() // https://wiki.osdev.org/Talk:CMOS#Reading_and_sanitizing_the_RTC
 {
   char *time = malloc(10);
@@ -81,5 +83,5 @@ char *read_rtc() // https://wiki.osdev.org/Talk:CMOS#Reading_and_sanitizing_the_
   }
   time[3] = (time[3] + 5) % 7;
 
-  return "hello";
+  return time;
 }
