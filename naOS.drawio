@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-09-14T22:34:15.934Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="9A_poTtBfOQ_j0E9lnIO" version="21.7.5" type="github" pages="3">
+<mxfile host="app.diagrams.net" modified="2023-09-14T22:41:24.408Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="_R5z7T6U_Nw-viDB_KpB" version="21.7.5" type="github" pages="3">
   <diagram name="Boot Process" id="qeCUHLNeH_I6itKI6iWI">
     <mxGraphModel dx="1366" dy="760" grid="1" gridSize="10" guides="0" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="840" pageHeight="840" math="0" shadow="0">
       <root>
@@ -206,12 +206,21 @@
     </mxGraphModel>
   </diagram>
   <diagram id="u6wlHDlPQqQzHQk25PU8" name="C Kernel">
-    <mxGraphModel dx="1434" dy="798" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="840" pageHeight="840" math="0" shadow="0">
+    <mxGraphModel dx="925" dy="515" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="840" pageHeight="840" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="u6LTa-KtCXMSif8_UyxM-1" value="Higher Kernel (C)&amp;nbsp;" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="40" y="40" width="200" height="760" as="geometry" />
+        </mxCell>
+        <mxCell id="C7-VNkW6KrO2ZqXV8lAq-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="u6LTa-KtCXMSif8_UyxM-1" source="uJ6YiSzbETvIWXvMKduG-1" target="C7-VNkW6KrO2ZqXV8lAq-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uJ6YiSzbETvIWXvMKduG-1" value="Disable Interrupts" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="u6LTa-KtCXMSif8_UyxM-1">
+          <mxGeometry x="40" y="40" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="C7-VNkW6KrO2ZqXV8lAq-1" value="Configure Logging" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="u6LTa-KtCXMSif8_UyxM-1">
+          <mxGeometry x="40" y="80" width="120" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
