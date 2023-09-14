@@ -20,9 +20,9 @@ int kmain(uint32_t ebx)
 {
   disable_interrupts();
 
-  struct logConfigStruct conf = {LOG_DEBUG, LOG_SERIAL};
-
   serial_setup(SERIAL_COM1_BASE);
+
+  struct logConfigStruct conf = {LOG_DEBUG, LOG_SERIAL};
 
   configure_log(conf);
 
