@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-09-14T22:20:15.825Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="Is7V_SnxJX0TXr7h-KUe" version="21.7.5" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2023-09-14T22:20:28.570Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="-a0Gr23OBuoADScueTHW" version="21.7.5" type="github" pages="3">
   <diagram name="Boot Process" id="qeCUHLNeH_I6itKI6iWI">
     <mxGraphModel dx="1366" dy="760" grid="1" gridSize="10" guides="0" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="840" pageHeight="840" math="0" shadow="0">
       <root>
@@ -200,6 +200,14 @@
             </Array>
           </mxGeometry>
         </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="u6wlHDlPQqQzHQk25PU8" name="C Kernel">
+    <mxGraphModel dx="1434" dy="798" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="840" pageHeight="840" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
       </root>
     </mxGraphModel>
   </diagram>
