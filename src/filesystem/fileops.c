@@ -1,7 +1,4 @@
-#include "../memory.h"
-#include "__constants.h"
-
-#include "../lib.h"
+#include "fileops.h"
 
 /*
  * 1. Find an empty slot in the file table

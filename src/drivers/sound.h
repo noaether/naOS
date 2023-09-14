@@ -1,6 +1,9 @@
 #ifndef SOUND_H
 #define SOUND_H
 
+#include "irq.h"
+#include "clocks.h"
+#include "../utils/io.h"
 #include "../stdlib/types.h"
 
 #define OCTAVE_0 0

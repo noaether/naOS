@@ -1,8 +1,4 @@
 #include "framebuffer.h"
-#include "../utils/io.h"
-
-#include "../stdlib/types.h"
-#include "../user/cmd.h"
 
 /* framebuffer mm io */
 char *fb = (char *)0x000B8000;
@@ -37,7 +33,7 @@ void fb_write_cell(unsigned int i, char c, unsigned char fg, unsigned char bg)
  */
 void fb_set_cursor(unsigned short pos)
 {
-  cursor = pos;
+    cursor = pos;
 
   outb(FB_COMMAND_PORT, FB_HIGH_BYTE_COMMAND);
   outb(FB_DATA_PORT, ((pos >> 8) & 0x00FF));

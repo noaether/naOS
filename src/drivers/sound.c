@@ -1,8 +1,4 @@
 #include "sound.h"
-#include "irq.h"
-#include "clocks.h"
-#include "../utils/io.h"
-#include "../stdlib/types.h"
 
 struct note CMajScale[] = {
     {OCTAVE_4, NOTE_C, 0},

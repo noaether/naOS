@@ -139,12 +139,12 @@ void arrow_key_handler(int keycode) {
   if ((72 - keycode) == 0)
   {
     // Up arrow
-    fb_set_cursor(cursor - 160);
+    fb_set_cursor(cursor - 80);
   }
   else if ((80 - keycode) == 0)
   {
     // Down arrow
-    fb_set_cursor(cursor + 160);
+    fb_set_cursor(cursor + 80);
   }
   else if ((75 - keycode) == 0)
   {

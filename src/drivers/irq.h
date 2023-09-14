@@ -6,8 +6,13 @@ extern "C"
 {
 #endif
 
+#include "../utils/log.h"
+#include "../utils/io.h"
+
 #include "../keyboard/keyboard.h"
+
 #include "sound.h"
+#include "framebuffer.h"
 
 #define KERNEL_CODE_SEGMENT_OFFSET 0x8
 #define INTERRUPT_GATE 0x8e

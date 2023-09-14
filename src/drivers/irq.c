@@ -1,11 +1,5 @@
 #include "irq.h"
 
-#include "../utils/log.h"
-#include "../utils/io.h"
-
-#include "sound.h"
-#include "framebuffer.h"
-
 struct IDT_entry IDT[256];
 
 void remap_pic()

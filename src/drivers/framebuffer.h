@@ -1,6 +1,12 @@
 #ifndef FRAMEBUFFER_H
 #define FRAMEBUFFER_H
 
+#include "../utils/log.h"
+#include "../keyboard/keyboard.h"
+#include "../user/cmd.h"
+
+#include "../stdlib/types.h"
+
 /* colors */
 #define FB_BLACK 0
 #define FB_BLUE 1
@@ -26,8 +32,6 @@
 /* The I/O port commands */
 #define FB_HIGH_BYTE_COMMAND 14
 #define FB_LOW_BYTE_COMMAND 15
-
-#include "../stdlib/stddef.h"
 
 int cursor;
 

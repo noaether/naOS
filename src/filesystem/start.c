@@ -1,9 +1,4 @@
-#include "../memory.h"
-#include "__constants.h"
-
-#include "fileops.h"
-
-#include "../lib.h"
+#include "start.h"
 
 void fs_main() {
     log("FS  | Initializing RAM filesystem...", LOG_DEBUG);

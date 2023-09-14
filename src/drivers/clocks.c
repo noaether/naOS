@@ -1,4 +1,5 @@
 #include "clocks.h"
+
 #include "../utils/io.h"
 
 void pit_init(int hz)
