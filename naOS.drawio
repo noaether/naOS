@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-09-14T22:19:14.629Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="ne2QwLK04tW8h_ybw0pd" version="21.7.5" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2023-09-14T22:19:25.548Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="XdUC6B6AYFPnq3wLdDUC" version="21.7.5" type="github" pages="2">
   <diagram name="Boot Process" id="qeCUHLNeH_I6itKI6iWI">
     <mxGraphModel dx="1247" dy="694" grid="1" gridSize="10" guides="0" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="840" pageHeight="840" math="0" shadow="0">
       <root>
@@ -30,6 +30,9 @@
         </mxCell>
         <mxCell id="pja_1ZP282FQhUOb1fi8-79" value="Set CS to CODE_SEG" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="pja_1ZP282FQhUOb1fi8-11">
           <mxGeometry x="40" y="360" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pja_1ZP282FQhUOb1fi8-133" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="pja_1ZP282FQhUOb1fi8-11" source="pja_1ZP282FQhUOb1fi8-93" target="pja_1ZP282FQhUOb1fi8-129">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="pja_1ZP282FQhUOb1fi8-93" value="Initialize &lt;br&gt;Kernel Stack" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="pja_1ZP282FQhUOb1fi8-11">
           <mxGeometry x="40" y="460" width="120" height="60" as="geometry" />
