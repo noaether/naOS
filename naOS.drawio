@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-09-14T22:20:28.570Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="-a0Gr23OBuoADScueTHW" version="21.7.5" type="github" pages="3">
+<mxfile host="app.diagrams.net" modified="2023-09-14T22:30:02.581Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="FGaJBUxEjFAW_406jQ-W" version="21.7.5" type="github" pages="3">
   <diagram name="Boot Process" id="qeCUHLNeH_I6itKI6iWI">
     <mxGraphModel dx="1366" dy="760" grid="1" gridSize="10" guides="0" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="840" pageHeight="840" math="0" shadow="0">
       <root>
@@ -40,9 +40,11 @@
         <mxCell id="pja_1ZP282FQhUOb1fi8-136" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="pja_1ZP282FQhUOb1fi8-11" source="pja_1ZP282FQhUOb1fi8-129" target="pja_1ZP282FQhUOb1fi8-135">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="pja_1ZP282FQhUOb1fi8-129" value="Call kmain&lt;br&gt;(Jump to C)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="pja_1ZP282FQhUOb1fi8-11">
-          <mxGeometry x="40" y="560" width="120" height="60" as="geometry" />
-        </mxCell>
+        <UserObject label="Call kmain&lt;br&gt;(Jump to C)" link="data:page/id,u6wlHDlPQqQzHQk25PU8" id="pja_1ZP282FQhUOb1fi8-129">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="pja_1ZP282FQhUOb1fi8-11">
+            <mxGeometry x="40" y="560" width="120" height="60" as="geometry" />
+          </mxCell>
+        </UserObject>
         <mxCell id="pja_1ZP282FQhUOb1fi8-135" value="Halt" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="pja_1ZP282FQhUOb1fi8-11">
           <mxGeometry x="40" y="660" width="120" height="60" as="geometry" />
         </mxCell>
