@@ -99,6 +99,10 @@ void handle_keyboard_interrupt()
         ascii[0] = keyboard_map[keycode];
         ctrlkey_handler(keycode);
         return;
+      } else if (keycode == 72 || keycode == 80 || keycode == 75 || keycode == 77)
+      {
+        arrow_key_handler(keycode);
+        return;
       }
       else
       {
@@ -128,6 +132,29 @@ void handle_keyboard_interrupt()
   else
   {
     log("KBD | No data", LOG_DEBUG);
+  }
+}
+
+void arrow_key_handler(int keycode) {
+  if ((72 - keycode) == 0)
+  {
+    // Up arrow
+    fb_set_cursor(cursor - 160);
+  }
+  else if ((80 - keycode) == 0)
+  {
+    // Down arrow
+    fb_set_cursor(cursor + 160);
+  }
+  else if ((75 - keycode) == 0)
+  {
+    // Left arrow
+    fb_set_cursor(cursor - 1);
+  }
+  else if ((77 - keycode) == 0)
+  {
+    // Right arrow
+    fb_set_cursor(cursor + 1);
   }
 }
 

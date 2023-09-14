@@ -23,7 +23,7 @@ extern "C"
   void handle_keyboard_interrupt();
 
   void kb_init();
-
+  void arrow_key_handler(int keycode);
   void special_key_handler(int keycode);
   void ctrlkey_handler(int keycode);
 #ifdef __cplusplus
