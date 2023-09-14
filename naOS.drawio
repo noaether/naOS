@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-09-14T23:03:28.772Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="pc5d8ATnPbPqwRLt0E1m" version="21.7.5" type="github" pages="3">
+<mxfile host="app.diagrams.net" modified="2023-09-14T23:04:38.848Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="UPWTKavjWpfreqWPn6cd" version="21.7.5" type="github" pages="3">
   <diagram name="Boot Process" id="qeCUHLNeH_I6itKI6iWI">
     <mxGraphModel dx="1366" dy="760" grid="1" gridSize="10" guides="0" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="840" pageHeight="840" math="0" shadow="0">
       <root>
@@ -206,7 +206,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="u6wlHDlPQqQzHQk25PU8" name="C Kernel">
-    <mxGraphModel dx="637" dy="355" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="840" pageHeight="840" math="0" shadow="0">
+    <mxGraphModel dx="844" dy="469" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="840" pageHeight="840" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -229,16 +229,19 @@
           <mxGeometry x="40" y="120" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="C7-VNkW6KrO2ZqXV8lAq-5" value="Serial I/O" style="swimlane;horizontal=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="280" y="40" width="520" height="80" as="geometry" />
+          <mxGeometry x="280" y="40" width="360" height="320" as="geometry" />
         </mxCell>
         <mxCell id="TReQ_2l0M_h2dFIzHARe-2" value="Config BAUD Rate" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="C7-VNkW6KrO2ZqXV8lAq-5">
           <mxGeometry x="40" y="10" width="60" height="60" as="geometry" />
         </mxCell>
         <mxCell id="TReQ_2l0M_h2dFIzHARe-4" value="Config&lt;br&gt;Line" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="C7-VNkW6KrO2ZqXV8lAq-5">
-          <mxGeometry x="120" y="10" width="60" height="60" as="geometry" />
+          <mxGeometry x="40" y="90" width="60" height="60" as="geometry" />
         </mxCell>
         <mxCell id="TReQ_2l0M_h2dFIzHARe-5" value="Config&lt;br&gt;FIFO&lt;br&gt;Queue" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="C7-VNkW6KrO2ZqXV8lAq-5">
-          <mxGeometry x="200" y="10" width="60" height="60" as="geometry" />
+          <mxGeometry x="40" y="170" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TReQ_2l0M_h2dFIzHARe-6" value="Config&lt;br&gt;Serial&lt;br&gt;Port" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="C7-VNkW6KrO2ZqXV8lAq-5">
+          <mxGeometry x="40" y="250" width="60" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
