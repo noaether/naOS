@@ -161,3 +161,49 @@ void fb_backspace()
     fb_set_cursor(cursor);
   }
 }
+
+void printf(char *buf, const char *format, ...)
+{
+    char *p = buf;
+    char c;
+    char str_buf[20]; // Adjust the size as needed
+
+    // Pointer to the first argument after 'format'
+    void *arg = (void *)(&format + 1);
+
+    while ((c = *format++) != '\0')
+    {
+        if (c != '%')
+        {
+            *p++ = c;
+        }
+        else
+        {
+            c = *format++;
+            if (c == 's')
+            {
+                char *arg_str = *(char **)arg;
+                while (*arg_str)
+                {
+                    *p++ = *arg_str++;
+                }
+                arg += sizeof(char *);
+            }
+            else if (c == 'd')
+            {
+                int arg_int = *(int *)arg;
+                itoa(arg_int, str_buf);
+                char *arg_str = str_buf;
+                while (*arg_str)
+                {
+                    *p++ = *arg_str++;
+                }
+                arg += sizeof(int);
+            }
+            // Add support for more format specifiers as needed
+        }
+    }
+
+    *p = '\0';
+}
+

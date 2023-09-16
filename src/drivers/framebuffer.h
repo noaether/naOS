@@ -42,5 +42,6 @@ void fb_print_after(char *buf, size_t len);
 void fb_println(char *buf, size_t len);
 void fb_backspace();
 void fb_clear();
+void printf(char *buf, const char *format, ...);
 
 #endif // FRAMEBUFFER_H

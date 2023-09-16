@@ -102,6 +102,45 @@ void reverse(char str[], int length)
         start++;
     }
 }
+
+void itoa(int n, char *buf)
+{
+    int i = 0;
+    int is_negative = 0;
+
+    // Handle negative numbers
+    if (n < 0)
+    {
+        is_negative = 1;
+        n = -n;
+    }
+
+    // Convert the integer to a string in reverse order
+    do
+    {
+        buf[i++] = (char)(n % 10 + '0');
+        n /= 10;
+    } while (n > 0);
+
+    // Add '-' sign for negative numbers
+    if (is_negative)
+    {
+        buf[i++] = '-';
+    }
+
+    // Reverse the string
+    int j;
+    char temp;
+    for (j = 0; j < i / 2; j++)
+    {
+        temp = buf[j];
+        buf[j] = buf[i - j - 1];
+        buf[i - j - 1] = temp;
+    }
+
+    buf[i] = '\0';
+}
+
 // Implementation of citoa()
 char *citoa(int num, char *str, int base)
 {
@@ -154,7 +193,7 @@ int *create_delim_dict(char *delim)
     size_t i;
     for (i = 0; i < strlen(delim); i++)
     {
-        d[(unsigned int) delim[i]] = 1;
+        d[(unsigned int)delim[i]] = 1;
     }
     return d;
 }
@@ -181,7 +220,7 @@ char *strtok(char *str, char *delim)
         strcpy(last, str);
     }
 
-    while (deli_dict[(unsigned int) *last] && *last != '\0')
+    while (deli_dict[(unsigned int)*last] && *last != '\0')
     {
         last++;
     }
@@ -192,7 +231,7 @@ char *strtok(char *str, char *delim)
         free(to_free);
         return NULL;
     }
-    while (*last != '\0' && !deli_dict[(unsigned int) *last])
+    while (*last != '\0' && !deli_dict[(unsigned int)*last])
     {
         last++;
     }

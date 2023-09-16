@@ -98,6 +98,15 @@ int kmain(uint32_t ebx)
 
   kb_init();
 
+  char buffer[100];
+  int num = 42;
+  char *text = "Hello World!";
+
+  printf(buffer, "The answer is %d, and the text is %s", num, text);
+
+  log(buffer, LOG_INFO);
+
+
   while (1)
   {
     asm volatile("hlt");
