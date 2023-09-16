@@ -28,28 +28,28 @@ int kmain(uint32_t ebx)
 
   struct cpuInfoStruct cpu = detect_cpu();
 
-  static char firstLine[] = "               ____   _____ ";
+  char firstLine[] = "               ____   _____ ";
   fb_println(firstLine, 29);
 
-  char secondLine[] = "              / __ \\ / ____| > ";
+  char secondLine[80];
   char *cpuType = cpu.cpuTypeString;
-  strcat(secondLine, cpuType);
+  sprintf(secondLine, "              / __ \\ / ____| > %s", cpuType);
   fb_println(secondLine, 32 + strlen(cpuType));
 
-  char thirdLine[] = "  _ __   __ _| |  | | (___   > ";
+  char thirdLine[80];
   char *cpuFamily = cpu.cpuFamilyString;
-  strcat(thirdLine, cpuFamily);
+  sprintf(thirdLine, "  _ __   __ _| |  | | (___   > %s", cpuFamily);
   fb_println(thirdLine, 32 + strlen(cpuFamily));
 
-  char fourthLine[] = " | '_ \\ / _` | |  | |\\___ \\  > ";
+  char fourthLine[80];
   char *cpuModel = cpu.cpuModelString;
-  strcat(fourthLine, cpuModel);
+  sprintf(fourthLine, " | '_ \\ / _` | |  | |\\___ \\  > %s", cpuModel);
   fb_println(fourthLine, 32 + strlen(cpuModel));
 
-  char fifthLine[] = " | | | | (_| | |__| |____) | > ";
+  char fifthLine[80];
   char *cpuBrand = cpu.cpuBrandString;
-  strcat(fifthLine, cpuBrand);
-  fb_println(fifthLine, 32 + strlen(cpuBrand));
+  sprintf(fifthLine, " | | | | (_| | |__| |____) | > %s", cpuBrand);
+  fb_println(fifthLine, strlen(fifthLine));
 
   fb_println(" |_| |_|\\__,_|\\____/|_____/", 28);
 
@@ -102,10 +102,9 @@ int kmain(uint32_t ebx)
   int num = 42;
   char *text = "Hello World!";
 
-  printf(buffer, "The answer is %d, and the text is %s", num, text);
+  sprintf(buffer, "42 = %d, Hello World! = %s", num, text);
 
   log(buffer, LOG_INFO);
-
 
   while (1)
   {

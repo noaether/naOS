@@ -162,7 +162,7 @@ void fb_backspace()
   }
 }
 
-void printf(char *buf, const char *format, ...)
+void sprintf(char *buf, const char *format, ...)
 {
     char *p = buf;
     char c;
