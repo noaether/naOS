@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-09-17T17:43:50.024Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="oV2tyP4hDKdA4taZZbsO" version="21.7.5" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2023-09-17T17:45:30.800Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="49nUaHlVZuX2ZHZWgWWT" version="21.7.5" type="github" pages="4">
   <diagram name="Boot Process" id="qeCUHLNeH_I6itKI6iWI">
     <mxGraphModel dx="1434" dy="798" grid="1" gridSize="10" guides="0" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="840" pageHeight="840" math="0" shadow="0">
       <root>
@@ -206,7 +206,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="u6wlHDlPQqQzHQk25PU8" name="C Kernel">
-    <mxGraphModel dx="494" dy="275" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="840" pageHeight="840" math="0" shadow="0">
+    <mxGraphModel dx="1062" dy="591" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="840" pageHeight="840" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -471,17 +471,20 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="JEd-YpDPkSJ0_NyMqJ8o-1" value="Config Log&lt;br&gt;" style="swimlane;horizontal=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="JEd-YpDPkSJ0_NyMqJ8o-1" value="Detect CPU" style="swimlane;horizontal=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="260" y="150" width="170" height="70" as="geometry" />
         </mxCell>
         <mxCell id="JEd-YpDPkSJ0_NyMqJ8o-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="JEd-YpDPkSJ0_NyMqJ8o-1" source="JEd-YpDPkSJ0_NyMqJ8o-3" target="JEd-YpDPkSJ0_NyMqJ8o-4">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="JEd-YpDPkSJ0_NyMqJ8o-3" value="Set&lt;br&gt;Log&lt;br&gt;Level" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="JEd-YpDPkSJ0_NyMqJ8o-1">
+        <mxCell id="JEd-YpDPkSJ0_NyMqJ8o-3" value="Detect CPU" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="JEd-YpDPkSJ0_NyMqJ8o-1">
           <mxGeometry x="30" y="5" width="60" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="JEd-YpDPkSJ0_NyMqJ8o-4" value="Set&lt;br&gt;Log Output" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="JEd-YpDPkSJ0_NyMqJ8o-1">
+        <mxCell id="JEd-YpDPkSJ0_NyMqJ8o-4" value="Return&lt;br&gt;Struct" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="JEd-YpDPkSJ0_NyMqJ8o-1">
           <mxGeometry x="100" y="5" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="JEd-YpDPkSJ0_NyMqJ8o-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="mJpeSpcLwPbK4wIfzQWj-4" target="JEd-YpDPkSJ0_NyMqJ8o-1">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
