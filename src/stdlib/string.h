@@ -14,7 +14,7 @@ int strcmp(const char *s1, const char *s2);
 int strncmp(const char *s1, const char *s2, size_t n);
 
 char *citoa(int num, char *str, int base);
-void itoa(int n, char *buf);
+void itoa(int n, char *buf, int buf_size);
 void reverse(char str[], int length);
 
 char* strtok(char* s, char* delm);

@@ -135,29 +135,6 @@ void handle_keyboard_interrupt()
   }
 }
 
-void arrow_key_handler(int keycode) {
-  if ((72 - keycode) == 0)
-  {
-    // Up arrow
-    fb_set_cursor(cursor - 80);
-  }
-  else if ((80 - keycode) == 0)
-  {
-    // Down arrow
-    fb_set_cursor(cursor + 80);
-  }
-  else if ((75 - keycode) == 0)
-  {
-    // Left arrow
-    fb_set_cursor(cursor - 1);
-  }
-  else if ((77 - keycode) == 0)
-  {
-    // Right arrow
-    fb_set_cursor(cursor + 1);
-  }
-}
-
 void special_key_handler(int keycode)
 {
 

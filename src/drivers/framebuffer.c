@@ -192,7 +192,8 @@ void sprintf(char *buf, const char *format, ...)
             else if (c == 'd')
             {
                 int arg_int = *(int *)arg;
-                itoa(arg_int, str_buf);
+                // void itoa(int n, char *buf, int buf_size);
+                itoa(arg_int, str_buf, 20);
                 char *arg_str = str_buf;
                 while (*arg_str)
                 {
@@ -207,3 +208,25 @@ void sprintf(char *buf, const char *format, ...)
     *p = '\0';
 }
 
+void arrow_key_handler(int keycode) {
+  if ((72 - keycode) == 0)
+  {
+    // Up arrow
+    fb_set_cursor(cursor - 80);
+  }
+  else if ((80 - keycode) == 0)
+  {
+    // Down arrow
+    fb_set_cursor(cursor + 80);
+  }
+  else if ((75 - keycode) == 0)
+  {
+    // Left arrow
+    fb_set_cursor(cursor - 1);
+  }
+  else if ((77 - keycode) == 0)
+  {
+    // Right arrow
+    fb_set_cursor(cursor + 1);
+  }
+}

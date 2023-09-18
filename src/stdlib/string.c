@@ -103,7 +103,7 @@ void reverse(char str[], int length)
     }
 }
 
-void itoa(int n, char *buf)
+void itoa(int n, char *buf, int buf_size)
 {
     int i = 0;
     int is_negative = 0;
@@ -115,6 +115,12 @@ void itoa(int n, char *buf)
         n = -n;
     }
 
+    // Check if the buffer size is sufficient
+    if (i >= buf_size)
+    {
+        return;
+    }
+
     // Convert the integer to a string in reverse order
     do
     {
@@ -122,22 +128,34 @@ void itoa(int n, char *buf)
         n /= 10;
     } while (n > 0);
 
+    // Check if the buffer size is sufficient
+    if (i >= buf_size)
+    {
+        return;
+    }
+
     // Add '-' sign for negative numbers
     if (is_negative)
     {
         buf[i++] = '-';
     }
 
+    // Check if the buffer size is sufficient
+    if (i >= buf_size)
+    {
+        return;
+    }
+
     // Reverse the string
     int j;
-    char temp;
     for (j = 0; j < i / 2; j++)
     {
-        temp = buf[j];
+        char temp = buf[j];
         buf[j] = buf[i - j - 1];
         buf[i - j - 1] = temp;
     }
 
+    // Null-terminate the string
     buf[i] = '\0';
 }
 

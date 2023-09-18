@@ -1,14 +1,15 @@
-OBJECTS = src/drivers/gdt.o src/loader.o src/kmain.o src/drivers.o src/lib.o src/memory.o \
+OBJECTS = src/drivers/gdt.o src/loader.o src/kmain.o src/memory.o \
 				src/drivers/framebuffer.o src/drivers/serial.o src/drivers/sound.o src/drivers/irq.o src/drivers/irq_asm.o src/drivers/clocks.o \
 				src/keyboard/keyboard.o \
 				src/user/cmd.o \
 				src/utils/io.o src/utils/log.o src/utils/structs.o \
 				src/stdlib/stdbool.o src/stdlib/stddef.o  src/stdlib/string.o src/stdlib/types.o \
-				src/filesystem/fileops.o src/filesystem/start.o
+				src/filesystem/fileops.o
 CC = gcc
-CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
+CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -ffreestanding \
 					-nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c
-LDFLAGS = -T src/link.ld -melf_i386
+LD = i686-elf-ld
+LDFLAGS = -T src/link.ld -melf_i386 -L/home/noa/opt/cross/lib/gcc/i686-elf/9.4.0/libgcc.a
 AS = nasm
 ASFLAGS = -f elf
 
@@ -20,7 +21,7 @@ program.bin:
 		cp src/modules/initfpu.bin iso/boot/modules/initfpu
 
 kernel.elf: $(OBJECTS) program.bin
-		ld $(LDFLAGS) $(OBJECTS) -o src/kernel.elf
+		$(LD) $(LDFLAGS) $(OBJECTS) -o src/kernel.elf
 
 os.iso: kernel.elf
 		cp src/kernel.elf iso/boot/kernel.elf
@@ -40,4 +41,4 @@ run-b: os.iso
 		$(AS) $(ASFLAGS) $< -o $@
 
 clean:
-		rm -rf src/*.o src/drivers/*.o src/keyboard/*.o src/utils/*.o src/user/*.o src/stdlib/*.o src/modules/*.o src/*.elf *.iso *.bin iso/boot/*.bin iso/boot/*.elf iso/boot/modules/*
+		rm -rf src/*.o src/drivers/*.o src/keyboard/*.o src/utils/*.o src/user/*.o src/stdlib/*.o src/modules/*.bin src/modules/*.out src/filesystem/*.o src/*.elf *.iso *.bin iso/boot/*.bin iso/boot/*.elf iso/boot/modules/*

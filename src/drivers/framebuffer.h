@@ -33,8 +33,6 @@
 #define FB_HIGH_BYTE_COMMAND 14
 #define FB_LOW_BYTE_COMMAND 15
 
-int cursor;
-
 void fb_write_cell(unsigned int i, char c, unsigned char fg, unsigned char bg);
 void fb_set_cursor(unsigned short pos);
 void fb_write(char *buf, signed int len);
@@ -43,5 +41,6 @@ void fb_println(char *buf, size_t len);
 void fb_backspace();
 void fb_clear();
 void sprintf(char *buf, const char *format, ...);
+void arrow_key_handler(int keycode);
 
 #endif // FRAMEBUFFER_H

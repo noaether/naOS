@@ -25,8 +25,8 @@ void interpret(char string[], size_t len)
   // The first character is the command
   switch (first_char)
   {
-  case 'w': // write file writefile
-  // TODO : ADD ERROR HANDLING
+  case 'w':                       // write file writefile
+                                  // TODO : ADD ERROR HANDLING
     argslist = strtok(NULL, del); // move to arg1
 
     createFile(argslist, 0x06);
@@ -40,8 +40,8 @@ void interpret(char string[], size_t len)
     fb_println("File written succesfully !", 27);
 
     break;
-  case 'r': // read file readfile
-  // TODO : ADD ERROR HANDLING
+  case 'r':                       // read file readfile
+                                  // TODO : ADD ERROR HANDLING
     argslist = strtok(NULL, del); // arg1
     readFile(argslist, endbuffer, sizeof(endbuffer));
 

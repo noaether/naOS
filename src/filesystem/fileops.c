@@ -6,6 +6,29 @@
  * 3. Initialize file information
  * 4. Allocate memory for file content
  */
+struct FileInformation
+{
+  char name[MAX_FILENAME_LENGTH + 1];
+  uint32_t size;
+  uint16_t permissions;
+  uint32_t creation_time;
+  uint32_t modified_time;
+  char *content;
+}__attribute__((packed));
+
+struct FileInformation file_table[MAX_FILES];
+
+
+void fs_main() {
+    log("FS  | Initializing RAM filesystem...", LOG_DEBUG);
+
+    for (int i = 0; i < MAX_FILES - 1; i++) {
+        memset(&file_table[i], 0, sizeof(struct FileInformation));
+    };
+
+    log("FS  | RAM filesystem initialized!", LOG_DEBUG);
+}
+
 int createFile(const char *name, uint16_t permissions)
 {
   // TODO : WRITE DOCUMENTATION FOR PERMISSIONS
