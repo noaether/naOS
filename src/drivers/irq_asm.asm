@@ -116,12 +116,9 @@ irq8:
 	iretd
 
 irq9:
-	pusha
-	; cld
 	mov ebx, [esp + 8]
 	mov eax, [esp + 4]
 	call irq9_handler
-	popa
 	iretd
 
 irq10:

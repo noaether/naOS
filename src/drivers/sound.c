@@ -90,7 +90,7 @@ void pit_interrupt_handler()
       {
         nosound();
         current_note = NULL;
-        syscall(0xFF, 0xAA); // SYSCALL : Sound -> 0 (off)
+        syscall(0x00, 0x01); // SYSCALL : Sound -> 0 (off)
         return;
       }
     }
