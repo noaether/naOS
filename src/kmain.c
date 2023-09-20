@@ -15,6 +15,14 @@
 
 typedef void (*call_module_t)(void);
 
+struct note boot_melody[] = {
+    {OCTAVE_4, NOTE_C, 10},
+    {OCTAVE_4, NOTE_E, 10},
+    {OCTAVE_4, NOTE_FS, 10},
+    {OCTAVE_4, NOTE_AS, 10},
+    {OCTAVE_5, NOTE_C, 10},
+};
+
 int kmain(uint32_t ebx)
 {
   disable_interrupts();
@@ -102,7 +110,7 @@ int kmain(uint32_t ebx)
 
   pit_init(20);
   enable_interrupts();
-  play_array();
+  play_array(boot_melody, 5);
 
   kb_init();
 

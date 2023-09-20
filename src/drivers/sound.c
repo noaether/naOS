@@ -1,5 +1,9 @@
 #include "sound.h"
 
+struct note current_array[256] = {
+    {0, 0, 0} // End of array
+};
+
 struct note CMajScale[] = {
     {OCTAVE_4, NOTE_C, 0},
     {OCTAVE_4, NOTE_D, 10},
@@ -45,71 +49,22 @@ struct note CMajScale[] = {
     {0, 0, 0} // End of array
 };
 
-struct note mary_had_a_little_lamb[] = {
-    {OCTAVE_4, NOTE_E, 4},
-    {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_C, 4},
-    {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_E, 4},
-    {OCTAVE_4, NOTE_E, 4},
-    {OCTAVE_4, NOTE_E, 2},
-    {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_E, 4},
-    {OCTAVE_4, NOTE_G, 4},
-    {OCTAVE_4, NOTE_G, 4},
-    {OCTAVE_4, NOTE_E, 4},
-    {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_C, 4},
-    {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_E, 4},
-    {OCTAVE_4, NOTE_E, 4},
-    {OCTAVE_4, NOTE_E, 4},
-    {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_E, 4},
-    {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_E, 4},
-    {OCTAVE_4, NOTE_E, 4},
-    {OCTAVE_4, NOTE_E, 2},
-    {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_E, 4},
-    {OCTAVE_4, NOTE_G, 4},
-    {OCTAVE_4, NOTE_G, 4},
-    {OCTAVE_4, NOTE_E, 4},
-    {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_C, 4},
-    {0, 0, 0} // End of array
-};
-
-struct note boot_melody[] = {
-    {OCTAVE_4, NOTE_C, 10},
-    {OCTAVE_4, NOTE_E, 10},
-    {OCTAVE_4, NOTE_FS, 10},
-    {OCTAVE_4, NOTE_AS, 10},
-    {OCTAVE_5, NOTE_C, 10},
-};
-
-struct note current_array[] = {
-    {OCTAVE_4, NOTE_C, 10},
-    {OCTAVE_4, NOTE_E, 10},
-    {OCTAVE_4, NOTE_FS, 10},
-    {OCTAVE_4, NOTE_AS, 10},
-    {OCTAVE_5, NOTE_C, 10},
-    {0, 0, 0},
-};
-
 static struct note *current_note = NULL;
 static int current_note_index = -1; // Keep track of the current note index
-static int sound_playing = 0;               // Flag to indicate whether a sound is currently playing
-void play_array()
+static int sound_playing = 0;       // Flag to indicate whether a sound is currently playing
+void play_array(struct note new_array[], uint8_t length)
 {
+  unsigned int i = 0;
+  for (; i < length; i++)
+  {
+    current_array[i] = new_array[i];
+  }
+  current_array[i+2] = (struct note){0, 0, 0}; // End of array
+
   set_pit(20);
   sound_playing = 1; // Set sound playing flag
+
+  // Move the new array to the current "placeholder" array completely
   // Set the current_note pointer to the first note in the array
   current_note = &current_array[0];
   current_note_index = 0;

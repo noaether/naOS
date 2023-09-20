@@ -13,6 +13,49 @@
 
 int since_enter = 0;
 
+struct note mary_had_a_little_lamb[] = {
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_C, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_E, 2},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_G, 4},
+    {OCTAVE_4, NOTE_G, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_C, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_E, 2},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_G, 4},
+    {OCTAVE_4, NOTE_G, 4},
+    {OCTAVE_4, NOTE_E, 4},
+    {OCTAVE_4, NOTE_D, 4},
+    {OCTAVE_4, NOTE_C, 4},
+    {0, 0, 0} // End of array
+};
+
+struct note note_to_play[] = {{OCTAVE_4, NOTE_A, 10}};
+
 void interpret(char string[], size_t len)
 {
   const char first_char = string[0];
@@ -75,7 +118,10 @@ void interpret(char string[], size_t len)
     fb_println(endbuffer, len - 5);
     break;
   case 'p': // Play
-    play_array();
+    play_array(mary_had_a_little_lamb, 38);
+    break;
+  case '2':
+    play_array(note_to_play, 1);
     break;
   case 'q':
     log("CMD | Quit", LOG_DEBUG);

@@ -38,7 +38,7 @@ struct note
 
 void pit_interrupt_handler();
 
-void play_array();
+void play_array(struct note new_array[], uint8_t length);
 void nosound();
 
 #endif // SOUND_H
