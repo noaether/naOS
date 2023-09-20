@@ -1,5 +1,5 @@
 OBJECTS = src/drivers/gdt.o src/loader.o src/kmain.o src/memory.o \
-				src/drivers/framebuffer.o src/drivers/serial.o src/drivers/sound.o src/drivers/irq.o src/drivers/irq_asm.o src/drivers/clocks.o \
+				src/drivers/framebuffer.o src/drivers/serial.o src/drivers/sound.o src/drivers/irq.o src/drivers/irq_asm.o src/drivers/clocks.o src/drivers/sys_calls.o \
 				src/keyboard/keyboard.o \
 				src/user/cmd.o \
 				src/utils/io.o src/utils/log.o src/utils/structs.o \

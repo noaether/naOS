@@ -44,6 +44,9 @@
 	extern irq14_handler
 	extern irq15_handler
 
+	extern syscall_sound
+	extern syscall_nosound
+
 load_gdt:
 	lgdt [gdt_descriptor]        ; from gdt.s
 	ret
@@ -114,7 +117,9 @@ irq8:
 
 irq9:
 	pusha
-	cld
+	; cld
+	mov ebx, [esp + 8]
+	mov eax, [esp + 4]
 	call irq9_handler
 	popa
 	iretd
