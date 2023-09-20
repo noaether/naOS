@@ -6,22 +6,21 @@ OBJECTS = src/drivers/gdt.o src/loader.o src/kmain.o src/memory.o \
 				src/stdlib/stdbool.o src/stdlib/stddef.o  src/stdlib/string.o src/stdlib/types.o \
 				src/filesystem/fileops.o
 CC = gcc
-CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -ffreestanding \
+CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
 					-nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c
-LD = i686-elf-ld
-LDFLAGS = -T src/link.ld -melf_i386 -L/home/noa/opt/cross/lib/gcc/i686-elf/9.4.0/libgcc.a
+LDFLAGS = -T src/link.ld -melf_i386
 AS = nasm
 ASFLAGS = -f elf
 
 all: kernel.elf
 
 program.bin:
-		nasm -f elf32 src/modules/initfpu.s -o src/modules/initfpu.out
+		nasm -f elf32 src/modules/initfpu.asm -o src/modules/initfpu.out
 		ld -m elf_i386 -Ttext 0x0 --oformat binary src/modules/initfpu.out -o src/modules/initfpu.bin
 		cp src/modules/initfpu.bin iso/boot/modules/initfpu
 
 kernel.elf: $(OBJECTS) program.bin
-		$(LD) $(LDFLAGS) $(OBJECTS) -o src/kernel.elf
+		ld $(LDFLAGS) $(OBJECTS) -o src/kernel.elf
 
 os.iso: kernel.elf
 		cp src/kernel.elf iso/boot/kernel.elf
@@ -41,4 +40,4 @@ run-b: os.iso
 		$(AS) $(ASFLAGS) $< -o $@
 
 clean:
-		rm -rf src/*.o src/drivers/*.o src/keyboard/*.o src/utils/*.o src/user/*.o src/stdlib/*.o src/modules/*.bin src/modules/*.out src/filesystem/*.o src/*.elf *.iso *.bin iso/boot/*.bin iso/boot/*.elf iso/boot/modules/*
+		rm -rf src/*.o src/drivers/*.o src/keyboard/*.o src/utils/*.o src/user/*.o src/stdlib/*.o src/modules/*.o src/*.elf *.iso *.bin iso/boot/*.bin iso/boot/*.elf iso/boot/modules/*
