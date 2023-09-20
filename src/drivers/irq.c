@@ -226,11 +226,16 @@ void irq8_handler()
   log("IRQ 8", LOG_DEBUG);
 }
 
-void irq9_handler()
+void irq9_handler(unsigned int eax, unsigned int ebx)
 {
   // sound done
   fb_clear();
   fb_write("naOS> ", 6);
+
+  char buffer[32];
+  sprintf(buffer, "IRQ 9: %d %d", eax, ebx);
+
+  log(buffer, LOG_DEBUG);
 
   ioport_out(0x20, 0x20);
   log("IRQ 9", LOG_DEBUG);

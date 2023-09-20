@@ -1,4 +1,5 @@
 #include "sound.h"
+#include "sys_calls.h"
 
 struct note current_array[256] = {
     {0, 0, 0} // End of array
@@ -89,7 +90,7 @@ void pit_interrupt_handler()
       {
         nosound();
         current_note = NULL;
-        asm volatile("int $0x29");
+        syscall(0xFF, 0xAA); // SYSCALL : Sound -> 0 (off)
         return;
       }
     }
