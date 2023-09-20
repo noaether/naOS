@@ -27,7 +27,7 @@ int kmain(uint32_t ebx)
 
   log("KRN | Kernel started!", LOG_INFO);
 
-  /*struct cpuInfoStruct cpu = detect_cpu();
+  struct cpuInfoStruct cpu = detect_cpu();
 
   char firstLine[] = "               ____   _____ ";
   fb_println(firstLine, 29);
@@ -52,7 +52,7 @@ int kmain(uint32_t ebx)
   sprintf(fifthLine, " | | | | (_| | |__| |____) | > %s", cpuBrand);
   fb_println(fifthLine, strlen(fifthLine));
 
-  fb_println(" |_| |_|\\__,_|\\____/|_____/", 28);*/
+  fb_println(" |_| |_|\\__,_|\\____/|_____/", 28);
 
   load_gdt();
   idt_init();
