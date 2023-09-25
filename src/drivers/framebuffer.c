@@ -200,6 +200,30 @@ void sprintf(char *buf, const char *format, ...)
                     *p++ = *arg_str++;
                 }
                 arg += sizeof(int);
+            } else if (c == 'c') {
+                char arg_char = *(char *)arg;
+                *p++ = arg_char;
+                arg += sizeof(char);
+            } else if (c == 'x') {
+                int arg_int = *(int *)arg;
+                // void itoa(int n, char *buf, int buf_size);
+                itoa(arg_int, str_buf, 20);
+                char *arg_str = str_buf;
+                while (*arg_str)
+                {
+                    *p++ = *arg_str++;
+                }
+                arg += sizeof(int);
+            } else if (c == 'f') {
+                double arg_double = *(double *)arg;
+                // void itoa(int n, char *buf, int buf_size);
+                dtoa(arg_double, str_buf, 20);
+                char *arg_str = str_buf;
+                while (*arg_str)
+                {
+                    *p++ = *arg_str++;
+                }
+                arg += sizeof(double);
             }
             // Add support for more format specifiers as needed
         }

@@ -97,6 +97,14 @@ void interpret(char string[], size_t len)
       argslist = strtok(NULL, del);
     }
     break;
+  case 'i': // pi
+    argslist = strtok(NULL, del);
+
+    sprintf(endbuffer, "The %dth digit of Pi is: %.15f\n", argslist[0] - '0', calculateNthDigitOfPi(argslist[0] - '0'));
+
+    fb_println(endbuffer, strlen(endbuffer));
+
+    break;
   case 'h': // Help
     fb_println("Commands: h - help, c - clear, l - log, e - echo, p - play, q - quit", 69);
     break;

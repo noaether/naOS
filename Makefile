@@ -3,7 +3,7 @@ OBJECTS = src/drivers/gdt.o src/loader.o src/kmain.o src/memory.o \
 				src/keyboard/keyboard.o \
 				src/user/cmd.o \
 				src/utils/io.o src/utils/log.o \
-				src/stdlib/stdbool.o src/stdlib/stddef.o  src/stdlib/string.o src/stdlib/types.o \
+				src/stdlib/stdbool.o src/stdlib/stddef.o  src/stdlib/string.o src/stdlib/types.o src/stdlib/math.o \
 				src/filesystem/fileops.o
 CC = gcc
 CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
