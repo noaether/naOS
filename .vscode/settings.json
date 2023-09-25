@@ -1,7 +1,14 @@
 {
   "C_Cpp.errorSquiggles": "enabled",
   "files.associations": {
+    "*.rasi": "css",
+    "*.bbmodel": "json",
+    "*.sublime-snippet": "xml",
+    "*.hbs": "html",
     "*.ejs": "html",
+    "*.Xresources": "xdefaults",
+    "i3/config": "i3",
+    "i3/*.conf": "i3",
     "string.h": "c",
     "serial.h": "c",
     "stdbool.h": "c",
@@ -10,6 +17,8 @@
     "log.h": "c",
     "io.h": "c",
     "framebuffer.h": "c",
-    "types.h": "c"
+    "types.h": "c",
+    "keyboard.h": "c",
+    "lib.h": "c"
   }
 }

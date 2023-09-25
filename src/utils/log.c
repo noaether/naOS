@@ -3,7 +3,6 @@
 #include "../drivers/framebuffer.h"
 #include "../drivers/serial.h"
 
-#include "structs.h"
 #include "log.h"
 
 struct logConfigStruct defaultConf = {LOG_DEBUG, LOG_SERIAL};

@@ -26,8 +26,24 @@
  */
 
 #include "stdlib/string.h"
-#include "utils/structs.h"
 #include "utils/log.h"
+
+
+struct cpuInfoStruct
+{
+    int cpuModel;
+    int cpuFamily;
+    int cpuType;
+    int cpuBrand;
+    int cpuStepping;
+    int cpuReserved;
+
+    char* cpuVendor;
+    char* cpuTypeString;
+    char* cpuFamilyString;
+    char* cpuModelString;
+    char* cpuBrandString;
+} __attribute__((packed));
 
 /* You need to include a file with fairly(ish) compliant fb_print_after prototype, Decimal and String support like %s and %d and this is truely all you need! */
 // #include <stdio.h> /* for fb_print_after(); */

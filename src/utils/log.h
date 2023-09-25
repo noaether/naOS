@@ -1,8 +1,6 @@
 #ifndef LOG_H
 #define LOG_H
 
-#include "structs.h"
-
 #define LOG_DEBUG 0
 #define LOG_INFO 1
 #define LOG_WARNING 2
@@ -10,6 +8,12 @@
 
 #define LOG_SERIAL 0
 #define LOG_FRAMEBUFFER 1
+
+struct logConfigStruct
+{
+    unsigned char level;  // debug 0, info 1, warning 2, error 3
+    unsigned char output; // serial 0, framebuffer 1
+} __attribute__((packed));
 
 void configure_log(struct logConfigStruct lc);
 

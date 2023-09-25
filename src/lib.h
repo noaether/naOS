@@ -6,4 +6,3 @@
 
 #include "utils/io.h"
 #include "utils/log.h"
-#include "utils/structs.h"
