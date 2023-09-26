@@ -6,6 +6,7 @@
 #define s_SOUND 0x00
 #define s_KEYBOARD 0x01
 #define s_MEM 0x02
+#define s_ERROR 0x69
 
 #define s_FALSE 0x00
 #define s_TRUE 0x01
