@@ -226,19 +226,29 @@ void irq8_handler()
   log("IRQ 8", LOG_DEBUG);
 }
 
-void irq9_handler(unsigned int eax, unsigned int ebx)
+void irq9_handler(unsigned int eax, unsigned int ebx) // eax is syscall, ebx is arg
 {
-  // sound done
-  fb_clear();
-  fb_write("naOS> ", 6);
-
-  char buffer[32];
-  sprintf(buffer, "IRQ 9: %d %d", eax, ebx);
-
-  log(buffer, LOG_DEBUG);
-
   ioport_out(0x20, 0x20);
-  log("IRQ 9", LOG_DEBUG);
+  switch (eax)
+  {
+  case 0x0:
+    if (ebx == 0x0)
+    {
+      log("SYS | Sound off", LOG_DEBUG);
+      nosound();
+      // sound done
+      fb_clear();
+      fb_write("naOS> ", 6);
+    }
+    else
+    {
+      log("SYS | Sound off", LOG_DEBUG);
+      play_array((struct note *)ebx, 0);
+    }
+    break;
+  default:
+    break;
+  }
 }
 
 void irq10_handler()

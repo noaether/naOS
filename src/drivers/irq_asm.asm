@@ -116,9 +116,11 @@ irq8:
 	iretd
 
 irq9:
-	mov ebx, [esp + 8]
-	mov eax, [esp + 4]
+	push eax
+	push ebx
 	call irq9_handler
+	pop ebx
+	pop eax
 	iretd
 
 irq10:

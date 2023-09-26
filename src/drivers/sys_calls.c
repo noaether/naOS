@@ -1,13 +1,18 @@
 #include "sys_calls.h"
 
-void syscall(unsigned int syscall_num, ...) {
-  char* args[6];
-  for (int i = 0; i < 6; i++) {
-    void *arg = (void *)(&syscall + i + 1);
-    args[i] = arg;
-  }
+void syscall(unsigned int syscall_num, char arg)
+{
+  asm volatile(
+      "mov %[a], %%eax\n\t"
+      "mov %[b], %%ebx"
+      : /* output operands */
+      : [a] "r"((unsigned int)arg), [b] "r"(syscall_num)
+      : /* clobbered registers */
+  );
 
-  asm("mov %%eax, %0" : : "r"(syscall_num));
-  asm("mov %%ebx, %0" : : "r"(args[0]));
-  asm volatile("int $0x29");
+  // Now, you can use the values in eax and ebx as needed.
+
+  // Trigger interrupt 0x29 (this may vary depending on your specific OS/assembly environment)
+  asm volatile(
+      "int $0x29");
 }

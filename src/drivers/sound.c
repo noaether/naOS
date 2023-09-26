@@ -60,7 +60,7 @@ void play_array(struct note new_array[], uint8_t length)
   {
     current_array[i] = new_array[i];
   }
-  current_array[i+2] = (struct note){0, 0, 0}; // End of array
+  current_array[i + 2] = (struct note){0, 0, 0}; // End of array
 
   set_pit(20);
   sound_playing = 1; // Set sound playing flag
@@ -88,9 +88,7 @@ void pit_interrupt_handler()
       }
       else
       {
-        nosound();
-        current_note = NULL;
-        syscall(0x00, 0x01); // SYSCALL : Sound -> 0 (off)
+        syscall(s_SOUND, s_FALSE); // SYSCALL : Sound -> 0 (off)
         return;
       }
     }
@@ -131,6 +129,7 @@ void pit_interrupt_handler()
 void nosound()
 {
   sound_playing = 0;
+  current_note = NULL;
 
   uint8_t tmp = inb(0x61) & 0xFC;
   outb(0x61, tmp);

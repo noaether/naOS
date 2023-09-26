@@ -217,7 +217,7 @@ void sprintf(char *buf, const char *format, ...)
             } else if (c == 'f') {
                 double arg_double = *(double *)arg;
                 // void itoa(int n, char *buf, int buf_size);
-                dtoa(arg_double, str_buf, 20);
+                (void)itoa(arg_double, str_buf, 20);
                 char *arg_str = str_buf;
                 while (*arg_str)
                 {
