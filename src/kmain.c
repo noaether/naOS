@@ -118,7 +118,7 @@ int kmain(uint32_t ebx)
   int num = 42;
   char *text = "Hello World!";
 
-  sprintf(buffer, "42 = %d, Hello World! = %s", num, text);
+  sprintf(buffer, "TST | 42 = %d, Hello World! = %s", num, text);
 
   log(buffer, LOG_INFO);
 
