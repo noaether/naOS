@@ -88,7 +88,7 @@ void pit_interrupt_handler()
       }
       else
       {
-        syscall(s_SOUND, s_FALSE); // SYSCALL : Sound -> 0 (off)
+        syscall(s_SOUND, false); // SYSCALL : Sound -> 0 (off)
         return;
       }
     }

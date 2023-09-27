@@ -16,3 +16,8 @@ void syscall(unsigned int syscall_num, char arg)
   asm volatile(
       "int $0x29");
 }
+
+void panic(char *message)
+{
+  syscall(s_ERROR, (intptr_t)message);
+}

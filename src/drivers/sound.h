@@ -34,7 +34,7 @@ struct note
   float octave;
   float note;
   uint8_t duration;
-};
+}__attribute__((packed));
 
 void pit_interrupt_handler();
 
