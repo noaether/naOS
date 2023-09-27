@@ -56,7 +56,7 @@ struct note mary_had_a_little_lamb[] = {
 
 struct note note_to_play[] = {{OCTAVE_4, NOTE_A, 10}};
 
-void interpret(char string[], size_t len)
+/*void interpret(char string[], size_t len)
 {
   const char first_char = string[0];
 
@@ -141,4 +141,94 @@ void interpret(char string[], size_t len)
     log(string, LOG_DEBUG);
     break;
   }
+};*/
+
+// Function prototypes for command handlers
+void handleWriteFile(char *args);
+void handleReadFile(char *args);
+void handleHelp();
+void handleClear();
+void handleLog(char *args);
+void handleEcho(char *args);
+void handlePlay();
+void handleQuit();
+void handleUnknown(char *command);
+
+// Define a command table
+struct Command {
+    const char *name;
+    void (*handler)(char *);
+    uint8_t numArgs;
 };
+
+// Command handlers
+struct Command commands[] = {
+    {"writefile", handleWriteFile, 2},
+    {"readfile", handleReadFile, 1},
+    {"help", handleHelp, 0},
+    {"clear", handleClear, 0},
+    {"log", handleLog, 1},
+    {"echo", handleEcho, 1},
+    {"play", handlePlay, 0},
+    {"quit", handleQuit, 0},
+};
+
+int numCommands = sizeof(commands) / sizeof(commands[0]);
+
+// Function to interpret a command
+void interpret(char *string, size_t len) {
+    char *del = " ";
+    char *command = strtok(string, del);
+
+    if (command == NULL) {
+        return; // Empty input
+    }
+
+    // Find the corresponding command handler
+    for (int i = 0; i < numCommands; i++) {
+        if (strcmp(command, commands[i].name) == 0) {
+            char *args = strtok(NULL, "");
+            commands[i].handler(args);
+            return;
+        }
+    }
+
+    handleUnknown(command);
+}
+
+// Command handlers
+void handleWriteFile(char *args) {
+    // Implementation for writefile command
+}
+
+void handleReadFile(char *args) {
+    // Implementation for readfile command
+}
+
+void handleHelp() {
+    // Implementation for help command
+}
+
+void handleClear() {
+    // Implementation for clear command
+}
+
+void handleLog(char *args) {
+    // Implementation for log command
+}
+
+void handleEcho(char *args) {
+    // Implementation for echo command
+}
+
+void handlePlay() {
+    // Implementation for play command
+}
+
+void handleQuit() {
+    // Implementation for quit command
+}
+
+void handleUnknown(char *command) {
+    // Implementation for unknown command
+}
