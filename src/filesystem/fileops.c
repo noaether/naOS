@@ -1,27 +1,43 @@
 #include "fileops.h"
 
-struct Node root; // The root of your file system
-
-// Initialize the file system
-void fs_main()
+/*
+ * 1. Find an empty slot in the file table
+ * 2. Check if there is an available slot
+ * 3. Initialize file information
+ * 4. Allocate memory for file content
+ */
+struct FileInformation
 {
-  log("FS  | Initializing RAM filesystem...", LOG_DEBUG);
+  char name[MAX_FILENAME_LENGTH + 1];
+  uint32_t size;
+  uint16_t permissions;
+  uint32_t creation_time;
+  uint32_t modified_time;
+  char *content;
+}__attribute__((packed));
 
-  memset(&root, 0, sizeof(struct Node));
-  root.node.type = FOLDER_TYPE; // The root is a folder
-  root.node.parent = NULL;      // The root has no parent
+struct FileInformation file_table[MAX_FILES];
 
-  log("FS  | RAM filesystem initialized!", LOG_DEBUG);
+
+void fs_main() {
+    log("FS  | Initializing RAM filesystem...", LOG_DEBUG);
+
+    for (int i = 0; i < MAX_FILES - 1; i++) {
+        memset(&file_table[i], 0, sizeof(struct FileInformation));
+    };
+
+    log("FS  | RAM filesystem initialized!", LOG_DEBUG);
 }
 
-// Function to create a file or folder
-int createNode(const char *name, uint16_t permissions, enum FileType type)
+int createFile(const char *name, uint16_t permissions)
 {
-  // Find an empty slot in the children array
+  // TODO : WRITE DOCUMENTATION FOR PERMISSIONS
+
+  // Find an empty slot in the file table
   int empty_slot = -1;
-  for (int i = 0; i < MAX_CHILDREN; i++)
+  for (int i = 0; i < MAX_FILES; i++)
   {
-    if (root.node.children[i] == NULL)
+    if (file_table[i].size == 0)
     {
       empty_slot = i;
       break;
@@ -29,107 +45,130 @@ int createNode(const char *name, uint16_t permissions, enum FileType type)
   }
 
   // Check if there is an available slot
-  if (empty_slot < 0)
+  if (empty_slot == -1)
   {
-    return empty_slot; // No available slots
+    return -1; // No available slots
   }
 
-  // Initialize node information
-  struct Node *new_node = (struct Node *)malloc(sizeof(struct Node));
-  if (new_node == NULL)
+  // Initialize file information
+  struct FileInformation *new_file = &file_table[empty_slot];
+  strncpy(new_file->name, name, MAX_FILENAME_LENGTH);
+  new_file->size = 0;
+  new_file->permissions = permissions;
+
+  // TODO: SET TIMESTAMPS ATTRIBUTES
+
+  // Allocate memory for file content
+  new_file->content = (char *)malloc(MAX_FILE_SIZE);
+
+  if (new_file->content == NULL)
   {
     return -2; // Memory allocation failed
   }
 
-  strncpy(new_node->name, name, MAX_FILENAME_LENGTH);
-  new_node->type = type;
-  new_node->permissions = permissions;
+  return 0; // File created successfully
+}
 
-  // TODO: SET TIMESTAMPS ATTRIBUTES
-
-  new_node->content = NULL; // Initialize content to NULL
-
-  // Initialize children array
-  for (int i = 0; i < MAX_CHILDREN; i++)
+// Function to write data to a file
+int writeFile(const char *name, const char *data, uint32_t size)
+{
+  // Find the file in the file table
+  for (int i = 0; i < MAX_FILES; i++)
   {
-    new_node->children[i] = NULL;
-  }
-
-  // Set the parent directory
-  new_node->parent = currentDir;
-
-  // Add the new node to the parent folder (in this case, always root)
-  root.node.children[empty_slot] = new_node;
-
-  return 0; // File or folder created successfully
-}
-
-// Function to create a file inside the current working directory
-int createFile(const char *name, uint16_t permissions)
-{
-  return createNode(name, permissions, FILE_TYPE);
-}
-
-// Function to create a folder inside the current working directory
-int createFolder(const char *name, uint16_t permissions)
-{
-  return createNode(name, permissions, FOLDER_TYPE);
-}
-
-// Function to navigate to a folder inside the current working directory
-int changeDirectory(const char *folderName)
-{
-  struct Node **contents = currentDir->node.children;
-
-  // Find the specified folder in the current directory
-  for (int i = 0; i < MAX_CHILDREN; i++)
-  {
-    if (contents[i] != NULL && contents[i]->type == FOLDER_TYPE &&
-        strcmp(contents[i]->name, folderName) == 0)
+    if (strcmp(file_table[i].name, name) == 0)
     {
-      currentDir = (struct Directory *)contents[i];
-      return 0; // Directory changed successfully
+      // Check if the file has write permissions
+      if (file_table[i].permissions & 0x02)
+      {
+        // Check if the file content can hold the new data
+        if (size > MAX_FILE_SIZE)
+        {
+          return -1; // File size exceeds limit
+        }
+
+        // Update file size and content
+        struct FileInformation *file = &file_table[i];
+        file->size = size;
+        strncpy(file->content, data, size);
+
+        // Update the modified timestamp here
+
+        return 0; // Write successful
+      }
+      else
+      {
+        return -2; // Permission denied
+      }
     }
   }
 
-  // If folder not found, handle error
-  return -1;
+  return -3; // File not found
 }
 
-// Function to navigate up one level in the directory hierarchy
-int changeDirectoryUp()
+// Function to read data from a file
+int readFile(const char *name, char *buffer, uint32_t size)
 {
-  if (currentDir != &root)
+  // Find the file in the file table
+  for (int i = 0; i < MAX_FILES; i++)
   {
-    currentDir = (struct Directory *)currentDir->node.parent;
-    return 0; // Directory changed successfully
-  }
-  else
-  {
-    return -1; // Already at the root directory
-  }
-}
-
-// Function to list all files and folders recursively from the current directory
-struct Node **listFilesAndFolders()
-{
-  return currentDir->node.children;
-}
-
-// Function to return the whole content of a file
-char *readFile(const char *name)
-{
-  // Find the file in the current directory
-  struct Node **contents = currentDir->node.children;
-  for (int i = 0; i < MAX_CHILDREN; i++)
-  {
-    if (contents[i] != NULL && contents[i]->type == FILE_TYPE &&
-        strcmp(contents[i]->name, name) == 0)
+    if (strcmp(file_table[i].name, name) == 0)
     {
-      return contents[i]->content;
+      // Check if the file has read permissions
+      if (file_table[i].permissions & 0x04)
+      {
+        // Check if the buffer can hold the file content
+        if (size < file_table[i].size)
+        {
+          return -1; // Buffer size is too small
+        }
+
+        // Copy file content to the buffer
+        struct FileInformation *file = &file_table[i];
+        strncpy(buffer, file->content, file->size);
+
+        return file->size; // Return the number of bytes read
+      }
+      else
+      {
+        return -2; // Permission denied
+      }
     }
   }
 
-  // File not found
-  return NULL;
+  return -3; // File not found
+}
+
+// Function to delete a file
+int deleteFile(const char *name)
+{
+  // Find the file in the file table
+  for (int i = 0; i < MAX_FILES; i++)
+  {
+    if (strcmp(file_table[i].name, name) == 0)
+    {
+      // Check if the file has delete permissions
+      if (file_table[i].permissions & 0x08)
+      {
+        // Free memory used by file content
+        free(file_table[i].content);
+
+        // Clear file information
+        memset(&file_table[i], 0, sizeof(struct FileInformation));
+
+        return 0; // File deleted successfully
+      }
+      else
+      {
+        return -1; // Permission denied
+      }
+    }
+  }
+
+  return -2; // File not found
+}
+
+// Function to list all files
+struct FileInformation* listfiles()
+{
+  return file_table;
 }

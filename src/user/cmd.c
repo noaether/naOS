@@ -13,6 +13,9 @@
 
 int since_enter = 0;
 
+char *del = " ";
+char endbuffer[1024];
+
 struct note mary_had_a_little_lamb[] = {
     {OCTAVE_4, NOTE_E, 4},
     {OCTAVE_4, NOTE_D, 4},
@@ -60,10 +63,9 @@ struct note note_to_play[] = {{OCTAVE_4, NOTE_A, 10}};
 {
   const char first_char = string[0];
 
-  char *del = " ";
+
   char *argslist = strtok(string, del);
 
-  char endbuffer[1024];
 
   // The first character is the command
   switch (first_char)
@@ -144,91 +146,122 @@ struct note note_to_play[] = {{OCTAVE_4, NOTE_A, 10}};
 };*/
 
 // Function prototypes for command handlers
-void handleWriteFile(char *args);
-void handleReadFile(char *args);
-void handleHelp();
-void handleClear();
-void handleLog(char *args);
-void handleEcho(char *args);
-void handlePlay();
-void handleQuit();
-void handleUnknown(char *command);
+void handleWriteFile(char *string, size_t len, char *args);
+void handleReadFile(char *string, size_t len, char *args);
+void handleHelp(char *string, size_t len, char *args);
+void handleClear(char *string, size_t len, char *args);
+void handleLog(char *string, size_t len, char *args);
+void handleEcho(char *string, size_t len, char *args);
+void handlePlay(char *string, size_t len, char *args);
+void handleQuit(char *string, size_t len, char *args);
+void handleUnknown(char *string, size_t len, char *args);
+void handleChangeDirectory(char *string, size_t len, char *args);
 
 // Define a command table
-struct Command {
-    const char *name;
-    void (*handler)(char *);
-    uint8_t numArgs;
+struct Command
+{
+  const char *name;
+  void (*handler)(char *, size_t, char *);
+  uint8_t numArgs;
 };
 
 // Command handlers
 struct Command commands[] = {
     {"writefile", handleWriteFile, 2},
-    {"readfile", handleReadFile, 1},
+    {"cat", handleReadFile, 1},
     {"help", handleHelp, 0},
     {"clear", handleClear, 0},
     {"log", handleLog, 1},
     {"echo", handleEcho, 1},
     {"play", handlePlay, 0},
     {"quit", handleQuit, 0},
-};
+    {"cd", handleChangeDirectory, 1}};
 
 int numCommands = sizeof(commands) / sizeof(commands[0]);
 
 // Function to interpret a command
-void interpret(char *string, size_t len) {
-    char *del = " ";
-    char *command = strtok(string, del);
+void interpret(char *string, size_t len)
+{
+  char *del = " ";
+  char *command = strtok(string, del);
 
-    if (command == NULL) {
-        return; // Empty input
+  if (command == NULL)
+  {
+    return; // Empty input
+  }
+
+  // Find the corresponding command handler
+  for (int i = 0; i < numCommands; i++)
+  {
+    if (strcmp(command, commands[i].name) == 0)
+    {
+      char *args = strtok(NULL, "");
+      commands[i].handler(string, len, args);
+      return;
     }
+  }
 
-    // Find the corresponding command handler
-    for (int i = 0; i < numCommands; i++) {
-        if (strcmp(command, commands[i].name) == 0) {
-            char *args = strtok(NULL, "");
-            commands[i].handler(args);
-            return;
-        }
-    }
-
-    handleUnknown(command);
+  handleUnknown(string, len, NULL);
 }
 
 // Command handlers
-void handleWriteFile(char *args) {
-    // Implementation for writefile command
+void handleWriteFile(char *string, size_t len, char *args)
+{
+  // Implementation for writefile command
+  args = strtok(NULL, del); // move to arg1
+
+  createFile(args, 0x06);
+
+  reverse(string, len);
+  strncpy(endbuffer, string, len - 11 - strlen(args));
+  reverse(endbuffer, strlen(endbuffer));
+
+  writeFile(args, endbuffer, 1024);
+
+  fb_println("File written succesfully !", 27);
 }
 
-void handleReadFile(char *args) {
-    // Implementation for readfile command
+void handleReadFile(char *string, size_t len, char *args)
+{
+  (void)len, (void)args, (void)string;
 }
 
-void handleHelp() {
-    // Implementation for help command
+void handleHelp(char *string, size_t len, char *args)
+{
+  (void)len, (void)args, (void)string;
 }
 
-void handleClear() {
-    // Implementation for clear command
+void handleClear(char *string, size_t len, char *args)
+{
+  (void)len, (void)args, (void)string;
 }
 
-void handleLog(char *args) {
-    // Implementation for log command
+void handleLog(char *string, size_t len, char *args)
+{
+  (void)len, (void)args, (void)string;
 }
 
-void handleEcho(char *args) {
-    // Implementation for echo command
+void handleEcho(char *string, size_t len, char *args)
+{
+  (void)len, (void)args, (void)string;
 }
 
-void handlePlay() {
-    // Implementation for play command
+void handlePlay(char *string, size_t len, char *args)
+{
+  (void)len, (void)args, (void)string;
 }
 
-void handleQuit() {
-    // Implementation for quit command
+void handleQuit(char *string, size_t len, char *args)
+{
+  (void)len, (void)args, (void)string;
 }
 
-void handleUnknown(char *command) {
-    // Implementation for unknown command
+void handleUnknown(char *string, size_t len, char *args)
+{
+  (void)len, (void)args, (void)string;
+}
+
+void handleChangeDirectory(char *string, size_t len, char *args)
+{
+  (void)len, (void)args, (void)string;
 }
