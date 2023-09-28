@@ -59,46 +59,7 @@ struct note mary_had_a_little_lamb[] = {
 
 struct note note_to_play[] = {{OCTAVE_4, NOTE_A, 10}};
 
-/*void interpret(char string[], size_t len)
-{
-  const char first_char = string[0];
-
-
-  char *argslist = strtok(string, del);
-
-
-  // The first character is the command
-  switch (first_char)
-  {
-  case 'w':                       // write file writefile
-                                  // TODO : ADD ERROR HANDLING
-    argslist = strtok(NULL, del); // move to arg1
-
-    createFile(argslist, 0x06);
-
-    reverse(string, len);
-    strncpy(endbuffer, string, len - 11 - strlen(argslist));
-    reverse(endbuffer, strlen(endbuffer));
-
-    writeFile(argslist, endbuffer, 1024);
-
-    fb_println("File written succesfully !", 27);
-
-    break;
-  case 'r':                       // read file readfile
-                                  // TODO : ADD ERROR HANDLING
-    argslist = strtok(NULL, del); // arg1
-    readFile(argslist, endbuffer, sizeof(endbuffer));
-
-    fb_println(endbuffer, strlen(endbuffer));
-    break;
-  case 't':
-    while (argslist != NULL)
-    {
-      log(argslist, LOG_DEBUG);
-      argslist = strtok(NULL, del);
-    }
-    break;
+/*
   case 'i': // pi
     argslist = strtok(NULL, del);
 
@@ -146,8 +107,31 @@ struct note note_to_play[] = {{OCTAVE_4, NOTE_A, 10}};
 };*/
 
 // Function prototypes for command handlers
+/**
+ * @brief Handles the writefile command by creating a file with the given name and writing the given string to it.
+ *
+ * @param string The string to write to the file.
+ * @param len The length of the string.
+ * @param args The arguments passed to the command.
+ */
 void handleWriteFile(char *string, size_t len, char *args);
+
+/**
+ * @brief Handles the cat command by reading the contents of the given file and printing it to the screen.
+ *
+ * @param string The string to write to the file.
+ * @param len The length of the string.
+ * @param args The arguments passed to the command.
+ */
 void handleReadFile(char *string, size_t len, char *args);
+
+/**
+ * @brief Handles the help command by printing the help message to the screen.
+ *
+ * @param string The string to write to the file.
+ * @param len The length of the string.
+ * @param args The arguments passed to the command.
+ */
 void handleHelp(char *string, size_t len, char *args);
 void handleClear(char *string, size_t len, char *args);
 void handleLog(char *string, size_t len, char *args);
@@ -161,21 +145,24 @@ void handleChangeDirectory(char *string, size_t len, char *args);
 struct Command
 {
   const char *name;
+  const char *desc;
+  const char *usage;
   void (*handler)(char *, size_t, char *);
-  uint8_t numArgs;
+  int numArgs;
+  const char *args[10];
 };
 
-// Command handlers
 struct Command commands[] = {
-    {"writefile", handleWriteFile, 2},
-    {"cat", handleReadFile, 1},
-    {"help", handleHelp, 0},
-    {"clear", handleClear, 0},
-    {"log", handleLog, 1},
-    {"echo", handleEcho, 1},
-    {"play", handlePlay, 0},
-    {"quit", handleQuit, 0},
-    {"cd", handleChangeDirectory, 1}};
+    {"writefile", "Writes a file to the filesystem", "writefile <name> <data>", handleWriteFile, 2, {"name", "data"}},
+    {"cat", "Reads a file from the filesystem", "cat <name>", handleReadFile, 1, {"name"}},
+    {"help", "Prints this help message", "help", handleHelp, 0, {}},
+    {"clear", "Clears the screen", "clear", handleClear, 0, {}},
+    {"log", "Logs a message to the kernel log", "log <data>", handleLog, 1, {"data"}},
+    {"echo", "Prints a message to the screen", "echo <data>", handleEcho, 1, {"data"}},
+    {"play", "Plays a song", "play", handlePlay, 0, {}},
+    {"quit", "Quits the kernel", "quit", handleQuit, 0, {}},
+    {"cd", "Changes the current directory", "cd <path>", handleChangeDirectory, 1, {"path"}}
+  };
 
 int numCommands = sizeof(commands) / sizeof(commands[0]);
 
@@ -195,7 +182,7 @@ void interpret(char *string, size_t len)
   {
     if (strcmp(command, commands[i].name) == 0)
     {
-      char *args = strtok(NULL, "");
+      char *args = strtok(NULL, del);
       commands[i].handler(string, len, args);
       return;
     }
@@ -204,7 +191,6 @@ void interpret(char *string, size_t len)
   handleUnknown(string, len, NULL);
 }
 
-// Command handlers
 void handleWriteFile(char *string, size_t len, char *args)
 {
   // Implementation for writefile command
@@ -219,15 +205,28 @@ void handleWriteFile(char *string, size_t len, char *args)
   writeFile(args, endbuffer, 1024);
 
   fb_println("File written succesfully !", 27);
+
+  (void)len, (void)args, (void)string;
 }
 
 void handleReadFile(char *string, size_t len, char *args)
 {
+  args = strtok(NULL, del); // arg1
+  readFile(args, endbuffer, sizeof(endbuffer));
+
+  fb_println(endbuffer, strlen(endbuffer));
+
   (void)len, (void)args, (void)string;
 }
 
 void handleHelp(char *string, size_t len, char *args)
 {
+  for (int i = 0; i < numCommands; i++)
+  {
+    sprintf(endbuffer, "%s - %s : %s", commands[i].name, commands[i].desc, commands[i].usage);
+    fb_println(endbuffer, strlen(endbuffer));
+    memset(endbuffer, 0, sizeof(endbuffer));
+  }
   (void)len, (void)args, (void)string;
 }
 
