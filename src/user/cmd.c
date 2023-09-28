@@ -60,17 +60,6 @@ struct note mary_had_a_little_lamb[] = {
 struct note note_to_play[] = {{OCTAVE_4, NOTE_A, 10}};
 
 /*
-  case 'i': // pi
-    argslist = strtok(NULL, del);
-
-    sprintf(endbuffer, "The %dth digit of Pi is: %.15f\n", argslist[0] - '0', calculateNthDigitOfPi(argslist[0] - '0'));
-
-    fb_println(endbuffer, strlen(endbuffer));
-
-    break;
-  case 'h': // Help
-    fb_println("Commands: h - help, c - clear, l - log, e - echo, p - play, q - quit", 69);
-    break;
   case 'c': // Clear
     fb_set_cursor(0);
     fb_clear();
@@ -161,15 +150,13 @@ struct Command commands[] = {
     {"echo", "Prints a message to the screen", "echo <data>", handleEcho, 1, {"data"}},
     {"play", "Plays a song", "play", handlePlay, 0, {}},
     {"quit", "Quits the kernel", "quit", handleQuit, 0, {}},
-    {"cd", "Changes the current directory", "cd <path>", handleChangeDirectory, 1, {"path"}}
-  };
+    {"cd", "Changes the current directory", "cd <path>", handleChangeDirectory, 1, {"path"}}};
 
 int numCommands = sizeof(commands) / sizeof(commands[0]);
 
 // Function to interpret a command
 void interpret(char *string, size_t len)
 {
-  char *del = " ";
   char *command = strtok(string, del);
 
   if (command == NULL)
@@ -232,31 +219,49 @@ void handleHelp(char *string, size_t len, char *args)
 
 void handleClear(char *string, size_t len, char *args)
 {
+  fb_set_cursor(0);
+  fb_clear();
+
   (void)len, (void)args, (void)string;
 }
 
 void handleLog(char *string, size_t len, char *args)
 {
+  strncpy(endbuffer, string, len - 4);
+  reverse(endbuffer, len - 4);
+  sprintf(endbuffer, "CMD | Log: %s", endbuffer);
+  log(endbuffer, LOG_DEBUG);
+
   (void)len, (void)args, (void)string;
 }
 
 void handleEcho(char *string, size_t len, char *args)
 {
+  strncpy(endbuffer, string, len - 5);
+  reverse(endbuffer, len - 5);
+  sprintf(endbuffer, "CMD | Echo: %s", endbuffer);
+  fb_println(endbuffer, len - 5);
+
   (void)len, (void)args, (void)string;
 }
 
 void handlePlay(char *string, size_t len, char *args)
 {
+  play_array(mary_had_a_little_lamb, 38);
   (void)len, (void)args, (void)string;
 }
 
 void handleQuit(char *string, size_t len, char *args)
 {
+  log("CMD | Quit", LOG_DEBUG);
+  asm volatile("hlt");
   (void)len, (void)args, (void)string;
 }
 
 void handleUnknown(char *string, size_t len, char *args)
 {
+  sprintf(endbuffer, "Unknown command: %s", string);
+  fb_println(endbuffer, strlen(endbuffer));
   (void)len, (void)args, (void)string;
 }
 

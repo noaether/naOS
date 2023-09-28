@@ -33,7 +33,7 @@ void fb_write_cell(unsigned int i, char c, unsigned char fg, unsigned char bg)
  */
 void fb_set_cursor(unsigned short pos)
 {
-    cursor = pos;
+  cursor = pos;
 
   outb(FB_COMMAND_PORT, FB_HIGH_BYTE_COMMAND);
   outb(FB_DATA_PORT, ((pos >> 8) & 0x00FF));
@@ -62,9 +62,11 @@ void fb_write(char *buf, signed int len)
           fb_set_cursor(0);
           fb_clear();
           break;
-        } else {
-        cursor = (cursor / 80 + 1) * 80;
-        fb_set_cursor(cursor);
+        }
+        else
+        {
+          cursor = (cursor / 80 + 1) * 80;
+          fb_set_cursor(cursor);
         }
       }
       else
@@ -164,93 +166,101 @@ void fb_backspace()
 
 void sprintf(char *buf, const char *format, ...)
 {
-    char *p = buf;
-    char c;
-    char str_buf[20]; // Adjust the size as needed
+  char *p = buf;
+  char c;
+  char str_buf[20]; // Adjust the size as needed
 
-    // Pointer to the first argument after 'format'
-    void *arg = (void *)(&format + 1);
+  // Pointer to the first argument after 'format'
+  void *arg = (void *)(&format + 1);
 
-    while ((c = *format++) != '\0')
+  while ((c = *format++) != '\0')
+  {
+    if (c != '%')
     {
-        if (c != '%')
-        {
-            *p++ = c;
-        }
-        else
-        {
-            c = *format++;
-            if (c == 's')
-            {
-                char *arg_str = *(char **)arg;
-                while (*arg_str)
-                {
-                    *p++ = *arg_str++;
-                }
-                arg += sizeof(char *);
-            }
-            else if (c == 'd')
-            {
-                int arg_int = *(int *)arg;
-                // void itoa(int n, char *buf, int buf_size);
-                itoa(arg_int, str_buf, 20);
-                char *arg_str = str_buf;
-                while (*arg_str)
-                {
-                    *p++ = *arg_str++;
-                }
-                arg += sizeof(int);
-            } else if (c == 'c') {
-                char arg_char = *(char *)arg;
-                *p++ = arg_char;
-                arg += sizeof(char);
-            } else if (c == 'x') {
-                int arg_int = *(int *)arg;
-                // void itoa(int n, char *buf, int buf_size);
-                itoa(arg_int, str_buf, 20);
-                char *arg_str = str_buf;
-                while (*arg_str)
-                {
-                    *p++ = *arg_str++;
-                }
-                arg += sizeof(int);
-            } else if (c == 'f') {
-                double arg_double = *(double *)arg;
-                // void itoa(int n, char *buf, int buf_size);
-                (void)itoa(arg_double, str_buf, 20);
-                char *arg_str = str_buf;
-                while (*arg_str)
-                {
-                    *p++ = *arg_str++;
-                }
-                arg += sizeof(double);
-            }
-            // Add support for more format specifiers as needed
-        }
+      *p++ = c;
     }
+    else
+    {
+      c = *format++;
+      if (c == 's')
+      {
+        char *arg_str = *(char **)arg;
+        while (*arg_str)
+        {
+          *p++ = *arg_str++;
+        }
+        arg += sizeof(char *);
+      }
+      else if (c == 'd')
+      {
+        int arg_int = *(int *)arg;
+        // void itoa(int n, char *buf, int buf_size);
+        itoa(arg_int, str_buf, 20);
+        char *arg_str = str_buf;
+        while (*arg_str)
+        {
+          *p++ = *arg_str++;
+        }
+        arg += sizeof(int);
+      }
+      else if (c == 'c')
+      {
+        char arg_char = *(char *)arg;
+        *p++ = arg_char;
+        arg += sizeof(char);
+      }
+      else if (c == 'x')
+      {
+        int arg_int = *(int *)arg;
+        // void itoa(int n, char *buf, int buf_size);
+        itoa(arg_int, str_buf, 20);
+        char *arg_str = str_buf;
+        while (*arg_str)
+        {
+          *p++ = *arg_str++;
+        }
+        arg += sizeof(int);
+      }
+      else if (c == 'f')
+      {
+        double arg_double = *(double *)arg;
+        // void itoa(int n, char *buf, int buf_size);
+        (void)itoa(arg_double, str_buf, 20);
+        char *arg_str = str_buf;
+        while (*arg_str)
+        {
+          *p++ = *arg_str++;
+        }
+        arg += sizeof(double);
+      }
+      // Add support for more format specifiers as needed
+    }
+  }
 
-    *p = '\0';
+  *p = '\0';
 }
 
-void arrow_key_handler(int keycode) {
+void arrow_key_handler(int keycode)
+{
   if ((72 - keycode) == 0)
   {
-    // Up arrow
     fb_set_cursor(cursor - 80);
   }
   else if ((80 - keycode) == 0)
   {
-    // Down arrow
     fb_set_cursor(cursor + 80);
   }
   else if ((75 - keycode) == 0)
   {
-    // Left arrow
-    fb_set_cursor(cursor - 1);
+    // avoid access to 5 first chars of line
+    if (fb[cursor] != '>') /* '>' */ {
+      fb_set_cursor(cursor - 1);
+    }
   }
   else if ((77 - keycode) == 0)
   {
-    // Right arrow
-    fb_set_cursor(cursor + 1);
+    if (fb[cursor] != '>' ) /* '>' */ {
+      fb_set_cursor(cursor + 1);
+    }
   }
 }
