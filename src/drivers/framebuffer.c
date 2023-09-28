@@ -12,25 +12,12 @@ char input_buffer[80];
 
 /* PRIMITIVE FUNCTIONS */
 
-/**
- * display character c on the position i with color fg and bg.
- *
- * @param i the position, 0 for the first line, first col. 16 for the second line.
- * @param c the displayed character
- * @param fg foreground color
- * @param bg background color
- */
 void fb_write_cell(unsigned int i, char c, unsigned char fg, unsigned char bg)
 {
   fb[i] = c;
   fb[i + 1] = ((bg & 0x0F) << 4 | (fg & 0x0F));
 }
 
-/** fb_move_cursor:
- *  Moves the cursor of the framebuffer to the given position
- *
- *  @param pos The new position of the cursor
- */
 void fb_set_cursor(unsigned short pos)
 {
   cursor = pos;
@@ -41,7 +28,7 @@ void fb_set_cursor(unsigned short pos)
   outb(FB_DATA_PORT, pos & 0x00FF);
 }
 
-/* high-level functions */
+
 void fb_write(char *buf, signed int len)
 {
 
@@ -253,13 +240,15 @@ void arrow_key_handler(int keycode)
   else if ((75 - keycode) == 0)
   {
     // avoid access to 5 first chars of line
-    if (fb[cursor] != '>') /* '>' */ {
+    if (fb[cursor] != '>') /* '>' */
+    {
       fb_set_cursor(cursor - 1);
     }
   }
   else if ((77 - keycode) == 0)
   {
-    if (fb[cursor] != '>' ) /* '>' */ {
+    if (fb[cursor] != '>') /* '>' */
+    {
       fb_set_cursor(cursor + 1);
     }
   }
