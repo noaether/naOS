@@ -12,6 +12,7 @@
 - [ ] User Mode
 - [ ] System Calls (WIP)
 - [x] File System
+- [ ] Folder support for the FS
 - [ ] ???
 - [x] Signing commits on gitpod
 
