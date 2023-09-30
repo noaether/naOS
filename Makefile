@@ -3,7 +3,7 @@ OBJECTS = src/drivers/gdt.o src/loader.o src/kmain.o src/memory.o \
     src/keyboard/keyboard.o \
     src/user/cmd.o \
     src/utils/io.o src/utils/log.o \
-    src/stdlib/stdbool.o src/stdlib/stddef.o  src/stdlib/string.o src/stdlib/types.o src/stdlib/math.o \
+    src/stdlib/naOS/stdbool.o src/stdlib/naOS/stddef.o  src/stdlib/naOS/string.o src/stdlib/naOS/types.o src/stdlib/naOS/math.o \
     src/filesystem/fileops.o
 
 TARGET = kernel.elf
@@ -22,7 +22,7 @@ $(TARGET): $(OBJECTS) program.bin
 	$(CC) --verbose $(LDFLAGS) $(OBJECTS) -o $(TARGET)
 
 %.o: %.c
-	$(CC) --verbose -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -ffreestanding -c $< -o $@
+	$(CC) --verbose -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -ffreestanding -lgcc -I/home/noa/opt/cross/lib/gcc/i686-elf/9.4.0/include -I/media/noa/Code/C/naOS/src/stdlib -I/media/noa/Code/C/naOS/src -c $< -o $@
 
 %.o: %.asm
 	$(AS) $(ASFLAGS) $< -o $@
