@@ -1,43 +1,42 @@
 OBJECTS = src/drivers/gdt.o src/loader.o src/kmain.o src/memory.o \
-				src/drivers/framebuffer.o src/drivers/serial.o src/drivers/sound.o src/drivers/irq.o src/drivers/irq_asm.o src/drivers/clocks.o src/drivers/sys_calls.o \
-				src/keyboard/keyboard.o \
-				src/user/cmd.o \
-				src/utils/io.o src/utils/log.o \
-				src/stdlib/stdbool.o src/stdlib/stddef.o  src/stdlib/string.o src/stdlib/types.o src/stdlib/math.o \
-				src/filesystem/fileops.o
-CC = gcc
-CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
-					-nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c
-LDFLAGS = -T src/link.ld -melf_i386
+    src/drivers/framebuffer.o src/drivers/serial.o src/drivers/sound.o src/drivers/irq.o src/drivers/irq_asm.o src/drivers/clocks.o src/drivers/sys_calls.o \
+    src/keyboard/keyboard.o \
+    src/user/cmd.o \
+    src/utils/io.o src/utils/log.o \
+    src/stdlib/stdbool.o src/stdlib/stddef.o  src/stdlib/string.o src/stdlib/types.o src/stdlib/math.o \
+    src/filesystem/fileops.o
+
+TARGET = kernel.elf
+CC = i686-elf-gcc
 AS = nasm
 ASFLAGS = -f elf
+LDFLAGS = -T src/link.ld -nostdlib --verbose -lgcc
 
-all: kernel.elf
+all: os.iso
 
-program.bin:
-		nasm -f elf32 src/modules/initfpu.asm -o src/modules/initfpu.out
-		ld -m elf_i386 -Ttext 0x0 --oformat binary src/modules/initfpu.out -o src/modules/initfpu.bin
-		cp src/modules/initfpu.bin iso/boot/modules/initfpu
+os.iso: $(TARGET)
+	cp $(TARGET) iso/boot/$(TARGET)
+	grub-mkrescue -o os.iso iso
 
-kernel.elf: $(OBJECTS) program.bin
-		ld $(LDFLAGS) $(OBJECTS) -o src/kernel.elf
-
-os.iso: kernel.elf
-		cp src/kernel.elf iso/boot/kernel.elf
-		grub-mkrescue -o os.iso iso
-
-run-q: os.iso
-		qemu-system-i386 os.iso -m 4G -serial file:com1.out -rtc base=localtime -d int,cpu_reset,pcall,guest_errors,unimp -no-reboot
-# -soundhw pcspk
-
-run-b: os.iso
-		bochs -f bochsrc.txt -q
+$(TARGET): $(OBJECTS) program.bin
+	$(CC) --verbose $(LDFLAGS) $(OBJECTS) -o $(TARGET)
 
 %.o: %.c
-		$(CC) $(CFLAGS)  $< -o $@
+	$(CC) --verbose -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -ffreestanding -c $< -o $@
 
 %.o: %.asm
-		$(AS) $(ASFLAGS) $< -o $@
+	$(AS) $(ASFLAGS) $< -o $@
+
+program.bin:
+	nasm -f elf32 src/modules/initfpu.asm -o src/modules/initfpu.out
+	ld -m elf_i386 -Ttext 0x0 --oformat binary src/modules/initfpu.out -o src/modules/initfpu.bin
+	cp src/modules/initfpu.bin iso/boot/modules/initfpu
+
+run-q: os.iso
+	qemu-system-i386 os.iso -m 4M -serial file:com1.out -rtc base=localtime -d int,cpu_reset,pcall,guest_errors,unimp -no-reboot
+
+run-b: os.iso
+	bochs -f bochsrc.txt -q
 
 clean:
-		rm -rf $(OBJECTS) src/*.elf *.iso *.bin iso/boot/*.bin iso/boot/*.elf iso/boot/modules/*
+	rm -rf $(OBJECTS) $(TARGET) src/*.elf *.iso *.bin iso/boot/*.bin iso/boot/*.elf iso/boot/modules/*

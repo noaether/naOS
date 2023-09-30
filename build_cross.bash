@@ -1,7 +1,7 @@
 #! /bin/bash
 
 export PREFIX="$HOME/opt/cross"
-export TARGET=i386-elf
+export TARGET=i686-elf
 export PATH="$PREFIX/bin:$PATH"
 
 mkdir -p $HOME/src
@@ -25,7 +25,7 @@ which -- $TARGET-as || echo $TARGET-as is not in the PATH
 
 mkdir build-gcc
 cd build-gcc
-../gcc-9.4.0/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --enable-languages=c,c++ --without-headers
+../gcc-9.4.0/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --enable-languages=c --without-headers
 make all-gcc -j6
 make all-target-libgcc -j6
 make install-gcc -j6
