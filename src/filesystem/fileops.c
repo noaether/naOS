@@ -45,9 +45,9 @@ int createFile(const char *name, uint16_t permissions)
   }
 
   // Check if there is an available slot
-  if (empty_slot == -1)
+  if (empty_slot < 0)
   {
-    return -1; // No available slots
+    return empty_slot; // No available slots
   }
 
   // Initialize file information
