@@ -1,7 +1,7 @@
 #ifndef SYS_CALLS_H
 #define SYS_CALLS_H
 
-#include "../stdlib/types.h"
+#include <stddef.h>
 
 #define s_SOUND 0x00
 #define s_KEYBOARD 0x01

@@ -5,6 +5,8 @@
 #include "../memory.h"
 #include "../utils/log.h"
 
+#include <stdint.h>
+
 void fs_main();
 
 int createFile(const char *name, uint16_t permissions);

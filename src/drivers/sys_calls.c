@@ -1,5 +1,8 @@
 #include "sys_calls.h"
 
+#include <stddef.h>
+#include <stdint.h>
+
 void syscall(unsigned int syscall_num, char arg)
 {
   asm volatile(

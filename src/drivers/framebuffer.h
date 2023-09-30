@@ -5,7 +5,8 @@
 #include "../keyboard/keyboard.h"
 #include "../user/cmd.h"
 
-#include "../stdlib/types.h"
+#include <stddef.h>
+#include <stdint.h>
 
 /* colors */
 #define FB_BLACK 0

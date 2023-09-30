@@ -1,7 +1,7 @@
 #ifndef IO_H
 #define IO_H
 
-#include "../lib.h"
+#include <stdint.h>
 
 /** outb:
  *  Sends the given byte to the given I/O port.

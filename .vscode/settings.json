@@ -6,9 +6,13 @@
     "*.sublime-snippet": "xml",
     "*.hbs": "html",
     "*.ejs": "html",
+    "*.emu": "html",
+    "lesskey": "lesskey",
     "*.Xresources": "xdefaults",
     "i3/config": "i3",
     "i3/*.conf": "i3",
+    "polybar/config": "ini",
+    "polybar/*.conf": "ini",
     "string.h": "c",
     "serial.h": "c",
     "stdbool.h": "c",
@@ -19,6 +23,8 @@
     "framebuffer.h": "c",
     "types.h": "c",
     "keyboard.h": "c",
-    "lib.h": "c"
+    "lib.h": "c",
+    "stdint.h": "c",
+    "fileops.h": "c"
   }
 }

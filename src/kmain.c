@@ -1,7 +1,6 @@
 #include "kmain.h"
 
 #include "drivers.h"
-#include "lib.h"
 
 #include "cpudet-clean.c"
 

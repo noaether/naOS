@@ -1,5 +1,7 @@
 #include "memory.h"
-#include "stdlib/types.h"
+
+#include <stddef.h>
+#include <stdint.h>
 
 typedef struct free_block
 {

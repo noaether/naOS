@@ -4,7 +4,9 @@
 #include "irq.h"
 #include "clocks.h"
 #include "../utils/io.h"
-#include "../stdlib/types.h"
+
+#include <stdint.h>
+#include <stddef.h>
 
 #define OCTAVE_0 0
 #define OCTAVE_1 1

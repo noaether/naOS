@@ -1,5 +1,7 @@
 #include "../utils/io.h" /* io.h is implemented in the section "Moving the cursor" */
 #include "serial.h"
+
+#include <stddef.h>
 /* The I/O ports */
 
 void serial_setup(unsigned short com)

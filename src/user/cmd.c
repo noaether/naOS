@@ -1,6 +1,7 @@
-#include "../stdlib/stddef.h"
-#include "../stdlib/string.h"
-#include "../stdlib/types.h"
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
+
 #include "../memory.h"
 
 #include "../drivers/framebuffer.h"

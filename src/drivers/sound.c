@@ -1,5 +1,6 @@
 #include "sound.h"
 #include "sys_calls.h"
+#include <stdbool.h>
 
 struct note current_array[256] = {
     {0, 0, 0} // End of array

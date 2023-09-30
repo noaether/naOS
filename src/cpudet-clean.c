@@ -25,7 +25,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "stdlib/string.h"
+#include "stdlib/naOS/string.h"
 #include "utils/log.h"
 
 

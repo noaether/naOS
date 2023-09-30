@@ -6,10 +6,6 @@ extern "C"
 {
 #endif
 
-#include "../lib.h"
-#include "../utils/io.h"
-#include "../drivers/irq.h"
-
 // IO Ports for Keyboard
 #define KEYBOARD_DATA_PORT 0x60
 #define KEYBOARD_STATUS_PORT 0x64
