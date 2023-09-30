@@ -1,6 +1,8 @@
-#include "stddef.h"
-#include "stdbool.h"
-#include "../memory.h"
+#include <stddef.h>
+#include <stdbool.h>
+
+#include "string.h"
+#include "../../memory.h"
 
 char *strcat(char *dest, const char *src)
 {
