@@ -8,7 +8,7 @@ int cursor = 0;
 unsigned char def_fg = FB_WHITE;
 unsigned char def_bg = FB_BLACK;
 
-char input_buffer[80];
+char input_buffer[256];
 
 /* PRIMITIVE FUNCTIONS */
 
@@ -151,11 +151,18 @@ void fb_backspace()
   }
 }
 
+void _putchar(char c)
+{
+  fb_write_cell(cursor * 2, c, def_fg, def_bg);
+  cursor++;
+  fb_set_cursor(cursor);
+}
+
 void sprintf(char *buf, const char *format, ...)
 {
   char *p = buf;
   char c;
-  char str_buf[20]; // Adjust the size as needed
+  char str_buf[sizeof(size_t)]; // Adjust the size as needed
 
   // Pointer to the first argument after 'format'
   void *arg = (void *)(&format + 1);
