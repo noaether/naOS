@@ -1,3 +1,5 @@
+#include "kmain.h"
+
 #include "drivers.h"
 #include "lib.h"
 
@@ -25,15 +27,13 @@ struct note boot_melody[] = {
 
 int kmain(uint32_t ebx)
 {
-  disable_interrupts();
-
   serial_setup(SERIAL_COM1_BASE);
 
   struct logConfigStruct conf = {LOG_DEBUG, LOG_SERIAL};
 
   configure_log(conf);
 
-  log("KRN | Kernel started!", LOG_INFO);
+  //log("KRN | Kernel started!", LOG_INFO);
 
   struct cpuInfoStruct cpu = detect_cpu();
 
@@ -76,20 +76,6 @@ int kmain(uint32_t ebx)
     uint32_t module_start = module->mod_start;
     uint32_t module_end = module->mod_end;
 
-    // get address of second module
-    struct multiboot_mod_list *module2 = (struct multiboot_mod_list *)(mbinfo->mods_addr + sizeof(struct multiboot_mod_list));
-
-    // Get the start and end addresses of the module
-    uint32_t module2_start = module2->mod_start;
-    uint32_t module2_end = module2->mod_end;
-
-    (void)module2_end;
-
-    if (mbinfo->mods_count > 1)
-    {
-      log("MB  | More than one module found, only the first one will be executed", LOG_WARNING);
-    }
-
     if (module_end < module_start || module_end == module_start)
     {
       log("MB  | Module end is less than module start", LOG_ERROR);
@@ -99,9 +85,6 @@ int kmain(uint32_t ebx)
     // Execute the module
     call_module_t start_program = (call_module_t)module_start;
     start_program();
-
-    call_module_t start2nd_program = (call_module_t)module2_start;
-    start2nd_program();
   }
 
   since_enter = 0;
