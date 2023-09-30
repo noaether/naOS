@@ -8,6 +8,10 @@
 // Define the packed attribute for the struct
 #define PACKED_STRUCT(name) struct __attribute__((packed)) name
 
+#define DBL_MAX sizeof(double)
+
+typedef unsigned long int intmax_t;
+
 // Integer types
 typedef signed char int8_t;
 typedef short int int16_t;
