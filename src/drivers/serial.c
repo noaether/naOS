@@ -10,7 +10,7 @@ void serial_setup(unsigned short com)
   outb(SERIAL_MODEM_COMMAND_PORT(com), 0x03);
 }
 
-void serial_write(char *buf) // appends to file since serial -> doesnt need other method like fb
+void serial_write(char *buf)
 {
   int i;
   for (i = 0; buf[i] != '\0'; i++)
@@ -21,14 +21,6 @@ void serial_write(char *buf) // appends to file since serial -> doesnt need othe
   }
 }
 
-/** serial_configure_baud_rate:
- *  Sets the speed of the data being sent. The default speed of a serial
- *  port is 115200 bits/s. The argument is a divisor of that number, hence
- *  the resulting speed becomes (115200 / divisor) bits/s.
- *
- *  @param com      The COM port to configure
- *  @param divisor  The divisor
- */
 void serial_configure_baud_rate(unsigned short com, unsigned short divisor)
 {
   outb(SERIAL_LINE_COMMAND_PORT(com),
@@ -39,14 +31,6 @@ void serial_configure_baud_rate(unsigned short com, unsigned short divisor)
        divisor & 0x00FF);
 }
 
-/** serial_configure_line:
- *  Configures the line of the given serial port. The port is set to have a
- *  data length of 8 bits, no parity bits, one stop bit and break control
- *  disabled.
- *
- *  @param com  The serial port to configure
- * @param config The configuration to use
- */
 void serial_configure_line(unsigned short com, unsigned char config)
 {
   outb(SERIAL_LINE_COMMAND_PORT(com), config); // config is 0x03 default
@@ -54,17 +38,9 @@ void serial_configure_line(unsigned short com, unsigned char config)
 
 void serial_configure_fifo(unsigned short com, unsigned char config)
 {
-  outb(SERIAL_FIFO_COMMAND_PORT(com), config); // config is 0xC7 default
+  outb(SERIAL_FIFO_COMMAND_PORT(com), config);
 }
 
-/** serial_is_transmit_fifo_empty:
- *  Checks whether the transmit FIFO queue is empty or not for the given COM
- *  port.
- *
- *  @param  com The COM port
- *  @return 0 if the transmit FIFO queue is not empty
- *          1 if the transmit FIFO queue is empty
- */
 int serial_is_transmit_fifo_empty(unsigned int com)
 {
   /* 0x20 = 0010 0000 */
