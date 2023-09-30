@@ -105,6 +105,41 @@ int writeFile(const char *name, const char *data, uint32_t size)
   return -3; // File not found
 }
 
+int editFile(const char *name, const char *data, uint32_t size)
+{
+  // Find the file in the file table
+  for (int i = 0; i < MAX_FILES; i++)
+  {
+    if (strcmp(file_table[i].name, name) == 0)
+    {
+      // Check if the file has write permissions
+      if (file_table[i].permissions & 0x02)
+      {
+        // Check if the file content can hold the new data
+        if (size > MAX_FILE_SIZE)
+        {
+          return -1; // File size exceeds limit
+        }
+
+        // Update file size and content
+        struct FileInformation *file = &file_table[i];
+        file->size = size;
+        strncpy(file->content, data, size);
+
+        // Update the modified timestamp here
+
+        return 0; // Write successful
+      }
+      else
+      {
+        return -2; // Permission denied
+      }
+    }
+  }
+
+  return -3; // File not found
+}
+
 // Function to read data from a file
 int readFile(const char *name, char *buffer, uint32_t size)
 {

@@ -33,7 +33,7 @@ program.bin:
 	cp src/modules/initfpu.bin iso/boot/modules/initfpu
 
 run-q: os.iso
-	qemu-system-i386 os.iso -m 4M -serial file:com1.out -rtc base=localtime -d int,cpu_reset,pcall,guest_errors,unimp -no-reboot
+	qemu-system-i386 os.iso -m 4M -serial file:com1.out -soundhw pcspk -rtc base=localtime -d int,cpu_reset,pcall,guest_errors,unimp -no-reboot
 
 run-b: os.iso
 	bochs -f bochsrc.txt -q
