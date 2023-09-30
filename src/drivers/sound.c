@@ -53,6 +53,14 @@ struct note CMajScale[] = {
 static struct note *current_note = NULL;
 static int current_note_index = -1; // Keep track of the current note index
 static int sound_playing = 0;       // Flag to indicate whether a sound is currently playing
+
+
+/**
+ * Copies the given array of notes to the current array and sets the sound playing flag.
+ *
+ * @param new_array The array of notes to be played.
+ * @param length The length of the array.
+ */
 void play_array(struct note new_array[], uint8_t length)
 {
   unsigned int i = 0;
@@ -71,6 +79,13 @@ void play_array(struct note new_array[], uint8_t length)
   current_note_index = 0;
 }
 
+/**
+ * Interrupt handler for the Programmable Interval Timer (PIT) used to play sound notes.
+ * If there's a note to play and sound is currently playing, it calculates the frequency for the current note,
+ * sets the PIT frequency to play the current note, starts playing the sound, decrements the note duration,
+ * and checks if the note duration is complete. If the note duration is complete, it moves to the next note in the array.
+ * @return void
+ */
 void pit_interrupt_handler()
 {
   if (current_note == NULL)
@@ -126,6 +141,11 @@ void pit_interrupt_handler()
   // Send the end of interrupt signal (EOI) to the PIC
   outb(0x20, 0x20);
 }
+
+/**
+ * @brief Stops the sound being played and sets the current note to NULL.
+ *
+ */
 void nosound()
 {
   sound_playing = 0;

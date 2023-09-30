@@ -10,9 +10,7 @@ void syscall(unsigned int syscall_num, char arg)
       : /* clobbered registers */
   );
 
-  // Now, you can use the values in eax and ebx as needed.
-
-  // Trigger interrupt 0x29 (this may vary depending on your specific OS/assembly environment)
+  // Trigger interrupt 0x29
   asm volatile(
       "int $0x29");
 }
