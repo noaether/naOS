@@ -12,12 +12,14 @@ void serial_setup(unsigned short com)
 
 void serial_write(char *buf)
 {
-  int i;
-  for (i = 0; buf[i] != '\0'; i++)
+
+  size_t i;
+  for (i = 0; strlen(buf) > i; i++)
   {
     while (serial_is_transmit_fifo_empty(SERIAL_COM1_BASE) == 0)
-      ;
-    outb(SERIAL_DATA_PORT(SERIAL_COM1_BASE), buf[i]);
+    {
+      ioport_out(SERIAL_DATA_PORT(SERIAL_COM1_BASE), buf[i]);
+    }
   }
 }
 

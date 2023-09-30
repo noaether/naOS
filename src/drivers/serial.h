@@ -51,7 +51,7 @@
 
 /* The I/O port commands */
 
-/* SERIAL_LINE_ENABLE_DLAB:
+/**
  * Tells the serial port to expect first the highest 8 bits on the data port,
  * then the lowest 8 bits will follow
  */
