@@ -8,10 +8,10 @@ OBJECTS = src/drivers/gdt.o src/loader.o src/kmain.o src/memory.o \
 
 TARGET = kernel.elf
 CC = i686-elf-gcc
-CCFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -ffreestanding -lgcc -Wall -Wextra -Werror -c -I/home/noa/opt/cross/lib/gcc/i686-elf/9.4.0/include -I/media/noa/Code/C/naOS/src/lib -I/media/noa/Code/C/naOS/src -c
+CCFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -ffreestanding -lgcc -Wall -Wextra -Werror -c -I$$CC_PREFIX/lib/gcc/$$CC_TARGET/9.4.0/include -Isrc/lib -Isrc -c
 AS = nasm
 ASFLAGS = -f elf
-LDFLAGS = -T src/link.ld -nostdlib --verbose -L/home/noa/opt/cross/lib/gcc/i686-elf/9.4.0 -lgcc
+LDFLAGS = -T src/link.ld -nostdlib --verbose -L$$CC_PREFIX/lib/gcc/$$CC_TARGET/9.4.0 -lgcc
 
 all: os.iso
 
@@ -20,7 +20,7 @@ os.iso: $(TARGET)
 	grub-mkrescue -o os.iso iso
 
 $(TARGET): $(OBJECTS) program.bin
-	$(CC) --verbose $(LDFLAGS) $(OBJECTS) /home/noa/opt/cross/lib/gcc/i686-elf/9.4.0/libgcc.a -o $(TARGET)
+	$(CC) --verbose $(LDFLAGS) $(OBJECTS) $$CC_PREFIX/lib/gcc/$$CC_TARGET/9.4.0/libgcc.a -o $(TARGET)
 
 %.o: %.c
 	$(CC) --verbose $(CCFLAGS) $< -o $@
