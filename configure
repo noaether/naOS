@@ -1,0 +1,77 @@
+#!/bin/bash
+
+export CC_PREFIX="$HOME/opt/cross"
+export CC_TARGET=i686-elf
+export PATH="$CC_PREFIX/bin:$PATH"
+
+# Detect the package manager
+if command -v apt &>/dev/null; then
+    PKG_MANAGER="apt"
+elif command -v yum &>/dev/null; then
+    PKG_MANAGER="yum"
+elif command -v yay &>/dev/null; then
+    PKG_MANAGER="yay"  # Assuming yay is used for the Arch User Repository (AUR)
+elif command -v pacman &>/dev/null; then
+    PKG_MANAGER="pacman"  # Assuming pacman is used for the Arch User Repository (AUR)
+else
+    echo "Unsupported package manager. Please install required packages manually and re-run the script."
+    exit 1
+fi
+
+# Install required packages based on the detected package manager
+if [[ "$PKG_MANAGER" == "apt" ]]; then
+    sudo apt update
+    sudo apt install -y build-essential bison flex libgmp3-dev libmpc-dev libmpfr-dev texinfo libisl-dev nasm
+elif [[ "$PKG_MANAGER" == "yum" ]]; then
+    wget https://nasm.us/nasm.repo -O /etc/yum.repos.d/nasm.repo
+    sudo yum -y install gcc make bison flex gmp-devel mpfr-devel libmpc-devel texinfo isl-devel nasm
+elif [[ "$PKG_MANAGER" == "yay" ]]; then
+    yay -S --noconfirm base-devel gmp mpfr libmpc texinfo isl nasm
+elif [[ "$PKG_MANAGER" == "pacman" ]]; then
+    sudo pacman -S --noconfirm base-devel gmp mpfr libmpc texinfo isl nasm
+fi
+
+# Remove any existing cross-compiler installation
+rm -rf $HOME/src
+rm -rf $HOME/opt/cross
+
+mkdir -p $HOME/src
+cd $HOME/src
+
+wget https://ftp.gnu.org/gnu/binutils/binutils-2.34.tar.xz
+tar -xf binutils-2.34.tar.xz
+
+wget https://ftp.gnu.org/gnu/gcc/gcc-9.4.0/gcc-9.4.0.tar.gz
+tar -xf gcc-9.4.0.tar.gz
+
+mkdir build-binutils
+cd build-binutils
+../binutils-2.34/configure --target=$CC_TARGET --prefix="$CC_PREFIX" --with-sysroot --disable-nls --disable-werror
+make -j$(expr $(nproc --all) - $(echo 2))
+make install -j$(expr $(nproc --all) - $(echo 2))
+
+cd $HOME/src
+
+which -- $CC_TARGET-as || echo $CC_TARGET-as is not in the PATH
+
+mkdir build-gcc
+cd build-gcc
+../gcc-9.4.0/configure --target=$CC_TARGET --prefix="$CC_PREFIX" --disable-nls --enable-languages=c --without-headers
+make all-gcc -j$(expr $(nproc --all) - $(echo 2))
+make all-target-libgcc -j$(expr $(nproc --all) - $(echo 2))
+make install-gcc -j$(expr $(nproc --all) - $(echo 2))
+make install-target-libgcc -j$(expr $(nproc --all) - $(echo 2))
+
+# Set up environment variables for Bash shell
+echo "export PATH=$HOME/opt/cross/bin:\$PATH" >> ~/.bashrc
+echo "export CC_PREFIX=$HOME/opt/cross" >> ~/.bashrc
+echo "export CC_TARGET=i686-elf" >> ~/.bashrc
+
+# Set up environment variables for Fish shell (if Fish is installed)
+if command -v fish &>/dev/null; then
+    fish -c "set -U fish_user_paths $HOME/opt/cross/bin $fish_user_paths"
+    fish -c "set -Ux CC_PREFIX $HOME/opt/cross"
+    fish -c "set -Ux CC_TARGET i686-elf"
+fi
+
+echo "Cross-compiler installation complete. Please restart your shell or run 'source ~/.bashrc' (or equivalent for your shell) to update your PATH."
