@@ -1,5 +1,3 @@
-#include "kmain.h"
-
 #include <brynet/cpudet-clean.c>
 
 #include <keyboard/keyboard.h>
