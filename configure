@@ -98,5 +98,18 @@ else
     sudo make install -j$(expr $(nproc --all) - $(echo 2))
 fi
 
+#check if xorriso is installed
+if command -v xorriso &>/dev/null; then
+    echo "xorriso already installed"
+else
+    echo "xorriso not installed. Installing..."
+
+    cd $HOME/src
+    wget https://www.gnu.org/software/xorriso/xorriso-1.5.4.tar.gz
+    zcat xorriso-1.5.4.tar.gz | tar xvf -
+    cd xorriso-1.5.4
+    ./configure
+    sudo make install -j$(expr $(nproc --all) - $(echo 2))
+fi
 
 echo "Cross-compiler installation complete. Please restart your shell or run 'source ~/.bashrc' (or equivalent for your shell) to update your PATH."
