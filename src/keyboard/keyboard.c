@@ -20,125 +20,108 @@ void kb_init()
   // do nothing
 }
 
-void handle_keyboard_interrupt()
-{
-  ioport_out(0x20, 0x20);
-
-  unsigned char status = ioport_in(KEYBOARD_STATUS_PORT);
-  // Lowest bit of status will be set if buffer not empty
-  // (thanks mkeykernel)
-  /* Lowest bit of status will be set if buffer is not empty */
-  if (status & 0x01)
-  {
-    int keycode = ioport_in(KEYBOARD_DATA_PORT);
-
+void handle_key_release(int keycode) {
     char keycode_str[10];
     citoa(keycode, keycode_str, 10);
 
-    if (keycode < 0)
-    {
-      char logup[] = "KBD | UP ";
-      strcat(logup, keycode_str);
-      log(logup, LOG_DEBUG);
+    char logup[] = "KBD | UP ";
+    strcat(logup, keycode_str);
+    log(logup, LOG_DEBUG);
 
-      if (keycode == -86 || keycode == -74)
-      {
-        // Shift key released
+    if (keycode == -86 || keycode == -74) {
         shift_pressed = false;
-      }
-      else if (keycode == -72)
-      {
-        // Alt key released
+    }
+    else if (keycode == -72) {
         alt_pressed = false;
-      }
-      else if (keycode == -99)
-      {
-        // CTRL
+    }
+    else if (keycode == -99) {
         ctrl_pressed = false;
-      }
-      return;
     }
-    else
-    {
-      char logdown[] = "KBD | DOWN ";
-      strcat(logdown, keycode_str);
-      log(logdown, LOG_DEBUG);
+}
 
-      if (keycode == 42 || keycode == 54)
-      {
-        // Shift key pressed
+void handle_key_press(int keycode) {
+    char keycode_str[10];
+    citoa(keycode, keycode_str, 10);
+
+    char logdown[] = "KBD | DOWN ";
+    strcat(logdown, keycode_str);
+    log(logdown, LOG_DEBUG);
+
+    if (keycode == 42 || keycode == 54) {
         shift_pressed = true;
-      }
-      else if (keycode == 56)
-      {
-        // Alt key pressed
-        alt_pressed = true;
-      }
-      else if (keycode == 58)
-      {
-        // Caps lock
-        shift_pressed = !shift_pressed;
-      }
-      else if (keycode == 29)
-      {
-        // CTRL
-        ctrl_pressed = true;
-      }
     }
+    else if (keycode == 56) {
+        alt_pressed = true;
+    }
+    else if (keycode == 58) {
+        shift_pressed = !shift_pressed;
+    }
+    else if (keycode == 29) {
+        ctrl_pressed = true;
+    }
+}
 
-    // Check if it's a key press event (the most significant bit is clear)
-    if (!(keycode & 0x80))
-    {
-      char ascii[2];
+void handle_special_keys(int keycode) {
+    char ascii[2];
 
-      if (alt_pressed)
-      {
+    if (alt_pressed) {
         ascii[0] = keyboard_map3[keycode];
-      }
-      else if (shift_pressed)
-      {
+    }
+    else if (shift_pressed) {
         ascii[0] = keyboard_map2[keycode];
-      }
-      else if (ctrl_pressed)
-      {
+    }
+    else if (ctrl_pressed) {
         ascii[0] = keyboard_map[keycode];
         ctrlkey_handler(keycode);
         return;
-      } else if (keycode == 72 || keycode == 80 || keycode == 75 || keycode == 77)
-      {
+    } else if (keycode == 72 || keycode == 80 || keycode == 75 || keycode == 77) {
         arrow_key_handler(keycode);
         return;
-      }
-      else
-      {
+    }
+    else {
         ascii[0] = keyboard_map[keycode];
-      }
+    }
 
-      if (ascii[0] < 0)
-      {
-        // Special cases, will be handled later
+    if (ascii[0] < 0) {
         return;
-      }
+    }
 
-      ascii[1] = '\0'; // Ensure null-terminated string
-
-      if (ascii[0] == 0)
-      {
+    ascii[1] = '\0';
+    if (ascii[0] == 0) {
         special_key_handler(keycode);
         return;
-      }
-      log(ascii, LOG_DEBUG); // Pass ascii char to the log function
-
-      fb_print_after(ascii, 1);
-
-      since_enter++;
     }
-  }
-  else
-  {
-    log("KBD | No data", LOG_DEBUG);
-  }
+    log(ascii, LOG_DEBUG);
+    fb_print_after(ascii, 1);
+
+    since_enter++;
 }
+
+void handle_keyboard_interrupt() {
+    ioport_out(0x20, 0x20);
+
+    unsigned char status = ioport_in(KEYBOARD_STATUS_PORT);
+    if (status & 0x01) {
+        int keycode = ioport_in(KEYBOARD_DATA_PORT);
+
+        if (keycode < 0) {
+            handle_key_release(keycode);
+            return;
+        }
+        else {
+            handle_key_press(keycode);
+        }
+
+        if (!(keycode & 0x80)) {
+            handle_special_keys(keycode);
+        }
+    }
+    else {
+        log("KBD | No data", LOG_DEBUG);
+    }
+}
+
+
 
 void special_key_handler(int keycode)
 {
