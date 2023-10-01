@@ -31,7 +31,7 @@ int kmain(uint32_t ebx)
 
   configure_log(conf);
 
-  //log("KRN | Kernel started!", LOG_INFO);
+  log("KRN | Kernel started!", LOG_INFO);
 
   struct cpuInfoStruct cpu = detect_cpu();
 
