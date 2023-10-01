@@ -7,5 +7,6 @@ snapshot.txt
 src/kmain.c
 iso/boot/modules/program
 program.bin
-iso/boot/modules/initfpu
+iso/boot/initfpu.bin
 configure
+src/modules/initfpu.bin
