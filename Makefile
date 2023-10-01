@@ -3,14 +3,15 @@ OBJECTS = src/drivers/gdt.o src/loader.o src/kmain.o src/memory.o \
     src/keyboard/keyboard.o \
     src/user/cmd.o \
     src/utils/io.o src/utils/log.o \
-    src/lib/naOS/string.o src/lib/naOS/math.o \
+    src/lib/naOS/string.o src/lib/naOS/math.o src/lib/printf.o \
     src/filesystem/fileops.o
 
 TARGET = kernel.elf
 CC = i686-elf-gcc
+CCFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -ffreestanding -lgcc -Wall -Wextra -Werror -c -I/home/noa/opt/cross/lib/gcc/i686-elf/9.4.0/include -I/media/noa/Code/C/naOS/src/lib -I/media/noa/Code/C/naOS/src -c
 AS = nasm
 ASFLAGS = -f elf
-LDFLAGS = -T src/link.ld -nostdlib --verbose -lgcc
+LDFLAGS = -T src/link.ld -nostdlib --verbose -L/home/noa/opt/cross/lib/gcc/i686-elf/9.4.0 -lgcc
 
 all: os.iso
 
@@ -19,10 +20,10 @@ os.iso: $(TARGET)
 	grub-mkrescue -o os.iso iso
 
 $(TARGET): $(OBJECTS) program.bin
-	$(CC) --verbose $(LDFLAGS) $(OBJECTS) -o $(TARGET)
+	$(CC) --verbose $(LDFLAGS) $(OBJECTS) /home/noa/opt/cross/lib/gcc/i686-elf/9.4.0/libgcc.a -o $(TARGET)
 
 %.o: %.c
-	$(CC) --verbose -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -ffreestanding -lgcc -Wall -Wextra -Werror -c -I/home/noa/opt/cross/lib/gcc/i686-elf/9.4.0/include -I/media/noa/Code/C/naOS/src/lib -I/media/noa/Code/C/naOS/src -c $< -o $@
+	$(CC) --verbose $(CCFLAGS) $< -o $@
 
 %.o: %.asm
 	$(AS) $(ASFLAGS) $< -o $@

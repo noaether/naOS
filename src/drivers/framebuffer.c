@@ -163,7 +163,7 @@ void _putchar(char c)
   fb_set_cursor(cursor);
 }
 
-void sprintf(char *buf, const char *format, ...)
+/*void sprintf(char *buf, const char *format, ...)
 {
   char *p = buf;
   char c;
@@ -237,7 +237,7 @@ void sprintf(char *buf, const char *format, ...)
   }
 
   *p = '\0';
-}
+}*/
 
 void arrow_key_handler(int keycode)
 {

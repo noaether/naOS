@@ -8,6 +8,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <printf.h>
+
 /* colors */
 #define FB_BLACK 0
 #define FB_BLUE 1
@@ -95,18 +97,6 @@ void fb_clear();
  * @return void
  */
 void fb_backspace();
-
-/**
- * @brief Formats and stores a series of characters and values in a buffer.
- *
- * This function formats and stores a series of characters and values in a buffer.
- * It supports the following format specifiers: %s (string), %d (integer), %c (character), %x (hexadecimal), %f (double).
- *
- * @param buf Pointer to the buffer where the formatted string will be stored.
- * @param format Pointer to the format string.
- * @param ... Optional arguments to be formatted according to the format string.
- */
-void sprintf(char *buf, const char *format, ...);
 
 /**
  * Handles arrow key events and moves the cursor accordingly.
