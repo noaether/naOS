@@ -1,5 +1,10 @@
 #include "framebuffer.h"
 
+#include <naOS/string.h>
+#include <naOS/mem.h>
+
+#include <utils/io.h>
+
 /* framebuffer mm io */
 char *fb = (char *)0x000B8000;
 

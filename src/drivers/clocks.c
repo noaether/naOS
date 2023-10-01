@@ -2,6 +2,8 @@
 
 #include "../utils/io.h"
 
+#include <naOS/mem.h>
+
 void pit_init(int hz)
 {
   if (hz == 0 || hz > 1000 || hz < 18)

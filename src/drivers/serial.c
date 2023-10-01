@@ -2,6 +2,7 @@
 #include "serial.h"
 
 #include <stddef.h>
+#include <naOS/string.h>
 /* The I/O ports */
 
 void serial_setup(unsigned short com)

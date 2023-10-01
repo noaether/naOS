@@ -1,18 +1,19 @@
 #include "kmain.h"
 
-#include "drivers.h"
+#include <brynet/cpudet-clean.c>
 
-#include "cpudet-clean.c"
+#include <keyboard/keyboard.h>
 
-#include "keyboard/keyboard.h"
+#include <drivers/serial.h>
+#include <drivers/irq.h>
+#include <drivers/clocks.h>
 
-#include "drivers/irq.h"
-#include "drivers/clocks.h"
-#include "user/cmd.h"
+#include <utils/log.h>
+#include <user/cmd.h>
 
-#include "multiboot.h"
+#include <multiboot.h>
 
-#include "filesystem/fileops.h"
+#include <filesystem/fileops.h>
 
 typedef void (*call_module_t)(void);
 

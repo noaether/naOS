@@ -4,8 +4,12 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#include "../utils/log.h"
-#include "../drivers/framebuffer.h" // since_enter
+#include <utils/io.h>
+
+#include <naOS/string.h>
+
+#include <utils/log.h>
+#include <drivers/framebuffer.h> // since_enter
 
 bool shift_pressed = false; // Global flag to track Shift key state
 bool alt_pressed = false;   // Global flag to track Alt key state

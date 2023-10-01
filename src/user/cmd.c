@@ -2,13 +2,14 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "../memory.h"
+#include <naOS/string.h>
 
-#include "../drivers/framebuffer.h"
-#include "../utils/log.h"
-#include "../drivers/sound.h"
+#include <naOS/mem.h>
+#include <drivers/framebuffer.h>
+#include <utils/log.h>
+#include <drivers/sound.h>
 
-#include "../filesystem/fileops.h"
+#include <filesystem/fileops.h>
 
 #include "cmd.h"
 
@@ -196,6 +197,8 @@ void handleWriteFile(char *string, size_t len, char *args)
   clear(string, sizeof(string));
   clear(endbuffer, sizeof(endbuffer));
   clear(args, sizeof(args));
+
+  (void)len;
 }
 
 void handleReadFile(char *string, size_t len, char *args)
@@ -208,6 +211,8 @@ void handleReadFile(char *string, size_t len, char *args)
   clear(string, sizeof(string));
   clear(endbuffer, sizeof(endbuffer));
   clear(args, sizeof(args));
+
+  (void)len;
 }
 
 void handleHelp(char *string, size_t len, char *args)
@@ -221,6 +226,8 @@ void handleHelp(char *string, size_t len, char *args)
   clear(string, sizeof(string));
   clear(endbuffer, sizeof(endbuffer));
   clear(args, sizeof(args));
+
+  (void)len;
 }
 
 void handleClear(char *string, size_t len, char *args)
@@ -231,6 +238,8 @@ void handleClear(char *string, size_t len, char *args)
   clear(string, sizeof(string));
   clear(endbuffer, sizeof(endbuffer));
   clear(args, sizeof(args));
+
+  (void)len;
 }
 
 void handleLog(char *string, size_t len, char *args)
@@ -245,6 +254,8 @@ void handleLog(char *string, size_t len, char *args)
   clear(string, sizeof(string));
   clear(endbuffer, sizeof(endbuffer));
   clear(args, sizeof(args));
+
+  (void)len;
 }
 
 void handleEcho(char *string, size_t len, char *args)
@@ -259,6 +270,8 @@ void handleEcho(char *string, size_t len, char *args)
   clear(string, sizeof(string));
   clear(endbuffer, sizeof(endbuffer));
   clear(args, sizeof(args));
+
+  (void)len;
 }
 
 void handlePlay(char *string, size_t len, char *args)
@@ -268,6 +281,8 @@ void handlePlay(char *string, size_t len, char *args)
   clear(string, sizeof(string));
   clear(endbuffer, sizeof(endbuffer));
   clear(args, sizeof(args));
+
+  (void)len;
 }
 
 void handleQuit(char *string, size_t len, char *args)
@@ -278,6 +293,8 @@ void handleQuit(char *string, size_t len, char *args)
   clear(string, sizeof(string));
   clear(endbuffer, sizeof(endbuffer));
   clear(args, sizeof(args));
+
+  (void)len;
 }
 
 void handleUnknown(char *string, size_t len, char *args)
@@ -290,6 +307,8 @@ void handleUnknown(char *string, size_t len, char *args)
   clear(string, sizeof(string));
   clear(endbuffer, sizeof(endbuffer));
   clear(args, sizeof(args));
+
+  (void)len;
 }
 
 void handleChangeDirectory(char *string, size_t len, char *args)
@@ -297,4 +316,6 @@ void handleChangeDirectory(char *string, size_t len, char *args)
   clear(string, sizeof(string));
   clear(endbuffer, sizeof(endbuffer));
   clear(args, sizeof(args));
+
+  (void)len;
 }

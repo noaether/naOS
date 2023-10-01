@@ -1,5 +1,7 @@
 #include "fileops.h"
 
+#include <naOS/string.h>
+
 /*
  * 1. Find an empty slot in the file table
  * 2. Check if there is an available slot
