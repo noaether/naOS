@@ -4,6 +4,16 @@ export CC_PREFIX="$HOME/opt/cross"
 export CC_TARGET=i686-elf
 export PATH="$CC_PREFIX/bin:$PATH"
 
+# check if the cross-compiler is already installed and give option to quit or reinstall
+if [[ -d "$CC_PREFIX" ]]; then
+    echo "Cross-compiler already installed. Would you like to reinstall? (y/n)"
+    read -r reinstall
+    if [[ "$reinstall" == "n" ]]; then
+        echo "Exiting..."
+        exit 0
+    fi
+fi
+
 # Detect the package manager
 if command -v apt &>/dev/null; then
     PKG_MANAGER="apt"

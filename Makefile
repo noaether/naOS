@@ -41,3 +41,6 @@ run-b: os.iso
 
 clean:
 	rm -rf $(OBJECTS) $(TARGET) src/*.elf *.iso *.bin iso/boot/*.bin iso/boot/*.elf iso/boot/modules/*
+
+setup:
+	bash ./configure
