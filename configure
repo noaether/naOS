@@ -38,7 +38,7 @@ elif [[ "$PKG_MANAGER" == "yum" ]]; then
 elif [[ "$PKG_MANAGER" == "yay" ]]; then
     yay -S --noconfirm base-devel gmp mpfr libmpc texinfo isl nasm
 elif [[ "$PKG_MANAGER" == "pacman" ]]; then
-    sudo pacman -S --noconfirm base-devel gmp mpfr libmpc texinfo isl nasm
+    sudo pacman -Syu --noconfirm base-devel gmp mpfr libmpc texinfo isl nasm
 fi
 
 # Remove any existing cross-compiler installation
@@ -83,5 +83,20 @@ if command -v fish &>/dev/null; then
     fish -c "set -Ux CC_PREFIX $HOME/opt/cross"
     fish -c "set -Ux CC_TARGET i686-elf"
 fi
+
+#check if grub-mkrescue exists
+if command -v grub-mkrescue &>/dev/null; then
+    echo "grub-mkrescue already installed"
+else
+    echo "grub-mkrescue not installed. Installing..."
+
+    cd $HOME/src
+    wget ftp://ftp.gnu.org/gnu/grub/grub-2.06.tar.gz
+    zcat grub-2.06.tar.gz | tar xvf -
+    cd grub-2.06
+    ./configure
+    sudo make install -j$(expr $(nproc --all) - $(echo 2))
+fi
+
 
 echo "Cross-compiler installation complete. Please restart your shell or run 'source ~/.bashrc' (or equivalent for your shell) to update your PATH."
