@@ -25,7 +25,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "stdlib/naOS/string.h"
+#include <naOS/string.h>
 #include "utils/log.h"
 
 
@@ -404,7 +404,6 @@ char *amd_brand()
 /* AMD-specific information */
 struct cpuInfoStruct do_amd(void)
 {
-  fb_print_after("AMD Specific Features:\n", 24);
   unsigned long eax, unused;
   int family, model, stepping, reserved;
   cpuid(1, eax, unused, unused, unused);

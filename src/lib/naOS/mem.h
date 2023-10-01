@@ -1,6 +1,6 @@
 #ifndef MEM_H
 #define MEM_H
 
-#include "../memory.h"
+#include <memory.h>
 
 #endif // MEM_H
