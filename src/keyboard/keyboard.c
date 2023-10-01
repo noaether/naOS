@@ -17,7 +17,7 @@ bool ctrl_pressed = false;  // Global flag to track Ctrl key state
 
 void kb_init()
 {
-  // do nothing
+    // do nothing
 }
 
 void handle_key_release(int keycode) {
@@ -126,40 +126,40 @@ void handle_keyboard_interrupt() {
 void special_key_handler(int keycode)
 {
 
-  char keycode_str[10];
-  citoa(keycode, keycode_str, 10);
-  if ((57 - keycode) == 0)
-  {
+    char keycode_str[10];
+    citoa(keycode, keycode_str, 10);
+    if ((57 - keycode) == 0)
+    {
 
-    char ascii[2];
-    ascii[0] = ' ';
-    ascii[1] = '\0';
-    log(ascii, LOG_ERROR);
-    fb_print_after(ascii, 1);
-  }
-  else if ((14 - keycode) == 0)
-  {
-    fb_backspace();
-  }
-  else if /* enter key */ ((28 - keycode) == 0)
-  {
-    char enter[] = "\n";
-    fb_write(enter, -1);
+        char ascii[2];
+        ascii[0] = ' ';
+        ascii[1] = '\0';
+        log(ascii, LOG_ERROR);
+        fb_print_after(ascii, 1);
+    }
+    else if ((14 - keycode) == 0)
+    {
+        fb_backspace();
+    }
+    else if /* enter key */ ((28 - keycode) == 0)
+    {
+        char enter[] = "\n";
+        fb_write(enter, -1);
 
-    fb_print_after("naOS> ", 6);
-  }
-  else
-  {
-    log(keycode_str, LOG_DEBUG);
-  }
+        fb_print_after("naOS> ", 6);
+    }
+    else
+    {
+        log(keycode_str, LOG_DEBUG);
+    }
 }
 
 void ctrlkey_handler(int keycode)
 {
-  if (keycode == 46)
-  {
-    //play_array();
-    fb_write("\n", -1);
-    fb_print_after("naOS> ", 6);
-  }
+    if (keycode == 46)
+    {
+        //play_array();
+        fb_write("\n", -1);
+        fb_print_after("naOS> ", 6);
+    }
 }
