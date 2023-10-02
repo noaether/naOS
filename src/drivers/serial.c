@@ -20,6 +20,7 @@ void serial_write(char *buf)
   {
     while (!serial_is_transmit_fifo_empty(SERIAL_COM1_BASE))
     {
+      // busy wait
     }
     outb(SERIAL_COM1_BASE, buf[i]);
   }

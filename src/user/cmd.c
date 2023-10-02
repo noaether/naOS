@@ -16,7 +16,7 @@
 int since_enter = 0;
 
 char *del = " ";
-char endbuffer[256];
+char endbuffer[32];
 
 struct note mary_had_a_little_lamb[] = {
     {OCTAVE_4, NOTE_E, 4},
@@ -249,13 +249,9 @@ void handleLog(char *string, size_t len, char *args)
   sprintf(endbuffer, "CMD | Log: %s", endbuffer);
   log(endbuffer, LOG_DEBUG);
 
-  memset(endbuffer, 0, sizeof(endbuffer));
-
   clear(string, sizeof(string));
   clear(endbuffer, sizeof(endbuffer));
   clear(args, sizeof(args));
-
-  (void)len;
 }
 
 void handleEcho(char *string, size_t len, char *args)
