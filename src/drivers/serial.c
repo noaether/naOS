@@ -1,8 +1,8 @@
 #include "../utils/io.h" /* io.h is implemented in the section "Moving the cursor" */
 #include "serial.h"
 
+#include "../lib/naOS/string.h"
 #include <stddef.h>
-#include <naOS/string.h>
 /* The I/O ports */
 
 void serial_setup(unsigned short com)
@@ -15,14 +15,13 @@ void serial_setup(unsigned short com)
 
 void serial_write(char *buf)
 {
-
-  size_t i;
-  for (i = 0; strlen(buf) > i; i++)
+  size_t len = strlen(buf);
+  for (size_t i = 0; i < len; i++)
   {
-    while (serial_is_transmit_fifo_empty(SERIAL_COM1_BASE) == 0)
+    while (!serial_is_transmit_fifo_empty(SERIAL_COM1_BASE))
     {
-      ioport_out(SERIAL_DATA_PORT(SERIAL_COM1_BASE), buf[i]);
     }
+    outb(SERIAL_COM1_BASE, buf[i]);
   }
 }
 
@@ -48,6 +47,5 @@ void serial_configure_fifo(unsigned short com, unsigned char config)
 
 int serial_is_transmit_fifo_empty(unsigned int com)
 {
-  /* 0x20 = 0010 0000 */
-  return inb(SERIAL_LINE_STATUS_PORT(com)) & 0x20;
+  return ioport_in(SERIAL_LINE_STATUS_PORT(com)) & 0x20;
 }

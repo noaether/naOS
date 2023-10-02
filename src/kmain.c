@@ -25,13 +25,15 @@ struct note boot_melody[] = {
 
 int kmain(uint32_t ebx)
 {
+  disable_interrupts();
+
   serial_setup(SERIAL_COM1_BASE);
 
   struct logConfigStruct conf = {LOG_DEBUG, LOG_SERIAL};
 
   configure_log(conf);
 
-  log("KRN | Kernel started!", LOG_INFO);
+  log("KRN | Kernel started!\0", LOG_INFO);
 
   struct cpuInfoStruct cpu = detect_cpu();
 

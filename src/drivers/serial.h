@@ -1,6 +1,8 @@
 #ifndef SERIAL_H
 #define SERIAL_H
 
+typedef __SIZE_TYPE__ size_t;
+
 /**
  * @brief The base address of the first serial port (COM1).
  *

@@ -49,7 +49,7 @@ $(PROGRAM_BIN): src/modules/initfpu.asm
 run: run-q
 
 run-q: $(ISO_TARGET)
-	qemu-system-i386 $(ISO_TARGET) -m 4M -serial file:com1.out -soundhw pcspk -rtc base=localtime -d int,cpu_reset,pcall,guest_errors,unimp -no-reboot
+	qemu-system-i386 $(ISO_TARGET) -m 4M -serial file:qemu_com1.out -soundhw pcspk -rtc base=localtime -d int,cpu_reset,pcall,guest_errors,unimp -no-reboot
 
 run-b: $(ISO_TARGET)
 	bochs -f bochsrc.txt -q

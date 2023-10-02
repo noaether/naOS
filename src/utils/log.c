@@ -1,7 +1,7 @@
-#include <naOS/string.h>
+#include "../lib/naOS/string.h"
 
-#include <drivers/framebuffer.h>
-#include <drivers/serial.h>
+#include "../drivers/framebuffer.h"
+#include "../drivers/serial.h"
 
 #include "log.h"
 
