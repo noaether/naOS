@@ -21,15 +21,6 @@ tasks:
     command: >
       git config --global user.signingkey $( gpg --list-secret-keys --with-colons | awk -F: '$1 == "sec" {print $5}' ) \
       && [ -f ~/.bashrc ] && echo -e '\nexport GPG_TTY=$(tty)' >> ~/.bashrc
-  - name: Install GRUB
-    before: >
-      cd ../ &&
-      wget ftp://ftp.gnu.org/gnu/grub/grub-2.06.tar.gz &&
-      zcat grub-2.06.tar.gz | tar xvf -
-    init: >
-      cd grub-2.06 &&
-      ./configure &&
-      sudo make install
 
 additionalRepositories:
   - url: https://github.com/noaether/nassembly
