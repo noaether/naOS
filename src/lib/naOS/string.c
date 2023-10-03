@@ -262,3 +262,19 @@ char *strtok(char *str, char *delim)
     free(deli_dict);
     return str;
 }
+
+char *chopN(char *s, size_t n)
+{
+    char *src = s;
+
+    while (*src && n)
+        --n, ++src;
+
+    if (n == 0 && src != s)
+    {
+        for (char *dst = s; (*dst++ = *src++);)
+            ;
+    }
+
+    return s;
+} // https://stackoverflow.com/a/40538982

@@ -16,7 +16,6 @@
 int since_enter = 0;
 
 char *del = " ";
-char endbuffer[32];
 
 struct note mary_had_a_little_lamb[] = {
     {OCTAVE_4, NOTE_E, 4},
@@ -181,6 +180,7 @@ void interpret(char *string, size_t len)
 
 void handleWriteFile(char *string, size_t len, char *args)
 {
+  char endbuffer[256];
   // Implementation for writefile command
   args = strtok(NULL, del); // move to arg1
 
@@ -203,6 +203,8 @@ void handleWriteFile(char *string, size_t len, char *args)
 
 void handleReadFile(char *string, size_t len, char *args)
 {
+  char endbuffer[256];
+
   args = strtok(NULL, del); // arg1
   readFile(args, endbuffer, sizeof(endbuffer));
 
@@ -217,6 +219,8 @@ void handleReadFile(char *string, size_t len, char *args)
 
 void handleHelp(char *string, size_t len, char *args)
 {
+  char endbuffer[256];
+
   for (int i = 0; i < numCommands; i++)
   {
     sprintf(endbuffer, "%s - %s : %s", commands[i].name, commands[i].desc, commands[i].usage);
@@ -232,6 +236,8 @@ void handleHelp(char *string, size_t len, char *args)
 
 void handleClear(char *string, size_t len, char *args)
 {
+  char endbuffer[256];
+
   fb_set_cursor(0);
   fb_clear();
 
@@ -244,24 +250,23 @@ void handleClear(char *string, size_t len, char *args)
 
 void handleLog(char *string, size_t len, char *args)
 {
-  strncpy(endbuffer, string, len - 4);
-  reverse(endbuffer, len - 4);
-  sprintf(endbuffer, "CMD | Log: %s", endbuffer);
+  char endbuffer[256];
+
+  char *toBeLogged = chopN(string, strlen("log "));
+  sprintf(endbuffer, "CMD | Log: %s", toBeLogged);
   log(endbuffer, LOG_DEBUG);
 
   clear(string, sizeof(string));
   clear(endbuffer, sizeof(endbuffer));
   clear(args, sizeof(args));
+
+  (void)len;
 }
 
 void handleEcho(char *string, size_t len, char *args)
 {
-  strncpy(endbuffer, string, len - 5);
-  reverse(endbuffer, len - 5);
-  sprintf(endbuffer, "CMD | Echo: %s", endbuffer);
-  fb_println(endbuffer, len - 5);
-
-  memset(endbuffer, 0, sizeof(endbuffer));
+  char *endbuffer = chopN(string, strlen("echo "));
+  fb_println(endbuffer, strlen(endbuffer));
 
   clear(string, sizeof(string));
   clear(endbuffer, sizeof(endbuffer));
@@ -272,6 +277,8 @@ void handleEcho(char *string, size_t len, char *args)
 
 void handlePlay(char *string, size_t len, char *args)
 {
+  char endbuffer[256];
+
   play_array(mary_had_a_little_lamb, 38);
 
   clear(string, sizeof(string));
@@ -283,6 +290,8 @@ void handlePlay(char *string, size_t len, char *args)
 
 void handleQuit(char *string, size_t len, char *args)
 {
+  char endbuffer[256];
+
   log("CMD | Quit", LOG_DEBUG);
   asm volatile("hlt");
 
@@ -295,6 +304,8 @@ void handleQuit(char *string, size_t len, char *args)
 
 void handleUnknown(char *string, size_t len, char *args)
 {
+  char endbuffer[256];
+
   // sprintf(endbuffer, "Unknown command: %s", string);
   fb_println("Unknown command.", 17);
 
@@ -309,6 +320,8 @@ void handleUnknown(char *string, size_t len, char *args)
 
 void handleChangeDirectory(char *string, size_t len, char *args)
 {
+  char endbuffer[256];
+
   clear(string, sizeof(string));
   clear(endbuffer, sizeof(endbuffer));
   clear(args, sizeof(args));
