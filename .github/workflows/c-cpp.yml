@@ -3,7 +3,7 @@ name: Gradual Testing
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
