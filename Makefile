@@ -24,7 +24,7 @@ PROGRAM_BIN = src/modules/initfpu.bin
 TARGET = kernel.elf
 ISO_TARGET = os.iso
 
-.PHONY: all clean setup run
+.PHONY: test_c_compilation test_asm_compilation test_program_bin_generation test_iso_creation all clean setup run
 
 all: $(ISO_TARGET)
 
@@ -59,3 +59,15 @@ clean:
 
 setup:
 	bash ./configure
+
+test_c_compilation: $(OBJECTS)
+	@echo "C compilation successful"
+
+test_asm_compilation: $(PROGRAM_OBJECTS)
+	@echo "Assembly compilation successful"
+
+test_program_bin_generation: $(PROGRAM_BIN)
+	@echo "Program binary generation successful"
+
+test_iso_creation: $(ISO_TARGET)
+	@echo "ISO creation successful"
