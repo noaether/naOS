@@ -134,12 +134,12 @@ void handleChangeDirectory(char *string, size_t len, char *args);
 // Define a command table
 struct Command
 {
-  const char *name;
-  const char *desc;
-  const char *usage;
-  void (*handler)(char *, size_t, char *);
-  int numArgs;
-  const char *args[10];
+    const char *name;
+    const char *desc;
+    const char *usage;
+    void (*handler)(char *, size_t, char *);
+    int numArgs;
+    const char *args[10];
 } __attribute__((packed));
 
 struct Command commands[] = {
@@ -151,180 +151,181 @@ struct Command commands[] = {
     {"echo", "Prints a message to the screen", "echo <data>", handleEcho, 1, {"data"}},
     {"play", "Plays a song", "play", handlePlay, 0, {}},
     {"quit", "Quits the kernel", "quit", handleQuit, 0, {}},
-    {"cd", "Changes the current directory", "cd <path>", handleChangeDirectory, 1, {"path"}}};
+    {"cd", "Changes the current directory", "cd <path>", handleChangeDirectory, 1, {"path"}}
+};
 
 int numCommands = sizeof(commands) / sizeof(commands[0]);
 
 // Function to interpret a command
 void interpret(char *string, size_t len)
 {
-  char *command = strtok(string, del);
+    char *command = strtok(string, del);
 
-  if (command == NULL)
-  {
-    return; // Empty input
-  }
-
-  // Find the corresponding command handler
-  for (int i = 0; i < numCommands; i++)
-  {
-    if (strcmp(command, commands[i].name) == 0)
+    if (command == NULL)
     {
-      commands[i].handler(string, len, command);
-      return;
+        return; // Empty input
     }
-  }
 
-  handleUnknown(string, len, NULL);
+    // Find the corresponding command handler
+    for (int i = 0; i < numCommands; i++)
+    {
+        if (strcmp(command, commands[i].name) == 0)
+        {
+            commands[i].handler(string, len, command);
+            return;
+        }
+    }
+
+    handleUnknown(string, len, NULL);
 }
 
 void handleWriteFile(char *string, size_t len, char *args)
 {
-  char endbuffer[256];
-  // Implementation for writefile command
-  args = strtok(NULL, del); // move to arg1
+    char endbuffer[256];
+    // Implementation for writefile command
+    args = strtok(NULL, del); // move to arg1
 
-  createFile(args, 0x06);
+    createFile(args, 0x06);
 
-  reverse(string, len);
-  strncpy(endbuffer, string, len - strlen("writefile  ") - strlen(args));
-  reverse(endbuffer, strlen(endbuffer));
+    reverse(string, len);
+    strncpy(endbuffer, string, len - strlen("writefile  ") - strlen(args));
+    reverse(endbuffer, strlen(endbuffer));
 
-  writeFile(args, endbuffer, strlen(endbuffer));
+    writeFile(args, endbuffer, strlen(endbuffer));
 
-  fb_println("File written succesfully !", 27);
+    fb_println("File written succesfully !", 27);
 
-  clear(string, sizeof(string));
-  clear(endbuffer, sizeof(endbuffer));
-  clear(args, sizeof(args));
+    clear(string, sizeof(string));
+    clear(endbuffer, sizeof(endbuffer));
+    clear(args, sizeof(args));
 
-  (void)len;
+    (void)len;
 }
 
 void handleReadFile(char *string, size_t len, char *args)
 {
-  char endbuffer[256];
+    char endbuffer[256];
 
-  args = strtok(NULL, del); // arg1
-  readFile(args, endbuffer, sizeof(endbuffer));
+    args = strtok(NULL, del); // arg1
+    readFile(args, endbuffer, sizeof(endbuffer));
 
-  fb_println(endbuffer, strlen(endbuffer));
+    fb_println(endbuffer, strlen(endbuffer));
 
-  clear(string, sizeof(string));
-  clear(endbuffer, sizeof(endbuffer));
-  clear(args, sizeof(args));
+    clear(string, sizeof(string));
+    clear(endbuffer, sizeof(endbuffer));
+    clear(args, sizeof(args));
 
-  (void)len;
+    (void)len;
 }
 
 void handleHelp(char *string, size_t len, char *args)
 {
-  char endbuffer[256];
+    char endbuffer[256];
 
-  for (int i = 0; i < numCommands; i++)
-  {
-    sprintf(endbuffer, "%s - %s : %s", commands[i].name, commands[i].desc, commands[i].usage);
-    fb_println(endbuffer, strlen(endbuffer));
-    memset(endbuffer, 0, sizeof(endbuffer));
-  }
-  clear(string, sizeof(string));
-  clear(endbuffer, sizeof(endbuffer));
-  clear(args, sizeof(args));
+    for (int i = 0; i < numCommands; i++)
+    {
+        sprintf(endbuffer, "%s - %s : %s", commands[i].name, commands[i].desc, commands[i].usage);
+        fb_println(endbuffer, strlen(endbuffer));
+        memset(endbuffer, 0, sizeof(endbuffer));
+    }
+    clear(string, sizeof(string));
+    clear(endbuffer, sizeof(endbuffer));
+    clear(args, sizeof(args));
 
-  (void)len;
+    (void)len;
 }
 
 void handleClear(char *string, size_t len, char *args)
 {
-  char endbuffer[256];
+    char endbuffer[256];
 
-  fb_set_cursor(0);
-  fb_clear();
+    fb_set_cursor(0);
+    fb_clear();
 
-  clear(string, sizeof(string));
-  clear(endbuffer, sizeof(endbuffer));
-  clear(args, sizeof(args));
+    clear(string, sizeof(string));
+    clear(endbuffer, sizeof(endbuffer));
+    clear(args, sizeof(args));
 
-  (void)len;
+    (void)len;
 }
 
 void handleLog(char *string, size_t len, char *args)
 {
-  char endbuffer[256];
+    char endbuffer[256];
 
-  char *toBeLogged = chopN(string, strlen("log "));
-  sprintf(endbuffer, "CMD | Log: %s", toBeLogged);
-  log(endbuffer, LOG_DEBUG);
+    char *toBeLogged = chopN(string, strlen("log "));
+    sprintf(endbuffer, "CMD | Log: %s", toBeLogged);
+    log(endbuffer, LOG_DEBUG);
 
-  clear(string, sizeof(string));
-  clear(endbuffer, sizeof(endbuffer));
-  clear(args, sizeof(args));
+    clear(string, sizeof(string));
+    clear(endbuffer, sizeof(endbuffer));
+    clear(args, sizeof(args));
 
-  (void)len;
+    (void)len;
 }
 
 void handleEcho(char *string, size_t len, char *args)
 {
-  char *endbuffer = chopN(string, strlen("echo "));
-  fb_println(endbuffer, strlen(endbuffer));
+    char *endbuffer = chopN(string, strlen("echo "));
+    fb_println(endbuffer, strlen(endbuffer));
 
-  clear(string, sizeof(string));
-  clear(endbuffer, sizeof(endbuffer));
-  clear(args, sizeof(args));
+    clear(string, sizeof(string));
+    clear(endbuffer, sizeof(endbuffer));
+    clear(args, sizeof(args));
 
-  (void)len;
+    (void)len;
 }
 
 void handlePlay(char *string, size_t len, char *args)
 {
-  char endbuffer[256];
+    char endbuffer[256];
 
-  play_array(mary_had_a_little_lamb, 38);
+    play_array(mary_had_a_little_lamb, 38);
 
-  clear(string, sizeof(string));
-  clear(endbuffer, sizeof(endbuffer));
-  clear(args, sizeof(args));
+    clear(string, sizeof(string));
+    clear(endbuffer, sizeof(endbuffer));
+    clear(args, sizeof(args));
 
-  (void)len;
+    (void)len;
 }
 
 void handleQuit(char *string, size_t len, char *args)
 {
-  char endbuffer[256];
+    char endbuffer[256];
 
-  log("CMD | Quit", LOG_DEBUG);
-  asm volatile("hlt");
+    log("CMD | Quit", LOG_DEBUG);
+    asm volatile("hlt");
 
-  clear(string, sizeof(string));
-  clear(endbuffer, sizeof(endbuffer));
-  clear(args, sizeof(args));
+    clear(string, sizeof(string));
+    clear(endbuffer, sizeof(endbuffer));
+    clear(args, sizeof(args));
 
-  (void)len;
+    (void)len;
 }
 
 void handleUnknown(char *string, size_t len, char *args)
 {
-  char endbuffer[256];
+    char endbuffer[256];
 
-  // sprintf(endbuffer, "Unknown command: %s", string);
-  fb_println("Unknown command.", 17);
+    // sprintf(endbuffer, "Unknown command: %s", string);
+    fb_println("Unknown command.", 17);
 
-  // memset(endbuffer, 0, sizeof(endbuffer));
+    // memset(endbuffer, 0, sizeof(endbuffer));
 
-  clear(string, sizeof(string));
-  clear(endbuffer, sizeof(endbuffer));
-  clear(args, sizeof(args));
+    clear(string, sizeof(string));
+    clear(endbuffer, sizeof(endbuffer));
+    clear(args, sizeof(args));
 
-  (void)len;
+    (void)len;
 }
 
 void handleChangeDirectory(char *string, size_t len, char *args)
 {
-  char endbuffer[256];
+    char endbuffer[256];
 
-  clear(string, sizeof(string));
-  clear(endbuffer, sizeof(endbuffer));
-  clear(args, sizeof(args));
+    clear(string, sizeof(string));
+    clear(endbuffer, sizeof(endbuffer));
+    clear(args, sizeof(args));
 
-  (void)len;
+    (void)len;
 }
