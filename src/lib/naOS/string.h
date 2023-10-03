@@ -17,7 +17,8 @@ char *citoa(int num, char *str, int base);
 void itoa(int n, char *buf, int buf_size);
 void reverse(char str[], int length);
 
-char* strtok(char* s, char* delm);
+char *strtok(char* s, char* delm);
+char *chopN(char *s, size_t n);
 
 typedef char char_t;
 typedef unsigned char uchar_t;
