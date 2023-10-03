@@ -42,7 +42,7 @@ char *strncpy(char *dest, const char *src, size_t n) {
     *p++ = '\0';
   return dest;
 } // https://clc-wiki.net/wiki/K&R2_solutions:Chapter_5:Exercise_5
-  // https://stackoverflow.com/a/1996991/17631126
+// https://stackoverflow.com/a/1996991/17631126
 
 size_t strlen(const char *str) {
   if (str == NULL) {
