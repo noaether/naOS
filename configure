@@ -4,7 +4,7 @@ export CC_PREFIX="$HOME/opt/cross"
 export CC_TARGET=i686-elf
 export PATH="$CC_PREFIX/bin:$PATH"
 
-export NCPU= expr $(nproc --all) - $(echo 2)
+export NCPU= expr $(nproc --all) - $(echo 2) # number of cores minus 2
 
 # if ncpu = 0, set it to 1
 if [[ "$NCPU" == "0" ]]; then
@@ -65,8 +65,8 @@ tar -xf gcc-9.4.0.tar.gz
 mkdir build-binutils
 cd build-binutils
 ../binutils-2.34/configure --target=$CC_TARGET --prefix="$CC_PREFIX" --with-sysroot --disable-nls --disable-werror
-make -j$(expr $(nproc --all) - $(echo 2))
-make install -j$()
+make -j$NCPU
+make install -j$NCPU
 
 cd $HOME/src
 
@@ -75,10 +75,10 @@ which -- $CC_TARGET-as || echo $CC_TARGET-as is not in the PATH
 mkdir build-gcc
 cd build-gcc
 ../gcc-9.4.0/configure --target=$CC_TARGET --prefix="$CC_PREFIX" --disable-nls --enable-languages=c --without-headers
-make all-gcc -j$(expr $(nproc --all) - $(echo 2))
-make all-target-libgcc -j$(expr $(nproc --all) - $(echo 2))
-make install-gcc -j$(expr $(nproc --all) - $(echo 2))
-make install-target-libgcc -j$(expr $(nproc --all) - $(echo 2))
+make all-gcc -j$NCPU
+make all-target-libgcc -j$NCPU
+make install-gcc -j$NCPU
+make install-target-libgcc -j$NCPU
 
 # Set up environment variables for Bash shell
 echo "export PATH=$HOME/opt/cross/bin:\$PATH" >> ~/.bashrc
@@ -103,7 +103,7 @@ else
     zcat grub-2.06.tar.gz | tar xvf -
     cd grub-2.06
     ./configure
-    sudo make install -j$(expr $(nproc --all) - $(echo 2))
+    sudo make install -j$NCPU
 fi
 
 #check if xorriso is installed
@@ -117,7 +117,7 @@ else
     zcat xorriso-1.5.4.tar.gz | tar xvf -
     cd xorriso-1.5.4
     ./configure
-    sudo make install -j$(expr $(nproc --all) - $(echo 2))
+    sudo make install -j$NCPU
 fi
 
 echo "Cross-compiler installation complete. Please restart your shell or run 'source ~/.bashrc' (or equivalent for your shell) to update your PATH."
