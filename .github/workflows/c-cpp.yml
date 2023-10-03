@@ -1,0 +1,38 @@
+name: Gradual Testing
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build the project
+        run: make setup
+        continue-on-error: true
+
+      - name: Compile source files
+        run: make
+        continue-on-error: true
+
+      - name: Test compilation of C files
+        run: make test_c_compilation
+        continue-on-error: true
+
+      - name: Test assembly file compilation
+        run: make test_asm_compilation
+        continue-on-error: true
+
+      - name: Test program binary generation
+        run: make test_program_bin_generation
+        continue-on-error: true
+
+      - name: Test ISO creation
+        run: make test_iso_creation
+        continue-on-error: true
