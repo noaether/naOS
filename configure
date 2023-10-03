@@ -4,7 +4,7 @@ export CC_PREFIX="$HOME/opt/cross"
 export CC_TARGET=i686-elf
 export PATH="$CC_PREFIX/bin:$PATH"
 
-export NCPU= expr $(nproc --all) - $(echo 2) # number of cores minus 2
+export NCPU= $( expr $(nproc --all) - $(echo 2) )# number of cores minus 2
 
 # if ncpu = 0, set it to 1
 if [[ "$NCPU" == "0" ]]; then
