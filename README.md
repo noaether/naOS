@@ -14,7 +14,6 @@
 - [x] File System
 - [ ] Folder support for the FS
 - [ ] ???
-- [x] Signing commits on gitpod
 
 ## Using the OS
 
