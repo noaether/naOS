@@ -1,7 +1,7 @@
 #ifndef STRING_H
 #define STRING_H
 
-#include "stddef.h"
+#include <stddef.h>
 
 #define DICT_LEN 256
 
