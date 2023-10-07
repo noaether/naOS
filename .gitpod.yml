@@ -9,19 +9,6 @@ ports:
   - port: 6080
     protocol: "http"
 
-tasks:
-  - name : GitHub Signing
-    before: >
-      gpg --verbose --batch --import <(echo $GNUPG | base64 -d)
-  - name : GitHub Signing Part 2
-    init: >
-      echo 'pinentry-mode loopback' >> ~/.gnupg/gpg.conf \
-      && git config --global --unset gpg.format \
-      && git config --global commit.gpgsign true
-    command: >
-      git config --global user.signingkey $( gpg --list-secret-keys --with-colons | awk -F: '$1 == "sec" {print $5}' ) \
-      && [ -f ~/.bashrc ] && echo -e '\nexport GPG_TTY=$(tty)' >> ~/.bashrc
-
 additionalRepositories:
   - url: https://github.com/noaether/nassembly
     
