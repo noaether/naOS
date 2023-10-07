@@ -17,26 +17,11 @@ int since_enter = 0;
 
 char *del = " ";
 
+// NOTE - DO NOT FUCKING MOVE IT WILL BREAK EVERYTHING
+char endbuffer[256];
+
 struct note mary_had_a_little_lamb[] = {
-    {OCTAVE_4, NOTE_E, 4}, {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_C, 4}, {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_E, 4}, {OCTAVE_4, NOTE_E, 4},
-    {OCTAVE_4, NOTE_E, 2}, {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_D, 4}, {OCTAVE_4, NOTE_E, 4},
-    {OCTAVE_4, NOTE_G, 4}, {OCTAVE_4, NOTE_G, 4},
-    {OCTAVE_4, NOTE_E, 4}, {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_C, 4}, {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_E, 4}, {OCTAVE_4, NOTE_E, 4},
-    {OCTAVE_4, NOTE_E, 4}, {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_D, 4}, {OCTAVE_4, NOTE_E, 4},
-    {OCTAVE_4, NOTE_D, 4}, {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_D, 4}, {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_E, 4}, {OCTAVE_4, NOTE_E, 4},
-    {OCTAVE_4, NOTE_E, 2}, {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_D, 4}, {OCTAVE_4, NOTE_E, 4},
-    {OCTAVE_4, NOTE_G, 4}, {OCTAVE_4, NOTE_G, 4},
-    {OCTAVE_4, NOTE_E, 4}, {OCTAVE_4, NOTE_D, 4},
-    {OCTAVE_4, NOTE_C, 4}, {0, 0, 0} // End of array
+    {OCTAVE_4, NOTE_E, 4}, {OCTAVE_4, NOTE_D, 4}, {OCTAVE_4, NOTE_C, 4}, {OCTAVE_4, NOTE_D, 4}, {OCTAVE_4, NOTE_E, 4}, {OCTAVE_4, NOTE_E, 4}, {OCTAVE_4, NOTE_E, 2}, {OCTAVE_4, NOTE_D, 4}, {OCTAVE_4, NOTE_D, 4}, {OCTAVE_4, NOTE_E, 4}, {OCTAVE_4, NOTE_G, 4}, {OCTAVE_4, NOTE_G, 4}, {OCTAVE_4, NOTE_E, 4}, {OCTAVE_4, NOTE_D, 4}, {OCTAVE_4, NOTE_C, 4}, {OCTAVE_4, NOTE_D, 4}, {OCTAVE_4, NOTE_E, 4}, {OCTAVE_4, NOTE_E, 4}, {OCTAVE_4, NOTE_E, 4}, {OCTAVE_4, NOTE_D, 4}, {OCTAVE_4, NOTE_D, 4}, {OCTAVE_4, NOTE_E, 4}, {OCTAVE_4, NOTE_D, 4}, {OCTAVE_4, NOTE_D, 4}, {OCTAVE_4, NOTE_D, 4}, {OCTAVE_4, NOTE_D, 4}, {OCTAVE_4, NOTE_E, 4}, {OCTAVE_4, NOTE_E, 4}, {OCTAVE_4, NOTE_E, 2}, {OCTAVE_4, NOTE_D, 4}, {OCTAVE_4, NOTE_D, 4}, {OCTAVE_4, NOTE_E, 4}, {OCTAVE_4, NOTE_G, 4}, {OCTAVE_4, NOTE_G, 4}, {OCTAVE_4, NOTE_E, 4}, {OCTAVE_4, NOTE_D, 4}, {OCTAVE_4, NOTE_C, 4}, {0, 0, 0} // End of array
 };
 
 struct note note_to_play[] = {{OCTAVE_4, NOTE_A, 10}};
@@ -115,7 +100,8 @@ void handleUnknown(char *string, size_t len, char *args);
 void handleChangeDirectory(char *string, size_t len, char *args);
 
 // Define a command table
-struct Command {
+struct Command
+{
   const char *name;
   const char *desc;
   const char *usage;
@@ -163,16 +149,20 @@ struct Command commands[] = {
 int numCommands = sizeof(commands) / sizeof(commands[0]);
 
 // Function to interpret a command
-void interpret(char *string, size_t len) {
+void interpret(char *string, size_t len)
+{
   char *command = strtok(string, del);
 
-  if (command == NULL) {
+  if (command == NULL)
+  {
     return; // Empty input
   }
 
   // Find the corresponding command handler
-  for (int i = 0; i < numCommands; i++) {
-    if (strcmp(command, commands[i].name) == 0) {
+  for (int i = 0; i < numCommands; i++)
+  {
+    if (strcmp(command, commands[i].name) == 0)
+    {
       commands[i].handler(string, len, command);
       return;
     }
@@ -181,8 +171,9 @@ void interpret(char *string, size_t len) {
   handleUnknown(string, len, NULL);
 }
 
-void handleWriteFile(char *string, size_t len, char *args) {
-  char endbuffer[256];
+void handleWriteFile(char *string, size_t len, char *args)
+{
+
   // Implementation for writefile command
   args = strtok(NULL, del); // move to arg1
 
@@ -203,10 +194,11 @@ void handleWriteFile(char *string, size_t len, char *args) {
   (void)len;
 }
 
-void handleReadFile(char *string, size_t len, char *args) {
-  char endbuffer[256];
+void handleReadFile(char *string, size_t len, char *args)
+{
 
   args = strtok(NULL, del); // arg1
+
   readFile(args, endbuffer, sizeof(endbuffer));
 
   fb_println(endbuffer, strlen(endbuffer));
@@ -218,10 +210,11 @@ void handleReadFile(char *string, size_t len, char *args) {
   (void)len;
 }
 
-void handleHelp(char *string, size_t len, char *args) {
-  char endbuffer[256];
+void handleHelp(char *string, size_t len, char *args)
+{
 
-  for (int i = 0; i < numCommands; i++) {
+  for (int i = 0; i < numCommands; i++)
+  {
     sprintf(endbuffer, "%s - %s : %s", commands[i].name, commands[i].desc,
             commands[i].usage);
     fb_println(endbuffer, strlen(endbuffer));
@@ -234,8 +227,8 @@ void handleHelp(char *string, size_t len, char *args) {
   (void)len;
 }
 
-void handleClear(char *string, size_t len, char *args) {
-  char endbuffer[256];
+void handleClear(char *string, size_t len, char *args)
+{
 
   fb_set_cursor(0);
   fb_clear();
@@ -247,8 +240,8 @@ void handleClear(char *string, size_t len, char *args) {
   (void)len;
 }
 
-void handleLog(char *string, size_t len, char *args) {
-  char endbuffer[256];
+void handleLog(char *string, size_t len, char *args)
+{
 
   char *toBeLogged = chopN(string, strlen("log "));
   sprintf(endbuffer, "CMD | Log: %s", toBeLogged);
@@ -261,7 +254,8 @@ void handleLog(char *string, size_t len, char *args) {
   (void)len;
 }
 
-void handleEcho(char *string, size_t len, char *args) {
+void handleEcho(char *string, size_t len, char *args)
+{
   char *endbuffer = chopN(string, strlen("echo "));
   fb_println(endbuffer, strlen(endbuffer));
 
@@ -272,8 +266,8 @@ void handleEcho(char *string, size_t len, char *args) {
   (void)len;
 }
 
-void handlePlay(char *string, size_t len, char *args) {
-  char endbuffer[256];
+void handlePlay(char *string, size_t len, char *args)
+{
 
   play_array(mary_had_a_little_lamb, 38);
 
@@ -284,8 +278,8 @@ void handlePlay(char *string, size_t len, char *args) {
   (void)len;
 }
 
-void handleQuit(char *string, size_t len, char *args) {
-  char endbuffer[256];
+void handleQuit(char *string, size_t len, char *args)
+{
 
   log("CMD | Quit", LOG_DEBUG);
   asm volatile("hlt");
@@ -297,8 +291,8 @@ void handleQuit(char *string, size_t len, char *args) {
   (void)len;
 }
 
-void handleUnknown(char *string, size_t len, char *args) {
-  char endbuffer[256];
+void handleUnknown(char *string, size_t len, char *args)
+{
 
   // sprintf(endbuffer, "Unknown command: %s", string);
   fb_println("Unknown command.", 17);
@@ -312,8 +306,8 @@ void handleUnknown(char *string, size_t len, char *args) {
   (void)len;
 }
 
-void handleChangeDirectory(char *string, size_t len, char *args) {
-  char endbuffer[256];
+void handleChangeDirectory(char *string, size_t len, char *args)
+{
 
   clear(string, sizeof(string));
   clear(endbuffer, sizeof(endbuffer));
