@@ -197,7 +197,7 @@ char *citoa(int num, char *str, int base)
 
   str[i] = '\0'; // Append string terminator
 
-  // Reverse the string
+  // Reverse the string - takes endianness into account
   reverse(str, i);
 
   return str;
