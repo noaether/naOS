@@ -1,5 +1,9 @@
 # naOS - A full[^3] OS from scratch
 
+<a href="https://gitpod.io/from-referrer/">
+  <img src="https://img.shields.io/badge/Gitpod-ready--to--code-908a85?logo=gitpod" alt="Gitpod ready-to-code" />
+ </a>
+
 ## Features and Future
 
 - [x] Console Output [^1] [^2]
