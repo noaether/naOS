@@ -103,7 +103,7 @@ int kmain(uint32_t ebx)
 
   sprintf(buffer, "TST | 42 = %d, Hello World! = %s", num, text);
 
-  log(buffer, LOG_INFO);
+  log(buffer, LOG_DEBUG);
 
   while (1)
   {
