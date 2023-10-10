@@ -11,7 +11,7 @@ ports:
 
 additionalRepositories:
   - url: https://github.com/noaether/nassembly
-    
+
 vscode:
   extensions:
     - github.copilot
