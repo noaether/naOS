@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-10-10T01:17:32.277Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="L_iwixvoG9uyC_7T4vA0" version="22.0.4" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2023-10-10T01:18:30.303Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="92KeUkASpKaVnP8LIIti" version="22.0.4" type="github" pages="4">
   <diagram name="Boot Process" id="qeCUHLNeH_I6itKI6iWI">
     <mxGraphModel dx="1050" dy="581" grid="1" gridSize="10" guides="0" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="840" pageHeight="840" math="0" shadow="0">
       <root>
@@ -206,7 +206,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="u6wlHDlPQqQzHQk25PU8" name="C Kernel">
-    <mxGraphModel dx="875" dy="484" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="840" pageHeight="840" math="0" shadow="0">
+    <mxGraphModel dx="724" dy="401" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="840" pageHeight="840" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -509,16 +509,28 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="2X36sA2ItnyOvUsqWxua-5" value="Init PIT" style="swimlane;horizontal=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="450" y="380" width="370" height="400" as="geometry" />
+          <mxGeometry x="450" y="380" width="120" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="Bhy3Ot7wjWH1aRF53EAb-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="2X36sA2ItnyOvUsqWxua-5" source="2X36sA2ItnyOvUsqWxua-7" target="2X36sA2ItnyOvUsqWxua-15">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="2X36sA2ItnyOvUsqWxua-7" value="Disable&lt;br&gt;Interrupts" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="2X36sA2ItnyOvUsqWxua-5">
           <mxGeometry x="40" y="10" width="60" height="60" as="geometry" />
         </mxCell>
+        <mxCell id="Bhy3Ot7wjWH1aRF53EAb-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="2X36sA2ItnyOvUsqWxua-5" source="2X36sA2ItnyOvUsqWxua-15" target="2X36sA2ItnyOvUsqWxua-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="2X36sA2ItnyOvUsqWxua-15" value="Calculate Divisor" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="2X36sA2ItnyOvUsqWxua-5">
           <mxGeometry x="40" y="90" width="60" height="60" as="geometry" />
         </mxCell>
+        <mxCell id="Bhy3Ot7wjWH1aRF53EAb-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="2X36sA2ItnyOvUsqWxua-5" source="2X36sA2ItnyOvUsqWxua-16" target="2X36sA2ItnyOvUsqWxua-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="2X36sA2ItnyOvUsqWxua-16" value="Set to Mode 3" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="2X36sA2ItnyOvUsqWxua-5">
           <mxGeometry x="40" y="170" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Bhy3Ot7wjWH1aRF53EAb-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="2X36sA2ItnyOvUsqWxua-5" source="2X36sA2ItnyOvUsqWxua-17" target="2X36sA2ItnyOvUsqWxua-18">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="2X36sA2ItnyOvUsqWxua-17" value="Send Divisor Value" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="2X36sA2ItnyOvUsqWxua-5">
           <mxGeometry x="40" y="250" width="60" height="60" as="geometry" />
