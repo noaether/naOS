@@ -309,6 +309,7 @@ char *printregs(int eax, int ebx, int ecx, int edx)
   return string;
 }
 
+// TODO : Reduce method complexity
 char *amd_family(int family)
 {
   switch (family)
