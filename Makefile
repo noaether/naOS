@@ -3,7 +3,7 @@ CC = i686-elf-gcc
 CCFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -ffreestanding -lgcc -Wall -Wextra -Werror -c -I$$CC_PREFIX/lib/gcc/$$CC_TARGET/9.4.0/include -Isrc/lib -Isrc -c
 AS = nasm
 ASFLAGS = -f elf
-LDFLAGS = -T src/link.ld -nostdlib --verbose -L$$CC_PREFIX/lib/gcc/$$CC_TARGET/9.4.0 -lgcc
+LDFLAGS = -T src/link.ld -nostdlib --verbose -L$$cc_prefix/lib/gcc/$$cc_target/9.4.0 -lgcc
 
 # Source files and objects
 SOURCES = src/drivers/gdt.c src/loader.c src/kmain.c src/memory.c \
