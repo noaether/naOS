@@ -192,7 +192,7 @@ naOSReturnCode readFile(const char *name, char *buffer, uint32_t size)
 }
 
 // Function to delete a file
-int deleteFile(const char *name)
+naOSReturnCode deleteFile(const char *name)
 {
   // Find the file in the file table
   for (int i = 0; i < MAX_FILES; i++)
@@ -208,16 +208,16 @@ int deleteFile(const char *name)
         // Clear file information
         memset(&file_table[i], 0, sizeof(struct FileInformation));
 
-        return 0; // File deleted successfully
+        return RETURN_WITH_PTR(SUCCESS, NULL); // File deleted successfully
       }
       else
       {
-        return -1; // Permission denied
+        return RETURN_WITH_PTR(ERROR_PERMISSION_DENIED, &name); // Permission denied
       }
     }
   }
 
-  return -2; // File not found
+  return RETURN_WITH_PTR(ERROR_FILE_NOT_FOUND, &name); // File not found
 }
 
 // Function to list all files
