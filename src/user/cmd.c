@@ -10,6 +10,8 @@
 #include <naOS/mem.h>
 #include <utils/log.h>
 
+#include <printf.h>
+
 #include <filesystem/fileops.h>
 
 #include "cmd.h"
@@ -188,7 +190,9 @@ void handleCreateFile(char *string, size_t len, char *args)
 
   // SUCCESS if the file was created successfully, ERROR_OUT_OF_MEMORY if there is no available slot or memory allocation failed.
 
-  switch(createFile(args, 0x06))
+  struct ReturnCode code = createFile(args, 0);
+
+  switch(RETURN_CODE(code))
   {
   case SUCCESS:
     fb_println("File created successfully.", 27);
@@ -200,6 +204,7 @@ void handleCreateFile(char *string, size_t len, char *args)
     fb_println("Invalid argument.", 18);
     break;
   default:
+    fb_println("Unknown error.", 14);
     break;
   }
 
@@ -255,9 +260,31 @@ void handleReadFile(char *string, size_t len, char *args)
 
   args = strtok(NULL, del); // arg1
 
-  readFile(args, endbuffer, sizeof(endbuffer));
+  struct ReturnCode code = readFile(args, endbuffer, sizeof(endbuffer));
 
-  fb_println(endbuffer, strlen(endbuffer));
+  sprintf(endbuffer, "Switch Code : %d %d", RETURN_CODE(code), RETURN_PTR(code));
+
+  switch (RETURN_CODE(code))
+  {
+  case SUCCESS:
+    fb_println(endbuffer, strlen(endbuffer));
+    break;
+  case ERROR_INVALID_ARGUMENT:
+    fb_println("Invalid argument.", 18);
+    break;
+  case ERROR_BUFFER_SIZE_TOO_SMALL:
+    fb_println("Buffer size too small.", 23);
+    break;
+  case ERROR_PERMISSION_DENIED:
+    fb_println("Permission denied.", 19);
+    break;
+  case ERROR_FILE_NOT_FOUND:
+    fb_println("File not found.", 16);
+    break;
+  default:
+    fb_println(endbuffer, strlen(endbuffer));
+    break;
+  }
 
   clear(string, sizeof(string));
   clear(endbuffer, sizeof(endbuffer));

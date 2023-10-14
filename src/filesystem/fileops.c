@@ -55,11 +55,11 @@ int fs_main()
  *
  * @note The function searches for an empty slot in the file table and initializes the file information with the given name, size 0, and the provided permissions. It also allocates memory for the file content.
  */
-int createFile(const char *name, uint16_t permissions)
+naOSReturnCode createFile(const char *name, uint16_t permissions)
 {
   if (strlen(name) == 0 || strlen(name) > MAX_FILENAME_LENGTH || permissions > 0x07)
   {
-    return ERROR_INVALID_ARGUMENT;
+    return RETURN_WITH_PTR(ERROR_INVALID_ARGUMENT, &name);
   }
 
   // Find an empty slot in the file table
@@ -76,7 +76,7 @@ int createFile(const char *name, uint16_t permissions)
   // Check if there is an available slot
   if (empty_slot < 0)
   {
-    return ERROR_OUT_OF_MEMORY; // No available slots
+    return RETURN_WITH_PTR(ERROR_OUT_OF_MEMORY, &file_table); // No available slots
   }
 
   // Initialize file information
@@ -92,10 +92,10 @@ int createFile(const char *name, uint16_t permissions)
 
   if (new_file->content == NULL)
   {
-    return ERROR_OUT_OF_MEMORY; // Memory allocation failed
+    return RETURN_WITH_PTR(ERROR_OUT_OF_MEMORY, &name); // Memory allocation failed
   }
 
-  return SUCCESS; // File created successfully
+  return RETURN_WITH_PTR(SUCCESS, &name); // File created successfully
 }
 
 // Function to write data to a file
@@ -108,11 +108,11 @@ int createFile(const char *name, uint16_t permissions)
  *
  * @return SUCCESS if the write was successful, ERROR_INVALID_ARGUMENT if the size or data is invalid, ERROR_OUT_OF_MEMORY if the file size exceeds the limit, ERROR_PERMISSION_DENIED if the file does not have write permissions, or ERROR_FILE_NOT_FOUND if the file was not found.
  */
-int writeFile(const char *name, const char *data, uint32_t size)
+naOSReturnCode writeFile(const char *name, const char *data, uint32_t size)
 {
   if (size == 0 || strlen(data) == 0)
   {
-    return ERROR_INVALID_ARGUMENT;
+    return RETURN_WITH_PTR(ERROR_INVALID_ARGUMENT, &data);
   }
   // Find the file in the file table
   for (int i = 0; i < MAX_FILES; i++)
@@ -125,7 +125,7 @@ int writeFile(const char *name, const char *data, uint32_t size)
         // Check if the file content can hold the new data
         if (size > MAX_FILE_SIZE)
         {
-          return ERROR_OUT_OF_MEMORY; // File size exceeds limit
+          return RETURN_WITH_PTR(ERROR_OUT_OF_MEMORY, &size); // File size exceeds limit
         }
 
         // Update file size and content
@@ -147,44 +147,20 @@ int writeFile(const char *name, const char *data, uint32_t size)
   return ERROR_FILE_NOT_FOUND; // File not found
 }
 
-int editFile(const char *name, const char *data, uint32_t size)
+// Function to read data from a file
+naOSReturnCode readFile(const char *name, char *buffer, uint32_t size)
 {
-  // Find the file in the file table
-  for (int i = 0; i < MAX_FILES; i++)
+  if(strlen(name) == 0 || strlen(name) > MAX_FILENAME_LENGTH)
   {
-    if (strcmp(file_table[i].name, name) == 0)
-    {
-      // Check if the file has write permissions
-      if (file_table[i].permissions & 0x02)
-      {
-        // Check if the file content can hold the new data
-        if (size > MAX_FILE_SIZE)
-        {
-          return -1; // File size exceeds limit
-        }
-
-        // Update file size and content
-        struct FileInformation *file = &file_table[i];
-        file->size = size;
-        strncpy(file->content, data, size);
-
-        // Update the modified timestamp here
-
-        return 0; // Write successful
-      }
-      else
-      {
-        return -2; // Permission denied
-      }
-    }
+    return RETURN_WITH_PTR(ERROR_INVALID_ARGUMENT, &name);
+  } else if(size == 0)
+  {
+    return RETURN_WITH_PTR(ERROR_INVALID_ARGUMENT, &size);
+  } else if(buffer == NULL)
+  {
+    return RETURN_WITH_PTR(ERROR_INVALID_ARGUMENT, &buffer);
   }
 
-  return -3; // File not found
-}
-
-// Function to read data from a file
-int readFile(const char *name, char *buffer, uint32_t size)
-{
   // Find the file in the file table
   for (int i = 0; i < MAX_FILES; i++)
   {
@@ -196,23 +172,23 @@ int readFile(const char *name, char *buffer, uint32_t size)
         // Check if the buffer can hold the file content
         if (size < file_table[i].size)
         {
-          return -1; // Buffer size is too small
+          return RETURN_WITH_PTR(ERROR_BUFFER_SIZE_TOO_SMALL, &buffer); // Buffer size is too small
         }
 
         // Copy file content to the buffer
         struct FileInformation *file = &file_table[i];
         strncpy(buffer, file->content, file->size);
 
-        return file->size; // Return the number of bytes read
+        return RETURN_WITH_PTR(SUCCESS, &(file->size));
       }
       else
       {
-        return -2; // Permission denied
+        return RETURN_WITH_PTR(ERROR_PERMISSION_DENIED, &name); // Permission denied
       }
     }
   }
 
-  return -3; // File not found
+  return RETURN_WITH_PTR(ERROR_FILE_NOT_FOUND, &name); // File not found
 }
 
 // Function to delete a file

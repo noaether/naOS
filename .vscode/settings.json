@@ -25,6 +25,7 @@
     "keyboard.h": "c",
     "lib.h": "c",
     "stdint.h": "c",
-    "fileops.h": "c"
+    "fileops.h": "c",
+    "printf.h": "c"
   }
 }
