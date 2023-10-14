@@ -1,6 +1,8 @@
 #include "fileops.h"
 
 #include <naOS/string.h>
+#include <naOS/stdreturn.h>
+#include <assert.h>
 
 /*
  * 1. Find an empty slot in the file table
@@ -74,6 +76,9 @@ int createFile(const char *name, uint16_t permissions)
 // Function to write data to a file
 int writeFile(const char *name, const char *data, uint32_t size)
 {
+  if(size == 0 || strlen(data) == 0) {
+    return ERROR_INVALID_ARGUMENT;
+  }
   // Find the file in the file table
   for (int i = 0; i < MAX_FILES; i++)
   {
@@ -85,7 +90,7 @@ int writeFile(const char *name, const char *data, uint32_t size)
         // Check if the file content can hold the new data
         if (size > MAX_FILE_SIZE)
         {
-          return -1; // File size exceeds limit
+          return ERROR_OUT_OF_MEMORY; // File size exceeds limit
         }
 
         // Update file size and content
@@ -95,11 +100,11 @@ int writeFile(const char *name, const char *data, uint32_t size)
 
         // Update the modified timestamp here
 
-        return 0; // Write successful
+        return SUCCESS; // Write successful
       }
       else
       {
-        return -2; // Permission denied
+        return ERROR_PERMISSION_DENIED; // Permission denied
       }
     }
   }

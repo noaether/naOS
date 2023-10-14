@@ -183,9 +183,15 @@ void handleWriteFile(char *string, size_t len, char *args)
   strncpy(endbuffer, string, len - strlen("writefile  ") - strlen(args));
   reverse(endbuffer, strlen(endbuffer));
 
-  writeFile(args, endbuffer, strlen(endbuffer));
-
-  fb_println("File written succesfully !", 27);
+  switch (writeFile(args, endbuffer, strlen(endbuffer)))
+  {
+  case -3:
+    sprintf(endbuffer, "Error: Memory allocation failed.");
+    break;
+  case 
+  default:
+    break;
+  }
 
   clear(string, sizeof(string));
   clear(endbuffer, sizeof(endbuffer));
