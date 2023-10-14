@@ -190,7 +190,7 @@ void handleCreateFile(char *string, size_t len, char *args)
 
   // SUCCESS if the file was created successfully, ERROR_OUT_OF_MEMORY if there is no available slot or memory allocation failed.
 
-  struct ReturnCode code = createFile(args, 0);
+  naOSReturnCode code = createFile(args, 0x06);
 
   switch(RETURN_CODE(code))
   {
@@ -222,12 +222,12 @@ void handleWriteFile(char *string, size_t len, char *args)
   args = strtok(NULL, del); // move to arg1
 
   reverse(string, len);
-  strncpy(endbuffer, string, len - strlen("writefile  ") - strlen(args));
+  strncpy(endbuffer, string, len - strlen("edit  ") - strlen(args));
   reverse(endbuffer, strlen(endbuffer));
 
-// SUCCESS if the write was successful, ERROR_INVALID_ARGUMENT if the size or data is invalid, ERROR_OUT_OF_MEMORY if the file size exceeds the limit, ERROR_PERMISSION_DENIED if the file does not have write permissions, or ERROR_FILE_NOT_FOUND if the file was not found.
+  naOSReturnCode code = writeFile(args, endbuffer, strlen(endbuffer));
 
-  switch (writeFile(args, endbuffer, strlen(endbuffer)))
+  switch (RETURN_CODE(code))
   {
   case SUCCESS:
     fb_println("File written successfully.", 27);
@@ -260,9 +260,7 @@ void handleReadFile(char *string, size_t len, char *args)
 
   args = strtok(NULL, del); // arg1
 
-  struct ReturnCode code = readFile(args, endbuffer, sizeof(endbuffer));
-
-  sprintf(endbuffer, "Switch Code : %d %d", RETURN_CODE(code), RETURN_PTR(code));
+  naOSReturnCode code = readFile(args, endbuffer, sizeof(endbuffer));
 
   switch (RETURN_CODE(code))
   {

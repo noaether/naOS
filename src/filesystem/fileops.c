@@ -135,16 +135,16 @@ naOSReturnCode writeFile(const char *name, const char *data, uint32_t size)
 
         // Update the modified timestamp here
 
-        return SUCCESS; // Write successful
+        return RETURN_WITH_PTR(SUCCESS, &name); // Write successful
       }
       else
       {
-        return ERROR_PERMISSION_DENIED; // Permission denied
+        return RETURN_WITH_PTR(ERROR_PERMISSION_DENIED, &(file_table[i].permissions)); // Permission denied
       }
     }
   }
 
-  return ERROR_FILE_NOT_FOUND; // File not found
+  return RETURN_WITH_PTR(ERROR_FILE_NOT_FOUND, &name); // File not found
 }
 
 // Function to read data from a file
