@@ -44,7 +44,7 @@ esac
 
 # Remove any existing cross-compiler installation
 rm -rf $HOME/src
-rm -rf $HOME/opt/cross
+rm -rf $cc_prefix
 
 mkdir -p $HOME/src
 cd $HOME/src
@@ -73,33 +73,17 @@ make all-target-libgcc -j$ncpu
 make install-gcc -j$ncpu
 make install-target-libgcc -j$ncpu
 
-# Check if grub-mkrescue exists
-if command -v grub-mkrescue &>/dev/null; then
-    echo "grub-mkrescue already installed"
-else
-    echo "grub-mkrescue not installed. Installing..."
-
-    cd $HOME/src
-    wget ftp://ftp.gnu.org/gnu/grub/grub-2.06.tar.gz
-    tar xf grub-2.06.tar.gz
-    cd grub-2.06
-    ./configure
-    sudo make install -j$ncpu
-fi
-
 # Set up environment variables for Bash shell
 echo "export PATH=$HOME/opt/cross/bin:\$PATH" >> ~/.bashrc
 echo "export cc_prefix=$HOME/opt/cross" >> ~/.bashrc
 echo "export cc_target=i686-elf" >> ~/.bashrc
-echo "export PATH=$HOME/grub-2.06:\$PATH" >> ~/.bashrc
 
 # Set up environment variables for Fish shell (if Fish is installed)
 if command -v fish &>/dev/null; then
-    fish -c "set -U fish_user_paths $HOME/opt/cross/bin $HOME/grub-2.06 $fish_user_paths"
+    fish -c "set -U fish_user_paths $HOME/opt/cross/bin $fish_user_paths"
     fish -c "set -Ux cc_prefix $HOME/opt/cross"
     fish -c "set -Ux cc_target i686-elf"
 fi
-
 
 # Check if nasm is installed
 if command -v nasm &>/dev/null; then
@@ -115,6 +99,20 @@ else
     make install -j$ncpu
 fi
 
+# Check if grub-mkrescue exists
+if command -v grub-mkrescue &>/dev/null; then
+    echo "grub-mkrescue already installed"
+else
+    echo "grub-mkrescue not installed. Installing..."
+
+    cd $HOME/src
+    wget ftp://ftp.gnu.org/gnu/grub/grub-2.06.tar.gz
+    tar xf grub-2.06.tar.gz
+    cd grub-2.06
+    ./configure
+    sudo make install -j$ncpu
+fi
+
 # Check if xorriso is installed
 if command -v xorriso &>/dev/null; then
     echo "xorriso already installed"
@@ -128,7 +126,5 @@ else
     ./configure
     make install -j$ncpu
 fi
-
-
 
 echo "Cross-compiler installation complete. Please restart your shell or run 'source ~/.bashrc' (or equivalent for your shell) to update your PATH."
