@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = i686-elf-gcc
-CCFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -ffreestanding -lgcc -Wall -Wextra -Werror -c -I$$CC_PREFIX/lib/gcc/$$CC_TARGET/9.4.0/include -Isrc/lib -Isrc -c
+CCFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -ffreestanding -lgcc -Wall -Wextra -Werror -c -I$$cc_prefix/lib/gcc/$$cc_target/9.4.0/include -Isrc/lib -Isrc -c
 AS = nasm
 ASFLAGS = -f elf
 LDFLAGS = -T src/link.ld -nostdlib --verbose -L$$cc_prefix/lib/gcc/$$cc_target/9.4.0 -lgcc
@@ -33,7 +33,7 @@ $(ISO_TARGET): $(TARGET)
 	grub-mkrescue -o $(ISO_TARGET) iso
 
 $(TARGET): $(OBJECTS) $(PROGRAM_BIN)
-	$(CC) --verbose $(LDFLAGS) $(OBJECTS) $(PROGRAM_OBJECTS) $$CC_PREFIX/lib/gcc/$$CC_TARGET/9.4.0/libgcc.a -o $(TARGET)
+	$(CC) --verbose $(LDFLAGS) $(OBJECTS) $(PROGRAM_OBJECTS) $$cc_prefix/lib/gcc/$$cc_target/9.4.0/libgcc.a -o $(TARGET)
 
 %.o: %.c
 	$(CC) --verbose $(CCFLAGS) $< -o $@
