@@ -2,7 +2,6 @@
 
 #include <naOS/string.h>
 #include <naOS/stdreturn.h>
-#include <assert.h>
 
 /*
  * 1. Find an empty slot in the file table
@@ -18,24 +17,50 @@ struct FileInformation
   uint32_t creation_time;
   uint32_t modified_time;
   char *content;
-}__attribute__((packed));
+} __attribute__((packed));
 
 struct FileInformation file_table[MAX_FILES];
 
+int fs_main()
+{
+  log("FS  | Initializing RAM filesystem...", LOG_DEBUG);
 
-void fs_main() {
-    log("FS  | Initializing RAM filesystem...", LOG_DEBUG);
+  for (int i = 0; i < MAX_FILES - 1; i++)
+  {
+    memset(&file_table[i], 0, sizeof(struct FileInformation));
+  };
 
-    for (int i = 0; i < MAX_FILES - 1; i++) {
-        memset(&file_table[i], 0, sizeof(struct FileInformation));
-    };
+  log("FS  | RAM filesystem initialized!", LOG_DEBUG);
 
-    log("FS  | RAM filesystem initialized!", LOG_DEBUG);
+  return SUCCESS;
 }
 
+/**
+ * Creates a new file with the given name and permissions.
+ *
+ * @param name The name of the file to be created.
+ * @param permissions The permissions to be set for the file.
+ *
+ * @return SUCCESS if the file was created successfully, ERROR_OUT_OF_MEMORY if there is no available slot or memory allocation failed, ERROR_INVALID_ARGUMENT if the name or permissions is invalid.
+ *
+ * @note The permissions parameter is an unsigned 16-bit integer where the first 3 bits represent the owner's permissions, the next 3 bits represent the group's permissions, and the last 3 bits represent the others' permissions. The permissions are represented as follows:
+ *        0 - No permission
+ *        1 - Execute permission
+ *        2 - Write permission
+ *        3 - Write and execute permission
+ *        4 - Read permission
+ *        5 - Read and execute permission
+ *        6 - Read and write permission
+ *        7 - Read, write, and execute permission
+ *
+ * @note The function searches for an empty slot in the file table and initializes the file information with the given name, size 0, and the provided permissions. It also allocates memory for the file content.
+ */
 int createFile(const char *name, uint16_t permissions)
 {
-  // TODO : WRITE DOCUMENTATION FOR PERMISSIONS
+  if (strlen(name) == 0 || strlen(name) > MAX_FILENAME_LENGTH || permissions > 0x07)
+  {
+    return ERROR_INVALID_ARGUMENT;
+  }
 
   // Find an empty slot in the file table
   int empty_slot = -1;
@@ -51,7 +76,7 @@ int createFile(const char *name, uint16_t permissions)
   // Check if there is an available slot
   if (empty_slot < 0)
   {
-    return empty_slot; // No available slots
+    return ERROR_OUT_OF_MEMORY; // No available slots
   }
 
   // Initialize file information
@@ -67,16 +92,26 @@ int createFile(const char *name, uint16_t permissions)
 
   if (new_file->content == NULL)
   {
-    return -2; // Memory allocation failed
+    return ERROR_OUT_OF_MEMORY; // Memory allocation failed
   }
 
-  return 0; // File created successfully
+  return SUCCESS; // File created successfully
 }
 
 // Function to write data to a file
+/**
+ * Writes data to a file with the given name.
+ *
+ * @param name The name of the file to write to.
+ * @param data The data to write to the file.
+ * @param size The size of the data to write.
+ *
+ * @return SUCCESS if the write was successful, ERROR_INVALID_ARGUMENT if the size or data is invalid, ERROR_OUT_OF_MEMORY if the file size exceeds the limit, ERROR_PERMISSION_DENIED if the file does not have write permissions, or ERROR_FILE_NOT_FOUND if the file was not found.
+ */
 int writeFile(const char *name, const char *data, uint32_t size)
 {
-  if(size == 0 || strlen(data) == 0) {
+  if (size == 0 || strlen(data) == 0)
+  {
     return ERROR_INVALID_ARGUMENT;
   }
   // Find the file in the file table
@@ -109,7 +144,7 @@ int writeFile(const char *name, const char *data, uint32_t size)
     }
   }
 
-  return -3; // File not found
+  return ERROR_FILE_NOT_FOUND; // File not found
 }
 
 int editFile(const char *name, const char *data, uint32_t size)
@@ -210,7 +245,7 @@ int deleteFile(const char *name)
 }
 
 // Function to list all files
-struct FileInformation* listfiles()
+struct FileInformation *listfiles()
 {
   return file_table;
 }

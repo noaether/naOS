@@ -3,6 +3,7 @@
 #include <stdint.h>
 
 #include <naOS/string.h>
+#include <naOS/stdreturn.h>
 
 #include <drivers/framebuffer.h>
 #include <drivers/sound.h>
@@ -63,6 +64,9 @@ struct note note_to_play[] = {{OCTAVE_4, NOTE_A, 10}};
 };*/
 
 // Function prototypes for command handlers
+
+void handleCreateFile(char *string, size_t len, char *args);
+
 /**
  * @brief Handles the writefile command by creating a file with the given name
  * and writing the given string to it.
@@ -111,9 +115,15 @@ struct Command
 } __attribute__((packed));
 
 struct Command commands[] = {
-    {"writefile",
+    {"touch",
+     "Creates a file in the filesystem",
+     "touch <name>",
+     handleCreateFile,
+     2,
+     {"name"}},
+    {"edit",
      "Writes a file to the filesystem",
-     "writefile <name> <data>",
+     "edit <name> <data>",
      handleWriteFile,
      2,
      {"name", "data"}},
@@ -171,24 +181,64 @@ void interpret(char *string, size_t len)
   handleUnknown(string, len, NULL);
 }
 
+void handleCreateFile(char *string, size_t len, char *args)
+{
+  // Implementation for createfile command
+  args = strtok(NULL, del); // move to arg1
+
+  // SUCCESS if the file was created successfully, ERROR_OUT_OF_MEMORY if there is no available slot or memory allocation failed.
+
+  switch(createFile(args, 0x06))
+  {
+  case SUCCESS:
+    fb_println("File created successfully.", 27);
+    break;
+  case ERROR_OUT_OF_MEMORY:
+    fb_println("No available slots.", 20);
+    break;
+  case ERROR_INVALID_ARGUMENT:
+    fb_println("Invalid argument.", 18);
+    break;
+  default:
+    break;
+  }
+
+  clear(string, sizeof(string));
+  clear(endbuffer, sizeof(endbuffer));
+  clear(args, sizeof(args));
+
+  (void)len;
+}
+
 void handleWriteFile(char *string, size_t len, char *args)
 {
 
   // Implementation for writefile command
   args = strtok(NULL, del); // move to arg1
 
-  createFile(args, 0x06);
-
   reverse(string, len);
   strncpy(endbuffer, string, len - strlen("writefile  ") - strlen(args));
   reverse(endbuffer, strlen(endbuffer));
 
+// SUCCESS if the write was successful, ERROR_INVALID_ARGUMENT if the size or data is invalid, ERROR_OUT_OF_MEMORY if the file size exceeds the limit, ERROR_PERMISSION_DENIED if the file does not have write permissions, or ERROR_FILE_NOT_FOUND if the file was not found.
+
   switch (writeFile(args, endbuffer, strlen(endbuffer)))
   {
-  case -3:
-    sprintf(endbuffer, "Error: Memory allocation failed.");
+  case SUCCESS:
+    fb_println("File written successfully.", 27);
     break;
-  case 
+  case ERROR_INVALID_ARGUMENT:
+    fb_println("Invalid argument.", 18);
+    break;
+  case ERROR_OUT_OF_MEMORY:
+    fb_println("File size exceeds limit.", 25);
+    break;
+  case ERROR_PERMISSION_DENIED:
+    fb_println("Permission denied.", 19);
+    break;
+  case ERROR_FILE_NOT_FOUND:
+    fb_println("File not found.", 16);
+    break;
   default:
     break;
   }

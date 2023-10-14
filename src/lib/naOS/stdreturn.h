@@ -8,6 +8,5 @@
 #define ERROR_NOT_IMPLEMENTED 4
 #define ERROR_FILE_NOT_FOUND 5
 #define ERROR_PERMISSION_DENIED 6
-// Add more error codes and their descriptions as needed
 
 #endif
