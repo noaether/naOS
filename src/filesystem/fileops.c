@@ -3,7 +3,29 @@
 #include <naOS/string.h>
 #include <naOS/stdreturn.h>
 
-/*
+/**
+ * PERMISSION DOCUMENTATION
+ *
+ * READ | WRITE | EXECUTE | DELETE
+ *  0   |   0   |    0    |    0   = 0x00 = 0
+ *  0   |   0   |    0    |    1   = 0x01 = 1
+ *  0   |   0   |    1    |    0   = 0x02 = 2
+ *  0   |   0   |    1    |    1   = 0x03 = 3
+ *  0   |   1   |    0    |    0   = 0x04 = 4
+ *  0   |   1   |    0    |    1   = 0x05 = 5
+ *  0   |   1   |    1    |    0   = 0x06 = 6
+ *  0   |   1   |    1    |    1   = 0x07 = 7
+ *  1   |   0   |    0    |    0   = 0x08 = 8
+ *  1   |   0   |    0    |    1   = 0x09 = 9
+ *  1   |   0   |    1    |    0   = 0x0A = 10
+ *  1   |   0   |    1    |    1   = 0x0B = 11
+ *  1   |   1   |    0    |    0   = 0x0C = 12
+ *  1   |   1   |    0    |    1   = 0x0D = 13
+ *  1   |   1   |    1    |    0   = 0x0E = 14
+ *  1   |   1   |    1    |    1   = 0x0F = 15
+ */
+
+/**
  * 1. Find an empty slot in the file table
  * 2. Check if there is an available slot
  * 3. Initialize file information
@@ -42,16 +64,6 @@ int fs_main()
  * @param permissions The permissions to be set for the file.
  *
  * @return SUCCESS if the file was created successfully, ERROR_OUT_OF_MEMORY if there is no available slot or memory allocation failed, ERROR_INVALID_ARGUMENT if the name or permissions is invalid.
- *
- * @note The permissions parameter is an unsigned 16-bit integer where the first 3 bits represent the owner's permissions, the next 3 bits represent the group's permissions, and the last 3 bits represent the others' permissions. The permissions are represented as follows:
- *        0 - No permission
- *        1 - Execute permission
- *        2 - Write permission
- *        3 - Write and execute permission
- *        4 - Read permission
- *        5 - Read and execute permission
- *        6 - Read and write permission
- *        7 - Read, write, and execute permission
  *
  * @note The function searches for an empty slot in the file table and initializes the file information with the given name, size 0, and the provided permissions. It also allocates memory for the file content.
  */
@@ -120,7 +132,7 @@ naOSReturnCode writeFile(const char *name, const char *data, uint32_t size)
     if (strcmp(file_table[i].name, name) == 0)
     {
       // Check if the file has write permissions
-      if (file_table[i].permissions & 0x02)
+      if (file_table[i].permissions & 0b0100)
       {
         // Check if the file content can hold the new data
         if (size > MAX_FILE_SIZE)
@@ -167,7 +179,7 @@ naOSReturnCode readFile(const char *name, char *buffer, uint32_t size)
     if (strcmp(file_table[i].name, name) == 0)
     {
       // Check if the file has read permissions
-      if (file_table[i].permissions & 0x04)
+      if (file_table[i].permissions & 0b1000)
       {
         // Check if the buffer can hold the file content
         if (size < file_table[i].size)
@@ -200,7 +212,7 @@ naOSReturnCode deleteFile(const char *name)
     if (strcmp(file_table[i].name, name) == 0)
     {
       // Check if the file has delete permissions
-      if (file_table[i].permissions & 0x08)
+      if (file_table[i].permissions & 0b0001)
       {
         // Free memory used by file content
         free(file_table[i].content);
@@ -209,6 +221,36 @@ naOSReturnCode deleteFile(const char *name)
         memset(&file_table[i], 0, sizeof(struct FileInformation));
 
         return RETURN_WITH_PTR(SUCCESS, NULL); // File deleted successfully
+      }
+      else
+      {
+        return RETURN_WITH_PTR(ERROR_PERMISSION_DENIED, &name); // Permission denied
+      }
+    }
+  }
+
+  return RETURN_WITH_PTR(ERROR_FILE_NOT_FOUND, &name); // File not found
+}
+
+naOSReturnCode editPermissions(const char *name, uint16_t permissions)
+{
+  if (strlen(name) == 0 || strlen(name) > MAX_FILENAME_LENGTH || permissions > 0x07)
+  {
+    return RETURN_WITH_PTR(ERROR_INVALID_ARGUMENT, &name);
+  }
+
+  // Find the file in the file table
+  for (int i = 0; i < MAX_FILES; i++)
+  {
+    if (strcmp(file_table[i].name, name) == 0)
+    {
+      // Check if the file has edit permissions
+      if (file_table[i].permissions & 0b0100)
+      {
+        // Update file permissions
+        file_table[i].permissions = permissions;
+
+        return RETURN_WITH_PTR(SUCCESS, &name); // Permissions updated successfully
       }
       else
       {

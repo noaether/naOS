@@ -89,6 +89,8 @@ void handleWriteFile(char *string, size_t len, char *args);
  */
 void handleReadFile(char *string, size_t len, char *args);
 
+void handleEditPermissions(char *string, size_t len, char *args);
+
 /**
  * @brief Handles the help command by printing the help message to the screen.
  *
@@ -135,6 +137,12 @@ struct Command commands[] = {
      handleReadFile,
      1,
      {"name"}},
+    {"perms",
+      "Changes the permissions of a file",
+      "perms <name> <perms>",
+      handleEditPermissions,
+      2,
+      {"name", "perms"}},
     {"help", "Prints this help message", "help", handleHelp, 0, {}},
     {"clear", "Clears the screen", "clear", handleClear, 0, {}},
     {"log",
@@ -190,7 +198,7 @@ void handleCreateFile(char *string, size_t len, char *args)
 
   // SUCCESS if the file was created successfully, ERROR_OUT_OF_MEMORY if there is no available slot or memory allocation failed.
 
-  naOSReturnCode code = createFile(args, 0x06);
+  naOSReturnCode code = createFile(args, 0b1101); // rw-d
 
   switch(RETURN_CODE(code))
   {
@@ -257,7 +265,6 @@ void handleWriteFile(char *string, size_t len, char *args)
 
 void handleReadFile(char *string, size_t len, char *args)
 {
-
   args = strtok(NULL, del); // arg1
 
   naOSReturnCode code = readFile(args, endbuffer, sizeof(endbuffer));
@@ -281,6 +288,42 @@ void handleReadFile(char *string, size_t len, char *args)
     break;
   default:
     fb_println(endbuffer, strlen(endbuffer));
+    break;
+  }
+
+  clear(string, sizeof(string));
+  clear(endbuffer, sizeof(endbuffer));
+  clear(args, sizeof(args));
+
+  (void)len;
+}
+
+void handleEditPermissions(char *string, size_t len, char *args)
+{
+  args = strtok(NULL, del); // arg1
+  char *perms = strtok(NULL, del); // arg2
+  int perms_int = 0;
+
+  citoa(perms_int, perms, 16);
+
+  naOSReturnCode code = editPermissions(args, perms_int);
+
+  switch (RETURN_CODE(code))
+  {
+  case SUCCESS:
+    fb_println("Permissions changed successfully.", 34);
+    break;
+  case ERROR_INVALID_ARGUMENT:
+    fb_println("Invalid argument.", 18);
+    break;
+  case ERROR_PERMISSION_DENIED:
+    fb_println("Permission denied.", 19);
+    break;
+  case ERROR_FILE_NOT_FOUND:
+    fb_println("File not found.", 16);
+    break;
+  default:
+    fb_println("Unknown error.", 14);
     break;
   }
 
