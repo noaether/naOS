@@ -5,6 +5,7 @@
 #include <drivers/serial.h>
 #include <drivers/irq.h>
 #include <drivers/clocks.h>
+//#include <drivers/disks/ide.h>
 
 #include <utils/log.h>
 #include <user/cmd.h>
@@ -86,6 +87,8 @@ int kmain(uint32_t ebx)
     call_module_t start_program = (call_module_t)module_start;
     start_program();
   }
+
+  //ide_initialize(0x1F0, 0x3F6, 0x170, 0x376, 0x000);
 
   since_enter = 0;
 

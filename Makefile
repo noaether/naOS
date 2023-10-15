@@ -12,7 +12,7 @@ SOURCES = src/drivers/gdt.c src/loader.c src/kmain.c src/memory.c \
     src/user/cmd.c \
     src/utils/io.c src/utils/log.c \
     src/lib/naOS/string.c src/lib/naOS/math.c src/lib/printf.c \
-    src/filesystem/fileops.c
+    src/filesystem/fileops.c \
 
 OBJECTS = $(SOURCES:.c=.o)
 
@@ -49,7 +49,7 @@ $(PROGRAM_BIN): src/modules/initfpu.asm
 run: run-q
 
 run-q: $(ISO_TARGET)
-	qemu-system-i386 $(ISO_TARGET) -m 4M -serial file:qemu_com1.out -soundhw pcspk -rtc base=localtime -d int,cpu_reset,pcall,guest_errors,unimp -no-reboot
+	qemu-system-i386 -drive format=raw,media=disk,file=$(ISO_TARGET) -m 4M -serial file:qemu_com1.out -soundhw pcspk -rtc base=localtime -d int,cpu_reset,pcall,guest_errors,unimp -no-reboot
 
 run-b: $(ISO_TARGET)
 	bochs -f bochsrc.txt -q
