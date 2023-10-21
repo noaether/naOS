@@ -96,7 +96,7 @@ tar -xf gcc-9.4.0.tar.gz
 
 mkdir build-binutils
 cd build-binutils
-../binutils-2.34/configure --target=$cc_target --prefix="$RAMDISK_PATH/$cc_prefix" --with-sysroot --disable-nls --disable-werror
+../binutils-2.34/configure --target=$cc_target --prefix="$RAMDISK_PATH$cc_prefix" --with-sysroot --disable-nls --disable-werror
 make -j$ncpu
 make install -j$ncpu
 
@@ -106,16 +106,13 @@ which -- $cc_target-as || echo "$cc_target-as is not in the PATH"
 
 mkdir build-gcc
 cd build-gcc
-../gcc-9.4.0/configure --target=$cc_target --prefix="$RAMDISK_PATH/$cc_prefix" --disable-nls --enable-languages=c --without-headers
+../gcc-9.4.0/configure --target=$cc_target --prefix="$RAMDISK_PATH$cc_prefix" --disable-nls --enable-languages=c --without-headers
 make all-gcc -j$ncpu
 make all-target-libgcc -j$ncpu
 make install-gcc -j$ncpu
 make install-target-libgcc -j$ncpu
 
-# move ramdisk to final if ramdisk
-if [ -n "$RAMDISK_PATH" ]; then
-    mv $RAMDISK_PATH$cc_prefix $cc_prefix
-fi
+mv $RAMDISK_PATH$cc_prefix $cc_prefix
 
 # Set up environment variables for Fish shell (if Fish is installed)
 if command -v fish &>/dev/null; then
@@ -171,6 +168,6 @@ echo "Cross-compiler installation complete. Please restart your shell or run 'so
 cd $HOME
 
 # Unmount the RAM disk when done
-if [ -n "$RAMDISK_PATH" ]; then
+if [ "$use_ram" -eq 1 ]; then
     sudo umount /tmp/ramdisk
 fi
