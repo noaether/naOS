@@ -8,6 +8,7 @@ jobs:
       arch: amd64
       script:
         - time sudo ./configure.sh --use-ram
+        - source ~/.bashrc
         - i686-elf-gcc --version
         - nasm --version
         - xorriso --version
