@@ -7,4 +7,8 @@ jobs:
     - name: "Test on Ubuntu 20.04 (Focal Fossa) - amd64 VM"
       arch: amd64
       script:
-        - ls -R
+        - time ./configure.sh
+        - i686-elf-gcc --version
+        - nasm --version
+        - xorriso --version
+        - time make
