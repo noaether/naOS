@@ -6,9 +6,8 @@ jobs:
   include:
     - name: "Test on Ubuntu 20.04 (Focal Fossa) - amd64 VM"
       arch: amd64
-      before_script:
-        - ./configure
       script:
+        - ./configure
         - i686-elf-gcc --version
         - nasm --version
         - xorriso --version
