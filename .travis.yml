@@ -9,7 +9,7 @@ jobs:
       script:
         - time sudo ./configure.sh --use-ram
         - source ~/.bashrc
-        - i686-elf-gcc --version
+        - export cc_prefix="$HOME/opt/cross" && export PATH="$cc_prefix/bin:$PATH" && i686-elf-gcc --version
         - nasm --version
         - xorriso --version
-        - time make
+        - export cc_prefix="$HOME/opt/cross" && export PATH="$cc_prefix/bin:$PATH" && time make
