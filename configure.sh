@@ -112,8 +112,6 @@ make all-target-libgcc -j$ncpu
 make install-gcc -j$ncpu
 make install-target-libgcc -j$ncpu
 
-mv $RAMDISK_PATH$cc_prefix $cc_prefix
-
 # Set up environment variables for Fish shell (if Fish is installed)
 if command -v fish &>/dev/null; then
     fish -c "set -U fish_user_paths $HOME/opt/cross/bin $fish_user_paths"
@@ -166,6 +164,8 @@ fi
 echo "Cross-compiler installation complete. Please restart your shell or run 'source ~/.bashrc' (or equivalent for your shell) to update your PATH."
 
 cd $HOME
+
+cp -a $RAMDISK_PATH$cc_prefix $cc_prefix
 
 # Unmount the RAM disk when done
 if [ "$use_ram" -eq 1 ]; then
