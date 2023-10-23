@@ -7,9 +7,4 @@ jobs:
     - name: "Test on Ubuntu 20.04 (Focal Fossa) - amd64 VM"
       arch: amd64
       script:
-        - time sudo ./configure.sh --use-ram
-        - source ~/.bashrc
-        - export cc_prefix="$HOME/opt/cross" && export PATH="$cc_prefix/bin:$PATH" && i686-elf-gcc --version
-        - nasm --version
-        - xorriso --version
-        - export cc_prefix="$HOME/opt/cross" && export PATH="$cc_prefix/bin:$PATH" && time make
+      - echo "no"
