@@ -6,9 +6,6 @@ dd 0                         ; Checksum (optional, set to 0 for simplicity)
 
 section .text
 align 4
-mov eax, 0xCAFEBEBE
-mov ebx, 0xDEADBEEF
-
-jmp $
+nop
 ret
 MODULE_END:

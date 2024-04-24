@@ -72,21 +72,22 @@ int kmain(uint32_t ebx)
   if (mbinfo->mods_count > 0)
   {
     char module_count[100];
-    sprintf(module_count, "MB  | Module count: %d", mbinfo->mods_count);
-    fb_println(module_count, strlen(module_count));
-
+    sprintf(module_count, "KRN | Module count: %d", mbinfo->mods_count);
+    log(module_count, LOG_DEBUG);
     // execute every module sequentially
     for (uint32_t i = 0; i < mbinfo->mods_count; i++) //uint32 needed since mods_count is uint32
     {
       struct multiboot_mod_list *module = (struct multiboot_mod_list *)mbinfo->mods_addr;
       call_module_t start_module = (call_module_t)module->mod_start;
       start_module();
+
+      char module_info[100];
+      sprintf(module_info, "KRN | Module %d: %d", i, (module->mod_end - module->mod_start));
+      log(module_info, LOG_DEBUG);
+      clear(module_info, 100); // this is just trouble waiting to bite back
       mbinfo->mods_addr += sizeof(struct multiboot_mod_list);
       }
   }
-
-  // ide_initialize(0x1F0, 0x3F6, 0x170, 0x376, 0x000);
-
   since_enter = 0;
 
   fs_main();
