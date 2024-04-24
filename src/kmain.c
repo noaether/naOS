@@ -75,7 +75,7 @@ int kmain(uint32_t ebx)
     sprintf(module_count, "KRN | Module count: %d", mbinfo->mods_count);
     log(module_count, LOG_DEBUG);
     // execute every module sequentially
-    for (uint32_t i = 0; i < mbinfo->mods_count; i++) //uint32 needed since mods_count is uint32
+    for (uint32_t i = 0; i < mbinfo->mods_count; i++)
     {
       struct multiboot_mod_list *module = (struct multiboot_mod_list *)mbinfo->mods_addr;
       call_module_t start_module = (call_module_t)module->mod_start;

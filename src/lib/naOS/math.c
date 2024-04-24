@@ -1,3 +1,5 @@
+#include <stdint.h>
+
 int pow(int base, int exp)
 {
     int result = 1;
