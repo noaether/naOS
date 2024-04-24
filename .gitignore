@@ -2,12 +2,8 @@
 *.elf
 *.iso
 *.out
+*.bin
 bochslog.txt
 snapshot.txt
-src/kmain.c
-iso/boot/modules/program
-program.bin
-iso/boot/initfpu.bin
 configure
-src/modules/initfpu.bin
-iso/boot/initfpu.bin
+

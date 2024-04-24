@@ -231,6 +231,11 @@ void handleWriteFile(char *string, size_t len, char *args)
   // Implementation for writefile command
   args = strtok(NULL, del); // move to arg1
 
+  if(strlen(string) < strlen("edit  ") + strlen(args))
+  {
+    fb_println("No data to write.", 18);
+    return;
+  }
   reverse(string, len);
   strncpy(endbuffer, string, len - strlen("edit  ") - strlen(args));
   reverse(endbuffer, strlen(endbuffer));
