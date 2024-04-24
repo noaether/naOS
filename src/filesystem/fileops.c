@@ -69,7 +69,7 @@ int fs_main()
  */
 naOSReturnCode createFile(const char *name, uint16_t permissions)
 {
-  if (strlen(name) == 0 || strlen(name) > MAX_FILENAME_LENGTH || permissions > 0x07)
+  if (strlen(name) == 0 || strlen(name) > MAX_FILENAME_LENGTH || permissions > 0x10)
   {
     return RETURN_WITH_PTR(ERROR_INVALID_ARGUMENT, &name);
   }
@@ -122,9 +122,11 @@ naOSReturnCode createFile(const char *name, uint16_t permissions)
  */
 naOSReturnCode writeFile(const char *name, const char *data, uint32_t size)
 {
-  if (size == 0 || strlen(data) == 0)
+  if (
+    size < 1 || strlen(data) < 1 || strlen(name) < 1 ||
+    size > MAX_FILE_SIZE || strlen(data) > MAX_FILE_SIZE || strlen(name) > MAX_FILENAME_LENGTH)
   {
-    return RETURN_WITH_PTR(ERROR_INVALID_ARGUMENT, &data);
+    return RETURN_WITH_PTR(ERROR_INVALID_ARGUMENT, &name);
   }
   // Find the file in the file table
   for (int i = 0; i < MAX_FILES; i++)
@@ -234,7 +236,7 @@ naOSReturnCode deleteFile(const char *name)
 
 naOSReturnCode editPermissions(const char *name, uint16_t permissions)
 {
-  if (strlen(name) == 0 || strlen(name) > MAX_FILENAME_LENGTH || permissions > 0x07)
+  if (strlen(name) == 0 || strlen(name) > MAX_FILENAME_LENGTH || permissions > 0x10)
   {
     return RETURN_WITH_PTR(ERROR_INVALID_ARGUMENT, &name);
   }

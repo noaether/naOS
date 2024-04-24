@@ -81,9 +81,8 @@ int kmain(uint32_t ebx)
       struct multiboot_mod_list *module = (struct multiboot_mod_list *)mbinfo->mods_addr;
       call_module_t start_module = (call_module_t)module->mod_start;
       start_module();
-
-      log("MB  | Module loaded!\0", LOG_INFO);
-    }
+      mbinfo->mods_addr += sizeof(struct multiboot_mod_list);
+      }
   }
 
   // ide_initialize(0x1F0, 0x3F6, 0x170, 0x376, 0x000);

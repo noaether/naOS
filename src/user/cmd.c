@@ -235,6 +235,12 @@ void handleWriteFile(char *string, size_t len, char *args)
   strncpy(endbuffer, string, len - strlen("edit  ") - strlen(args));
   reverse(endbuffer, strlen(endbuffer));
 
+  if(strlen(endbuffer) == 0)
+  {
+    fb_println("No data to write.", 18);
+    return;
+  }
+
   naOSReturnCode code = writeFile(args, endbuffer, strlen(endbuffer));
 
   switch (RETURN_CODE(code))
