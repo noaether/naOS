@@ -17,8 +17,8 @@ SOURCES = src/drivers/gdt.c src/loader.c src/kmain.c src/memory.c \
 OBJECTS = $(SOURCES:.c=.o)
 
 # Additional objects
-PROGRAM_OBJECTS = src/modules/initfpu.o
-PROGRAM_BIN = src/modules/initfpu.bin
+PROGRAM_OBJECTS = src/modules/initfpu.out src/modules/interrupt.out
+PROGRAM_BIN = src/modules/initfpu.bin src/modules/interrupt.bin
 
 # Targets
 TARGET = kernel.elf
@@ -41,10 +41,12 @@ $(TARGET): $(OBJECTS) $(PROGRAM_BIN)
 %.o: %.asm
 	$(AS) $(ASFLAGS) $< -o $@
 
-$(PROGRAM_BIN): src/modules/initfpu.asm
-	nasm -f elf32 $< -o $(PROGRAM_OBJECTS)
-	ld -m elf_i386 -Ttext 0x0 --oformat binary $(PROGRAM_OBJECTS) -o $@
+%.bin: %.out
+	ld -m elf_i386 -Ttext 0x0 --oformat binary $< -o $@
 	cp $@ iso/boot/
+
+%.out: %.s
+	nasm -f elf32 $< -o $@
 
 run: run-q
 

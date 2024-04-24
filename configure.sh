@@ -165,7 +165,7 @@ echo "Cross-compiler installation complete. Please restart your shell or run 'so
 
 cd $HOME
 
-cp -a $RAMDISK_PATH$cc_prefix $cc_prefix
+cp -a "$RAMDISK_PATH$cc_prefix/." "$cc_prefix"
 
 # Unmount the RAM disk when done
 if [ "$use_ram" -eq 1 ]; then

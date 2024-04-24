@@ -5,7 +5,7 @@
 #include <drivers/serial.h>
 #include <drivers/irq.h>
 #include <drivers/clocks.h>
-//#include <drivers/disks/ide.h>
+// #include <drivers/disks/ide.h>
 
 #include <utils/log.h>
 #include <user/cmd.h>
@@ -68,27 +68,25 @@ int kmain(uint32_t ebx)
 
   struct multiboot_info *mbinfo = (struct multiboot_info *)ebx;
 
+
   if (mbinfo->mods_count > 0)
   {
-    // Get the first module information
-    struct multiboot_mod_list *module = (struct multiboot_mod_list *)mbinfo->mods_addr;
+    char module_count[100];
+    sprintf(module_count, "MB  | Module count: %d", mbinfo->mods_count);
+    fb_println(module_count, strlen(module_count));
 
-    // Get the start and end addresses of the module
-    uint32_t module_start = module->mod_start;
-    uint32_t module_end = module->mod_end;
-
-    if (module_end < module_start || module_end == module_start)
+    // execute every module sequentially
+    for (uint32_t i = 0; i < mbinfo->mods_count; i++) //uint32 needed since mods_count is uint32
     {
-      log("MB  | Module end is less than module start", LOG_ERROR);
-      return 1;
-    }
+      struct multiboot_mod_list *module = (struct multiboot_mod_list *)mbinfo->mods_addr;
+      call_module_t start_module = (call_module_t)module->mod_start;
+      start_module();
 
-    // Execute the module
-    call_module_t start_program = (call_module_t)module_start;
-    start_program();
+      log("MB  | Module loaded!\0", LOG_INFO);
+    }
   }
 
-  //ide_initialize(0x1F0, 0x3F6, 0x170, 0x376, 0x000);
+  // ide_initialize(0x1F0, 0x3F6, 0x170, 0x376, 0x000);
 
   since_enter = 0;
 

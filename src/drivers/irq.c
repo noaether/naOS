@@ -226,7 +226,8 @@ void irq8_handler()
   log("IRQ 8", LOG_DEBUG);
 }
 
-void irq9_handler(unsigned int eax, unsigned int ebx) // eax is syscall, ebx is arg
+void irq9_handler(unsigned int eax, unsigned int ebx) // 0x29 ASM
+// eax is syscall, ebx is arg
 {
   ioport_out(0x20, 0x20);
   switch (eax)

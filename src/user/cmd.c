@@ -196,6 +196,8 @@ void handleCreateFile(char *string, size_t len, char *args)
   // Implementation for createfile command
   args = strtok(NULL, del); // move to arg1
 
+  log_serial(args);
+
   // SUCCESS if the file was created successfully, ERROR_OUT_OF_MEMORY if there is no available slot or memory allocation failed.
 
   naOSReturnCode code = createFile(args, 0b1101); // rw-d
