@@ -33,7 +33,6 @@ void fb_set_cursor(unsigned short pos)
   outb(FB_DATA_PORT, pos & 0x00FF);
 }
 
-
 void fb_write(char *buf, signed int len)
 {
 
@@ -50,9 +49,9 @@ void fb_write(char *buf, signed int len)
       {
         if (cursor > (80 * 24))
         {
-          fb_clear();
-          fb_set_cursor(0);
-          fb_clear();
+          fb_scroll(1);
+          cursor = (80 * 24);
+          fb_set_cursor(cursor);
           break;
         }
         else
@@ -74,12 +73,13 @@ void fb_write(char *buf, signed int len)
 
         if (cursor > (80 * 24))
         {
-          fb_clear();
-          fb_write("naOS> ", 6);
+          fb_scroll(1);
+          cursor = (80 * 24);
+          fb_set_cursor(cursor);
+        } else {
+          cursor = (cursor / 80 + 1) * 80;
+          fb_set_cursor(cursor);
         }
-
-        cursor = (cursor / 80 + 1) * 80;
-        fb_set_cursor(cursor);
 
         citoa(since_enter, since_enter_str, 10);
 
@@ -127,6 +127,23 @@ void fb_print_after(char *buf, size_t len)
   fb_set_cursor(cursor);
 }
 
+void fb_scroll(size_t lines)
+{
+  for (size_t i = 0; i < lines; i++)
+  {
+    for (int i = 0; i < 80 * (25 - 1); i++)
+    {
+      fb[i * 2] = fb[(i + 80) * 2];
+      fb[i * 2 + 1] = fb[(i + 80) * 2 + 1];
+    }
+    for (int i = 80 * (25 - 1); i < 80 * 25; i++)
+    {
+      fb[i * 2] = 0;
+      fb[i * 2 + 1] = 0;
+    }
+  }
+}
+
 void fb_println(char *buf, size_t len)
 {
   since_enter = 0;
@@ -136,12 +153,7 @@ void fb_println(char *buf, size_t len)
 
 void fb_clear()
 {
-  unsigned int i = 0;
-  while (i < 25 * 80)
-  {
-    fb_write_cell(i * 2, 0x00, def_fg, def_bg);
-    i++;
-  }
+  memset(fb, 0, 80 * 25 * 2);
   fb_set_cursor(0);
 }
 

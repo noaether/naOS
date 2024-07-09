@@ -69,7 +69,7 @@ int fs_main()
  */
 naOSReturnCode createFile(const char *name, uint16_t permissions)
 {
-  if (strlen(name) == 0 || strlen(name) > MAX_FILENAME_LENGTH || permissions > 0x10)
+  if (strlen(name) == 0 || strlen(name) > MAX_FILENAME_LENGTH || permissions > 0x0F)
   {
     return RETURN_WITH_PTR(ERROR_INVALID_ARGUMENT, &name);
   }

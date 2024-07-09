@@ -36,6 +36,8 @@
 #define FB_HIGH_BYTE_COMMAND 14
 #define FB_LOW_BYTE_COMMAND 15
 
+void fb_scroll(size_t lines);
+
 /**
  * display character c on the position i with color fg and bg.
  *
