@@ -9,9 +9,6 @@ ports:
   - port: 6080
     protocol: "http"
 
-additionalRepositories:
-  - url: https://github.com/noaether/nassembly
-
 vscode:
   extensions:
     - github.copilot
